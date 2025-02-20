@@ -1,6 +1,7 @@
 
 #Requires Autohotkey v2
 #Include libs/Portals/WinterPortals/script.ahk
+
 myGui := Gui("+AlwaysOnTop")
 ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
 ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Macro Stats")
@@ -16,6 +17,7 @@ myGui.Add("Text", "x48 y336 w108 h17", "TinyTask")
 myGui.Add("Picture", "x8 y336 w35 h38 0x6 +Border", "C:\Users\Peyto\Downloads\icon_32hi.png")
 connection := myGui.Add("Text", "x48 y352 w102 h18", "[DISCONNECTED]")
 myGui.Add("Text", "x8 y56 w144 h2 0x10")
+presents:= 0
 CountdownText := myGui.Add("GroupBox", "x16 y230 w120 h80", "0")
 myGui.Add("Text", "x24 y248 w105 h23 +0x200", "Gems - 0")
 myGui.Add("Text", "x24 y272 w105 h23 +0x200", "Presents - 0")
@@ -26,6 +28,7 @@ myGui.Add("Picture", "x8 y32 w25 h20", A_ScriptDir "\.\libs\photos\M.png")
 myGui.Add("Text", "x160 y8 w2 h366 +0x1 +0x10")
 hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Gems", "others"])
 hometab.UseTab()
+
 ButtonAnimeVanguards.OnEvent("Click", Home)
 ButtonMacroStats.OnEvent("Click", stats)
 ButtonUpdates.OnEvent("Click", updates)

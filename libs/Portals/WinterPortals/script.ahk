@@ -44,7 +44,7 @@ StartTinyTask() {
 }
 
 CollectRewards() {
-    if (ok:=FindText(&X, &Y, 684-150000, 249-150000, 684+150000, 249+150000, 0, 0, Failed))
+    if (ok:=FindText(&X, &Y, 670-150000, 245-150000, 670+150000, 245+150000, 0, 0, Failed))
         {
 
 
@@ -56,14 +56,14 @@ CollectRewards() {
             MouseMove(749 + x_offset, 500)
       
             loop {
-                if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
+                if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
                     MouseGetPos(&mouseX, &mouseY)
                     BetterClick(mouseX, mouseY + 90)
                     Sleep(2000)
                     ; find the yes button
                     Yesbutton()
                     break
-                } else if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, shibuya)) {
+                } else if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
                     MouseGetPos(&mouseX, &mouseY)
                     BetterClick(mouseX, mouseY + 90)
                     Sleep(2000)
@@ -101,8 +101,9 @@ Yesbutton() {
     }
 }
 CancelButton() {
+    global presents
     loop {
-        if (ok:=FindText(&X, &Y, 962-150000, 556-150000, 962+150000, 556+150000, 0, 0, cancel)) {
+        if (ok:=FindText(&X, &Y, 961-150000, 569-150000, 961+150000, 569+150000, 0, 0, cancel)) {
             BetterClick(X, Y - 20)
             Sleep(2000)
             Sleep(500)
@@ -114,71 +115,78 @@ CancelButton() {
             Sleep(500)
             BetterClick(X, Y)
             Sleep(1000)
+            if (ok:=FindText(&X, &Y, 620-150000, 715-150000, 620+150000, 715+150000, 0, 0, PresentsThreeThousand))
+                {
+                  presents := presents + 3000
+                  CountdownText.Text := "Presents - " presents
+                }
             PickPortalsAGAIN()
             break
-        } else {
-            if (ok:=FindText(&X, &Y, 961-150000, 556-150000, 961+150000, 556+150000, 0, 0, darkerCancel)) {
-                BetterClick(X, Y - 20)
-                Sleep(2000)
-                Sleep(500)
-                BetterClick(X, Y)
-                Sleep(500)
-                BetterClick(X, Y)
-                Sleep(500)
-                BetterClick(X, Y)
-                Sleep(500)
-                BetterClick(X, Y)
-                Sleep(1000)
-                PickPortalsAGAIN()
-                
-
-                break
-            }
+        } 
              
-        }
     }
 }
 
 PickPortalsAGAIN() {
+    ; Initialize base coordinates and spacing
+    baseX := 531
+    baseY := 432
+    colSpacing := 160
+    rowSpacing := 150
+    
+    ; Track scrolling
+    scrollCount := 0
+    maxScrolls := 3
+
     MouseMove(546, 813)
     Sleep(1000)
     BetterClick(432, 813)
-    row := 0
+    
+    while (scrollCount <= maxScrolls) {
+        row := 0
         col := 0
-        loop {
-            MouseMove(570 + (col * 150), 447 + (row * 100))  ; Move to the current item
-            Sleep(1000)
+        namekFound := false
 
-            if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
-                ; Adjust coordinates to be relative to the window
-                MouseGetPos(&mouseX, &mouseY)
-                BetterClick(mouseX, mouseY)
+        while (row < 3) {
+            while (col < 6) {
+                SmoothMouseMove(baseX + (col * colSpacing), baseY + (row * rowSpacing))
                 Sleep(1000)
-                ;clicks on the use button
-                if (FindText(&X, &Y, 846-150000, 557-150000, 846+150000, 557+150000, 0, 0, yes)) {
-                    ; Adjust coordinates to be relative to the window
-                    BetterClick(X , Y - 30)
-                    StartTinyTask()
-                    Sleep(2000)
 
+                if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
+                    namekFound := true
+                    MouseGetPos(&mouseX, &mouseY)
+                    BetterClick(mouseX, mouseY)
+                    Sleep(1000)
+                    
+                    if (FindText(&X, &Y, 846-150000, 557-150000, 846+150000, 557+150000, 0, 0, yes)) {
+                        BetterClick(X, Y - 30)
+                        StartTinyTask()
+                        Sleep(2000)
+                        break
+                    }
                 }
-
-            } else {
-                ; Move to next item
                 col++
-                if (col >= 6) {
-                    col := 0
-                    row++
-                }
-                Sleep(100)
             }
+            col := 0
+            row++
+            if (namekFound)
+                break
         }
-        
-}
 
+        if (!namekFound) {
+            SmoothMouseMove(baseX, baseY + (2 * rowSpacing))
+            Sleep(200)
+            Send("{WheelDown}")
+            Sleep(1000)
+            scrollCount++
+        } else {
+            break
+        }
+    }
+}
 findvoting() {
     loop {
-        if (ok:=FindText(&X, &Y, 923-150000, 129-150000, 923+150000, 129+150000, 0, 0, voteDectect))
+        if (ok:=FindText(&X, &Y, 925-150000, 109-150000, 925+150000, 109+150000, 0, 0, voteDectect))
             {
               ; if find voting ui then start countdown
               Countdown(0, "Found Voting UI")
@@ -188,98 +196,108 @@ findvoting() {
             }
     }
 }
+SmoothMouseMove(targetX, targetY, speed := 2) {
+    MouseGetPos(&startX, &startY)
+    count := 25  ; number of steps
+    
+    Loop count {
+        progress := A_Index / count
+        currentX := startX + (targetX - startX) * progress
+        currentY := startY + (targetY - startY) * progress
+        MouseMove(Round(currentX), Round(currentY))
+        Sleep(speed)
+    }
+}
 
 
 WinterPortal() {
+    baseX := 531
+    baseY := 432
+    
+    ; Grid spacing
+    colSpacing := 160
+    rowSpacing := 150
+    
+    ; Track scrolling
+    scrollCount := 0
+    maxScrolls := 3
 
-    ; Countdown(20)  ; 20-second countdown timer
-
-    ; Check if in the lobby
     if (FindText(&X, &Y, 602-150000, 259-150000, 602+150000, 259+150000, 0, 0, LobbyCheck)) {
-        BetterClick(1495, 227)  ; Close leaderboard
+        BetterClick(1495, 227)
         Sleep(1000)
-        Send("{Tab}")  ; Close chat/UI
+        Send("{Tab}")
         Sleep(100)
-        Send("{j}")  ; Open item menu
+        Send("{j}")
         Sleep(2000)
-        BetterClick(1180, 326 - 10)  ; Click search bar
-
-        ; Type "Winter Portal" letter by letter
+        BetterClick(1180, 326 - 10)
+        
         text := "winter portal"
         for each, char in StrSplit(text) {
             Send(char)
             Sleep(100)
         }
-        Sleep(1000)  ; Wait for items to load
+        Sleep(1000)
 
-        ; Get the position of the window
         WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
 
-        ; Search for "Winter Portal" in inventory
-        row := 0
-        col := 0
-        loop {
-            MouseMove(570 + (col * 150), 447 + (row * 100))  ; Move to the current item
-            Sleep(1000)
+        while (scrollCount <= maxScrolls) {
+            row := 0
+            col := 0
+            namekFound := false
 
-            if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
-                ; Adjust coordinates to be relative to the window
-                MouseGetPos(&mouseX, &mouseY)
-                BetterClick(mouseX, mouseY)
-                ; Found Portal so lets press the use button after clicking
-                ;clicks on the use button
-                loop {
-                    if (FindText(&X, &Y, 763-150000, 538-150000, 763+150000, 538+150000, 0, 0, usebutton)) {
-                        ; Adjust coordinates to be relative to the window
-                        BetterClick(X , Y - 30)
-                        Sleep(2000)
-                        ; finds and press the create button 
-      
+            while (row < 3) {
+                while (col < 6) {
+                    SmoothMouseMove(baseX + (col * colSpacing), baseY + (row * rowSpacing))
+                    Sleep(500) 
 
-                        loop {
-                            if (ok:=FindText(&X, &Y, 804-150000, 538-150000, 804+150000, 538+150000, 0, 0, create)) {
-                                BetterClick(X, Y)
-                                Sleep(100)
-                                break
-    
-                            } else {
-    
-                                if (ok:=FindText(&X, &Y, 814-150000, 537-150000, 814+150000, 537+150000, 0, 0, darkerCreate)) {
-                                    BetterClick(X, Y)
-                                    Sleep(100)
-                                    break
-                                }
-                            }
-                        }
-                            
+                    if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
+                        namekFound := true
+                        MouseGetPos(&mouseX, &mouseY)
+                        BetterClick(mouseX, mouseY)
                         
-                        ; 
-                        Sleep(35000)
-        
-                        Loop {
-                            if (ok := FindText(&X, &Y, 183-150000, 794-150000, 183+150000, 794+150000, 0, 0, NamekLoading)) {
-                                Countdown(0, "Loading into [planet namek]")
+                        loop {
+                            if (FindText(&X, &Y, 744-150000, 554-150000, 744+150000, 554+150000, 0, 0, usebutton)) {
+                                BetterClick(X, Y)
                                 Sleep(2000)
-                                findvoting()
-                                Sleep(500)
+                                
+                                loop {
+                                    if (ok := FindText(&X, &Y, 787-150000, 549-150000, 787+150000, 549+150000, 0, 0, create)) {
+                                        BetterClick(X, Y)
+                                        Sleep(100)
+                                        break
+                                    }
+                                }
+                                
+                                Sleep(35000)
+                        
+                                Loop {
+                                    if (ok := FindText(&X, &Y, 138-150000, 842-150000, 138+150000, 842+150000, 0, 0, NamekLoading)) {
+                                        Countdown(0, "Loading into [planet namek]")
+                                        Sleep(2000)
+                                        findvoting()
+                                        Sleep(500)
+                                        break
+                                    }
+                                }
                                 break
                             }
                         }
-    
-    
                     }
+                    col++
                 }
+                col := 0
+                row++
+            }
 
+            if (!namekFound) {
+                SmoothMouseMove(baseX, baseY + (2 * rowSpacing))
+                Sleep(200)
+                Send("{WheelDown}")
+                Sleep(1000)
+                scrollCount++
             } else {
-                ; Move to next item
-                col++
-                if (col >= 6) {
-                    col := 0
-                    row++
-                }
-                Sleep(100)
+                break
             }
         }
     }
 }
-
