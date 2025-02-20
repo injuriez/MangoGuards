@@ -3,14 +3,12 @@
 
 BetterClick(x, y) {
     MouseMove(x, y)
-    sleep 10
+    Sleep(10)
     MouseMove(1, 0, , "R")
-    sleep 20
+    Sleep(20)
     MouseClick("Left", -1, 0, , , , "R")
     Sleep(50)
 }
-
-
 
 ShowScanArea(x, y, w, h) {
     scan_area := Gui()
@@ -27,7 +25,7 @@ ExtractNumber(text) {
     return cleaned
 }
 
-DetectPresentCurrency(x, y, width := 100, height := 40) {
+DetectPresentCurrency(x, y, width := 160, height := 45) {
     scan_box := ShowScanArea(x, y, width, height)
     result := OCR.FromRect(x, y, width, height)
     SetTimer(() => scan_box.Destroy(), -3000)
@@ -51,12 +49,12 @@ DetectPresentCurrency(x, y, width := 100, height := 40) {
 }
 
 CurrencyGrab() {
-    MouseMove(1082, 879)
+    MouseMove(1133, 901) ; 1133, 901;1064, 877
     Sleep(1000)
-    targetX := 1082
-    targetY := 879
+    targetX := 1133
+    targetY := 901
     
-    if (presents := DetectPresentCurrency(targetX, targetY, 100, 40)) {
+    if (presents := DetectPresentCurrency(targetX, targetY, 170, 45)) {
         ToolTip("Found number: " presents.amount
              . "`nOriginal text: " presents.raw_text
              . "`nAt position: X:" presents.X " Y:" presents.Y)

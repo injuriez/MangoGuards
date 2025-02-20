@@ -29,7 +29,7 @@ StartTinyTask() {
     Send("{F8 up}")
     Sleep(1000)
     loop {
-        if (ok:=FindText(&X, &Y, 1033-150000, 345-150000, 1033+150000, 345+150000, 0, 0, PortalPicker))
+        if (ok:=FindText(&X, &Y, 1040-150000, 345-150000, 1040+150000, 345+150000, 0, 0, PortalPicker))
             {
               Sleep(1000)
               Send("{F8 down}")
