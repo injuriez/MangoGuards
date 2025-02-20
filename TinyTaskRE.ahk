@@ -94,6 +94,8 @@ CreateTabControl(myGui) {
 }
 
 CreateFooter(myGui) {
+    global connection
+    
     myGui.Add("Text", "x8 y328 w138 h2 0x10")
     myGui.Add("Text", "x48 y336 w108 h17", "TinyTask")
     myGui.Add("Picture", "x8 y336 w35 h38 0x6 +Border", A_ScriptDir "\.\libs\photos\TinyTask.png")

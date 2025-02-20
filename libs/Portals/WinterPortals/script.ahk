@@ -4,7 +4,7 @@
 #Include ../../FindText.ahk
 #Include ../../../TinyTaskRE.ahk
 
-
+global connection
 
 Countdown(seconds, text) {
     global CountdownText
@@ -21,6 +21,7 @@ Countdown(seconds, text) {
     }
 }
 StartTinyTask() {
+    global connection
     ; Starts tiny task
     connection.Text := "[CONNECTED]"
     Send("{F8 down}")
