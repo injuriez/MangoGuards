@@ -62,3 +62,17 @@ CurrencyGrab() {
         ToolTip("No present currency found in scan area.")
     }
 }
+
+
+BetterMouseMove(targetX, targetY, speed := 2) {
+    MouseGetPos(&startX, &startY)
+    count := 25  ; number of steps
+    
+    Loop count {
+        progress := A_Index / count
+        currentX := startX + (targetX - startX) * progress
+        currentY := startY + (targetY - startY) * progress
+        MouseMove(Round(currentX), Round(currentY))
+        Sleep(speed)
+    }
+}

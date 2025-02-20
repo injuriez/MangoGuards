@@ -45,46 +45,49 @@ StartTinyTask() {
 }
 
 CollectRewards() {
-    if (ok:=FindText(&X, &Y, 670-150000, 245-150000, 670+150000, 245+150000, 0, 0, Failed))
-        {
-
-
-          Sleep(2000)
-          PickPortalsAGAIN()
+    ; Define portal positions
+    portals := [
+        {x: 722, y: 500},  ; Left portal
+        {x: 960, y: 500},  ; Middle portal (960, 500)
+        {x: 1194, y: 499}  ; Right portal (1194, 499)
+    ]
+    
+    if (ok := FindText(&X, &Y, 670-150000, 245-150000, 670+150000, 245+150000, 0, 0, Failed)) {
+        Sleep(2000)
+        return
+    }
+    
+    ; Check each portal systematically
+    for portal in portals {
+        ; Move to portal position
+        BetterMouseMove(portal.x, portal.y)
+        Sleep(500)  ; Short delay to ensure movement is complete
+        
+        ; Check for map types
+        if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
+            BetterClick(portal.x, portal.y + 120)  ; Click the Select button
+            Sleep(2000)
+            Yesbutton()
+            break
         } 
-        else {
-            x_offset := 0  ; Initialize x_offset
-            MouseMove(749 + x_offset, 500)
-      
-            loop {
-                if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
-                    MouseGetPos(&mouseX, &mouseY)
-                    BetterClick(mouseX, mouseY + 90)
-                    Sleep(2000)
-                    ; find the yes button
-                    Yesbutton()
-                    break
-                } else if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
-                    MouseGetPos(&mouseX, &mouseY)
-                    BetterClick(mouseX, mouseY + 90)
-                    Sleep(2000)
-                    ; find the yes button
-                    Yesbutton()
-                    break
-                } else {
-                    BetterClick(749 + x_offset, 500)  ; Click the starting position
-                    Sleep(2000)
-                }
-                x_offset += 170  ; Increase x_offset by 170 for next loop
-            }
-            
+        else if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
+            BetterClick(portal.x, portal.y + 120)  ; Click the Select button
+            Sleep(2000)
+            Yesbutton()
+            break
         }
-      ; Move mouse to starting position
-  
+        
+        ; If no match found, click the portal to check next one
+        if (A_Index < portals.Length) {
+            BetterClick(portal.x, portal.y)
+            Sleep(2000)  ; Wait for portal info to load
+        }
+    }
 }
+
 Yesbutton() {
     loop {
-        if (ok:=FindText(&X, &Y, 846-150000, 557-150000, 846+150000, 557+150000, 0, 0, yes)) {
+        if (ok:=FindText(&X, &Y, 841-150000, 568-150000, 841+150000, 568+150000, 0, 0, yes)) {
             BetterClick(X, Y)
             Sleep(500)
             CancelButton()
@@ -102,7 +105,7 @@ Yesbutton() {
     }
 }
 CancelButton() {
-    global presents
+    ; global presents
     loop {
         if (ok:=FindText(&X, &Y, 961-150000, 569-150000, 961+150000, 569+150000, 0, 0, cancel)) {
             BetterClick(X, Y - 20)
@@ -116,11 +119,6 @@ CancelButton() {
             Sleep(500)
             BetterClick(X, Y)
             Sleep(1000)
-            if (ok:=FindText(&X, &Y, 620-150000, 715-150000, 620+150000, 715+150000, 0, 0, PresentsThreeThousand))
-                {
-                  presents := presents + 3000
-                  CountdownText.Text := "Presents - " presents
-                }
             PickPortalsAGAIN()
             break
         } 
@@ -197,6 +195,7 @@ findvoting() {
             }
     }
 }
+
 SmoothMouseMove(targetX, targetY, speed := 2) {
     MouseGetPos(&startX, &startY)
     count := 25  ; number of steps
@@ -209,7 +208,6 @@ SmoothMouseMove(targetX, targetY, speed := 2) {
         Sleep(speed)
     }
 }
-
 
 WinterPortal() {
     baseX := 531
