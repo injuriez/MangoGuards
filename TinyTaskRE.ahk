@@ -8,7 +8,7 @@ global CountdownText := ""
 global connection := ""
 global text := ""  ; Add this line
 global hometab := "" 
-
+global myGui := ""
 ; GUI Creation
 CreateGui() {
     myGui := Gui("+AlwaysOnTop")
@@ -60,7 +60,7 @@ CreateHeader(myGui) {
     global text
     text := myGui.Add("Text", "x218 y10 w279 h40 +0x200", "ANIME MACROGUARDS")
     text.SetFont("s12 w600", "Karla")
-    myGui.Add("Picture", "x168 y8 w46 h46 0x6 +Border", "C:\Users\Peyto\Downloads\GUI_ChBox-nav_-_Traits.png")
+    myGui.Add("Picture", "x168 y8 w46 h46 0x6 +Border", A_ScriptDir "\.\libs\photos\Monarch.png")
 }
 
 CreateStatsPanel(myGui) {
@@ -96,15 +96,15 @@ CreateTabControl(myGui) {
 CreateFooter(myGui) {
     myGui.Add("Text", "x8 y328 w138 h2 0x10")
     myGui.Add("Text", "x48 y336 w108 h17", "TinyTask")
-    myGui.Add("Picture", "x8 y336 w35 h38 0x6 +Border", "C:\Users\Peyto\Downloads\icon_32hi.png")
+    myGui.Add("Picture", "x8 y336 w35 h38 0x6 +Border", A_ScriptDir "\.\libs\photos\TinyTask.png")
     connection := myGui.Add("Text", "x48 y352 w102 h18", "[DISCONNECTED]")
 }
 
 SetWinterPortal(*) {
-    global MacroSelected
+    global MacroSelected, myGui
     MacroSelected.Name := "WinterPortal"
+    myGui.Title := "MangoGuards [Winter Portal]"  ; Update GUI title properly
 }
-
 ; Event Handlers
 start(*) {
     MacroSelected.Enabled := true
