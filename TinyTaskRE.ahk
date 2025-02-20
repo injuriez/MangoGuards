@@ -102,6 +102,7 @@ CreateFooter(myGui) {
 
 SetWinterPortal(*) {
     global MacroSelected, myGui
+    
     MacroSelected.Name := "WinterPortal"
     myGui.Title := "MangoGuards [Winter Portal]"  ; Update GUI title properly
 }
@@ -109,6 +110,8 @@ SetWinterPortal(*) {
 start(*) {
     MacroSelected.Enabled := true
     if MacroSelected.Name == "WinterPortal" {
+        ; CurrencyGrab()
+        ; Sleep(150000)
         WinterPortal()
     } else {
         MsgBox("Macro not found")

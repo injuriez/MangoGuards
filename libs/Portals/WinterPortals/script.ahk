@@ -22,7 +22,7 @@ Countdown(seconds, text) {
 }
 StartTinyTask() {
     ; Starts tiny task
-    connection.Value := "[CONNECTED]"
+    connection.Text := "[CONNECTED]"
     Send("{F8 down}")
     Sleep(100)
     Send("{F8 up}")
