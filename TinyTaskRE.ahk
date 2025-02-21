@@ -141,7 +141,7 @@ stats(*) {
 }
 
 updates(*) {
-    text.Text := "Updates!"
+    text.Text := "Updates!!"
     hometab.Visible := false
 }
 
@@ -156,4 +156,5 @@ Hotkey "2", (*) => Reload()
 ; Initialize GUI
 myGui := CreateGui()
 myGui.OnEvent('Close', (*) => ExitApp())
+
 
