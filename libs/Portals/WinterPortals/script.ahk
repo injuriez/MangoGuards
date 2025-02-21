@@ -37,7 +37,7 @@ StartTinyTask() {
               Send("{F8 up}")
               Sleep(500)
               CollectRewards()
-              CountdownText.Value := ""
+              CountdownText.Text := ""
               break
 
             } else {
@@ -45,7 +45,7 @@ StartTinyTask() {
                     {
                         Sleep(500)
                         PickPortalsAGAIN()
-                        CountdownText.Value := ""
+                        CountdownText.Text := ""
                         break
                     }
             }
