@@ -150,8 +150,8 @@ updates(*) {
 ; Hotkeys
 Hotkey "k", start
 Hotkey "m", stop
-Hotkey "1", (*) => ExitApp()
-Hotkey "2", (*) => Reload()
+Hotkey "9", (*) => ExitApp()
+Hotkey "8", (*) => Reload()
 
 ; Initialize GUI
 myGui := CreateGui()

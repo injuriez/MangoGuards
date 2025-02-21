@@ -271,9 +271,7 @@ WinterPortal() {
                                         break
                                     }
                                 }
-                                
-                                Sleep(35000)
-                        
+                                                       
                                 Loop {
                                     if (ok := FindText(&X, &Y, 138-150000, 842-150000, 138+150000, 842+150000, 0, 0, NamekLoading)) {
                                         Countdown(0, "Loading into [planet namek]")
