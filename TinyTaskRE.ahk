@@ -1,6 +1,7 @@
 #Requires Autohotkey v2
 #Include libs/Portals/WinterPortals/script.ahk
 
+
 ; Global Variables
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
@@ -13,6 +14,8 @@ global myGui := ""
 CreateGui() {
     myGui := Gui("+AlwaysOnTop")
     myGui.SetFont("s8 w600", "Karla")
+
+    
     
     ; Left Panel
     CreateLeftPanel(myGui)
@@ -43,13 +46,13 @@ CreateLeftPanel(myGui) {
     ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
     ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Macro Stats")
     ButtonUpdates := myGui.Add("Button", "x8 y128 w145 h23", "Updates!")
+
     
     ; Add button events
     ButtonAnimeVanguards.OnEvent("Click", Home)
     ButtonMacroStats.OnEvent("Click", stats)
     ButtonUpdates.OnEvent("Click", updates)
-    
-    ; Add control images
+
     myGui.Add("Picture", "x8 y8 w24 h20", A_ScriptDir "\.\libs\photos\K.png")
     myGui.Add("Picture", "x8 y32 w25 h20", A_ScriptDir "\.\libs\photos\M.png")
     myGui.Add("Text", "x40 y8 w77 h23 +0x200", "Start")
@@ -64,9 +67,11 @@ CreateHeader(myGui) {
 }
 
 CreateStatsPanel(myGui) {
+
     CountdownText := myGui.Add("GroupBox", "x16 y230 w120 h80", "0")
     myGui.Add("Text", "x24 y248 w105 h23 +0x200", "Gems - 0")
     myGui.Add("Text", "x24 y272 w105 h23 +0x200", "Presents - 0")
+
 }
 
 CreateTabControl(myGui) {
@@ -101,6 +106,7 @@ CreateFooter(myGui) {
     myGui.Add("Picture", "x8 y336 w35 h38 0x6 +Border", A_ScriptDir "\.\libs\photos\TinyTask.png")
     connection := myGui.Add("Text", "x48 y352 w102 h18", "[DISCONNECTED]")
 }
+
 
 SetWinterPortal(*) {
     global MacroSelected, myGui
@@ -138,6 +144,8 @@ updates(*) {
     text.Text := "Updates!"
     hometab.Visible := false
 }
+
+
 
 ; Hotkeys
 Hotkey "k", start

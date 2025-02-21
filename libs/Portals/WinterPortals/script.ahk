@@ -28,8 +28,8 @@ StartTinyTask() {
     Sleep(100)
     Send("{F8 up}")
     Sleep(1000)
-    loop {
-        if (ok:=FindText(&X, &Y, 1040-150000, 345-150000, 1040+150000, 345+150000, 0, 0, PortalPicker))
+    Loop {
+        if (ok := FindText(&X, &Y, 1040-150000, 345-150000, 1040+150000, 345+150000, 0, 0, PortalPicker))
             {
               Sleep(1000)
               Send("{F8 down}")
@@ -40,6 +40,14 @@ StartTinyTask() {
               CountdownText.Value := ""
               break
 
+            } else {
+                if (ok:=FindText(&X, &Y, 667-150000, 247-150000, 667+150000, 247+150000, 0, 0, Failed))
+                    {
+                        Sleep(500)
+                        PickPortalsAGAIN()
+                        CountdownText.Value := ""
+                        break
+                    }
             }
     }
 }
@@ -52,10 +60,7 @@ CollectRewards() {
         {x: 1194, y: 499}  ; Right portal (1194, 499)
     ]
     
-    if (ok := FindText(&X, &Y, 670-150000, 245-150000, 670+150000, 245+150000, 0, 0, Failed)) {
-        Sleep(2000)
-        return
-    }
+
     
     ; Check each portal systematically
     for portal in portals {
@@ -157,8 +162,8 @@ PickPortalsAGAIN() {
                     BetterClick(mouseX, mouseY)
                     Sleep(1000)
                     
-                    if (FindText(&X, &Y, 846-150000, 557-150000, 846+150000, 557+150000, 0, 0, yes)) {
-                        BetterClick(X, Y - 30)
+                    if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
+                        BetterClick(X, Y)
                         StartTinyTask()
                         Sleep(2000)
                         break
