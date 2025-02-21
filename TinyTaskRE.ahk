@@ -156,3 +156,4 @@ Hotkey "2", (*) => Reload()
 ; Initialize GUI
 myGui := CreateGui()
 myGui.OnEvent('Close', (*) => ExitApp())
+
