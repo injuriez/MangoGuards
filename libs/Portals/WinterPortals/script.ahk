@@ -6,6 +6,7 @@
 
 global connection
 global SelectedWorldd := "."  ; Assign a default value
+
 Countdown(seconds, text) {
     global CountdownText
     if seconds == 0 {
@@ -17,9 +18,9 @@ Countdown(seconds, text) {
         }
         CountdownText.Text := ""  ; Clear the countdown text
         StartTinyTask()
-
     }
 }
+
 StartTinyTask() {
     global connection
     ; Starts tiny task
@@ -29,26 +30,42 @@ StartTinyTask() {
     Send("{F8 up}")
     Sleep(1000)
     Loop {
-        if (ok := FindText(&X, &Y, 1040-150000, 345-150000, 1040+150000, 345+150000, 0, 0, PortalPicker))
-            {
-              Sleep(1000)
-              Send("{F8 down}")
-              Sleep(100)
-              Send("{F8 up}")
-              Sleep(500)
-              CollectRewards()
-              CountdownText.Text := ""
-              break
-
+        if (ok := FindText(&X, &Y, 1040-150000, 345-150000, 1040+150000, 345+150000, 0, 0, PortalPicker)) {
+            Sleep(1000)
+            Send("{F8 down}")
+            Sleep(100)
+            Send("{F8 up}")
+            Sleep(500)
+            CollectRewards()
+            CountdownText.Text := ""
+            break
+        } else {
+            if (ok := FindText(&X, &Y, 667-150000, 247-150000, 667+150000, 247+150000, 0, 0, Failed)) {
+                Sleep(1000)
+                Send("{F8 down}")
+                Sleep(100)
+                Send("{F8 up}")
+                Sleep(500)
+                Countdown(0, "foundsomething failed")
+                Sleep(2000)
+                PickPortalsAGAIN()
+                CountdownText.Text := ""
+                break
             } else {
-                if (ok:=FindText(&X, &Y, 667-150000, 247-150000, 667+150000, 247+150000, 0, 0, Failed))
-                    {
-                        Sleep(500)
-                        PickPortalsAGAIN()
-                        CountdownText.Text := ""
-                        break
-                    }
+                if (ok := FindText(&X, &Y, 668-150000, 247-150000, 668+150000, 247+150000, 0, 0, shibuyafailed)) {
+                    Sleep(1000)
+                    Send("{F8 down}")
+                    Sleep(100)
+                    Send("{F8 up}")
+                    Sleep(500)
+                    Countdown(0, "foundsomething failed")
+                    Sleep(2000)
+                    PickPortalsAGAIN()
+                    CountdownText.Text := ""
+                    break
+                }
             }
+        }
     }
 }
 
@@ -107,17 +124,16 @@ CollectRewards() {
     }
 }
 
-
 Yesbutton() {
     loop {
-        if (ok:=FindText(&X, &Y, 841-150000, 568-150000, 841+150000, 568+150000, 0, 0, yes)) {
+        if (ok := FindText(&X, &Y, 841-150000, 568-150000, 841+150000, 568+150000, 0, 0, yes)) {
             BetterClick(X, Y)
             Sleep(500)
             CancelButton()
             Sleep(1000)
             break
         } else {
-            if (ok:=FindText(&X, &Y, 853-150000, 556-150000, 853+150000, 556+150000, 0, 0, darkerYes)) {
+            if (ok := FindText(&X, &Y, 853-150000, 556-150000, 853+150000, 556+150000, 0, 0, darkerYes)) {
                 BetterClick(X, Y)
                 Sleep(2000)
                 CancelButton()
@@ -127,10 +143,11 @@ Yesbutton() {
         }
     }
 }
+
 CancelButton() {
     ; global presents
     loop {
-        if (ok:=FindText(&X, &Y, 961-150000, 569-150000, 961+150000, 569+150000, 0, 0, cancel)) {
+        if (ok := FindText(&X, &Y, 961-150000, 569-150000, 961+150000, 569+150000, 0, 0, cancel)) {
             BetterClick(X, Y - 20)
             Sleep(2000)
             Sleep(500)
@@ -145,30 +162,27 @@ CancelButton() {
             PickPortalsAGAIN()
             break
         } 
-             
     }
 }
 
 PickPortalsAGAIN() {
+    global SelectedWorldd  ; Ensure SelectedWorldd is global
+    Countdown(0, "Picking portals again")
     if (SelectedWorldd == "Namek") {
         PickNamekAgain()
-
-    } 
-    if (SelectedWorldd == "Shibuya") {
+    } else if (SelectedWorldd == "Shibuya") {
         PickShibuyaAgain()
-
-    }
+    } 
 }
+
 findvoting() {
     loop {
-        if (ok:=FindText(&X, &Y, 925-150000, 109-150000, 925+150000, 109+150000, 0, 0, voteDectect))
-            {
-              ; if find voting ui then start countdown
-              Countdown(0, "Found Voting UI")
-              Sleep(5000)
-              Countdown(20, "")
-              
-            }
+        if (ok := FindText(&X, &Y, 925-150000, 109-150000, 925+150000, 109+150000, 0, 0, voteDectect)) {
+            ; if find voting ui then start countdown
+            Countdown(0, "Found Voting UI")
+            Sleep(5000)
+            Countdown(20, "")
+        }
     }
 }
 
@@ -186,16 +200,15 @@ SmoothMouseMove(targetX, targetY, speed := 2) {
 }
 
 WinterPortal(world) {
+    global SelectedWorldd  ; Ensure SelectedWorldd is global
     SelectedWorldd := world ; Assign world to SelectedWorldd
     
-    if (world = "Namek") {
+    if (world == "Namek") {
         namekworld()
-    } else if (world = "Shibuya") {
+    } else if (world == "Shibuya") {
         shibuyaworld()
     }
 }
-
-
 
 namekworld() {
     baseX := 531
@@ -287,7 +300,6 @@ namekworld() {
     }
 }
 
-
 shibuyaworld() {
     baseX := 531
     baseY := 432
@@ -376,9 +388,8 @@ shibuyaworld() {
             }
         }
     }
-    
-
 }
+
 PickNamekAgain() {
     ; Initialize base coordinates and spacing
     baseX := 531
@@ -437,7 +448,6 @@ PickNamekAgain() {
     }
 }
 
-
 PickShibuyaAgain() {
     ; Initialize base coordinates and spacing
     baseX := 531
@@ -494,5 +504,4 @@ PickShibuyaAgain() {
             break
         }
     }
-
 }
