@@ -5,7 +5,7 @@
 #Include ../../../TinyTaskRE.ahk
 
 global connection
-
+global SelectedWorldd := "."  ; Assign a default value
 Countdown(seconds, text) {
     global CountdownText
     if seconds == 0 {
@@ -150,60 +150,13 @@ CancelButton() {
 }
 
 PickPortalsAGAIN() {
-    ; Initialize base coordinates and spacing
-    baseX := 531
-    baseY := 432
-    colSpacing := 160
-    rowSpacing := 150
-    
-    ; Track scrolling
-    scrollCount := 0
-    maxScrolls := 3
+    if (SelectedWorldd == "Namek") {
+        PickNamekAgain()
 
-    MouseMove(546, 813)
-    Sleep(1000)
-    BetterClick(432, 813)
-    
-    while (scrollCount <= maxScrolls) {
-        row := 0
-        col := 0
-        namekFound := false
+    } 
+    if (SelectedWorldd == "Shibuya") {
+        PickShibuyaAgain()
 
-        while (row < 3) {
-            while (col < 6) {
-                SmoothMouseMove(baseX + (col * colSpacing), baseY + (row * rowSpacing))
-                Sleep(1000)
-
-                if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
-                    namekFound := true
-                    MouseGetPos(&mouseX, &mouseY)
-                    BetterClick(mouseX, mouseY)
-                    Sleep(1000)
-                    
-                    if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
-                        BetterClick(X, Y)
-                        StartTinyTask()
-                        Sleep(2000)
-                        break
-                    }
-                }
-                col++
-            }
-            col := 0
-            row++
-            if (namekFound)
-                break
-        }
-
-        if (!namekFound) {
-            SmoothMouseMove(baseX, baseY + (2 * rowSpacing))
-            Sleep(200)
-            Send("{WheelDown}")
-            Sleep(1000)
-            scrollCount++
-        } else {
-            break
-        }
     }
 }
 findvoting() {
@@ -231,8 +184,20 @@ SmoothMouseMove(targetX, targetY, speed := 2) {
         Sleep(speed)
     }
 }
-; winterportal(world := 1)
-WinterPortal() {
+
+WinterPortal(world) {
+    SelectedWorldd := world ; Assign world to SelectedWorldd
+    
+    if (world = "Namek") {
+        namekworld()
+    } else if (world = "Shibuya") {
+        shibuyaworld()
+    }
+}
+
+
+
+namekworld() {
     baseX := 531
     baseY := 432
     
@@ -320,4 +285,214 @@ WinterPortal() {
             }
         }
     }
+}
+
+
+shibuyaworld() {
+    baseX := 531
+    baseY := 432
+    
+    ; Grid spacing
+    colSpacing := 160
+    rowSpacing := 150
+    
+    ; Track scrolling
+    scrollCount := 0
+    maxScrolls := 3
+
+    if (FindText(&X, &Y, 602-150000, 259-150000, 602+150000, 259+150000, 0, 0, LobbyCheck)) {
+        BetterClick(1495, 227)
+        Sleep(1000)
+        Send("{Tab}")
+        Sleep(100)
+        Send("{j}")
+        Sleep(2000)
+        BetterClick(1180, 326 - 10)
+        
+        text := "winter portal"
+        for each, char in StrSplit(text) {
+            Send(char)
+            Sleep(100)
+        }
+        Sleep(1000)
+
+        WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
+
+        while (scrollCount <= maxScrolls) {
+            row := 0
+            col := 0
+            namekFound := false
+
+            while (row < 3) {
+                while (col < 6) {
+                    SmoothMouseMove(baseX + (col * colSpacing), baseY + (row * rowSpacing))
+                    Sleep(500) 
+
+                    if (FindText(&X, &Y, 1154-150000, 620-150000, 1154+150000, 620+150000, 0, 0, ShibuyaPortal)) {
+                        Shibuya := true
+                        MouseGetPos(&mouseX, &mouseY)
+                        BetterClick(mouseX, mouseY)
+                        
+                        loop {
+                            if (FindText(&X, &Y, 744-150000, 554-150000, 744+150000, 554+150000, 0, 0, usebutton)) {
+                                BetterClick(X, Y)
+                                Sleep(2000)
+                                
+                                loop {
+                                    if (ok := FindText(&X, &Y, 787-150000, 549-150000, 787+150000, 549+150000, 0, 0, create)) {
+                                        BetterClick(X, Y)
+                                        Sleep(100)
+                                        break
+                                    }
+                                }
+                                                       
+                                Loop {
+                                    if (ok := FindText(&X, &Y, 175-150000, 914-150000, 175+150000, 914+150000, 0, 0, shibuyaloading)) {
+                                        Countdown(0, "Loading into [Shibuya]")
+                                        Sleep(2000)
+                                        findvoting()
+                                        Sleep(500)
+                                        break
+                                    }
+                                }
+                                break
+                            }
+                        }
+                    }
+                    col++
+                }
+                col := 0
+                row++
+            }
+
+            if (!Shibuya) {
+                SmoothMouseMove(baseX, baseY + (2 * rowSpacing))
+                Sleep(200)
+                Send("{WheelDown}")
+                Sleep(1000)
+                scrollCount++
+            } else {
+                break
+            }
+        }
+    }
+    
+
+}
+PickNamekAgain() {
+    ; Initialize base coordinates and spacing
+    baseX := 531
+    baseY := 432
+    colSpacing := 160
+    rowSpacing := 150
+    
+    ; Track scrolling
+    scrollCount := 0
+    maxScrolls := 3
+
+    MouseMove(546, 813)
+    Sleep(1000)
+    BetterClick(432, 813)
+    
+    while (scrollCount <= maxScrolls) {
+        row := 0
+        col := 0
+        namekFound := false
+
+        while (row < 3) {
+            while (col < 6) {
+                SmoothMouseMove(baseX + (col * colSpacing), baseY + (row * rowSpacing))
+                Sleep(1000)
+
+                if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
+                    namekFound := true
+                    MouseGetPos(&mouseX, &mouseY)
+                    BetterClick(mouseX, mouseY)
+                    Sleep(1000)
+                    
+                    if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
+                        BetterClick(X, Y)
+                        StartTinyTask()
+                        Sleep(2000)
+                        break
+                    }
+                }
+                col++
+            }
+            col := 0
+            row++
+            if (namekFound)
+                break
+        }
+
+        if (!namekFound) {
+            SmoothMouseMove(baseX, baseY + (2 * rowSpacing))
+            Sleep(200)
+            Send("{WheelDown}")
+            Sleep(1000)
+            scrollCount++
+        } else {
+            break
+        }
+    }
+}
+
+
+PickShibuyaAgain() {
+    ; Initialize base coordinates and spacing
+    baseX := 531
+    baseY := 432
+    colSpacing := 160
+    rowSpacing := 150
+    
+    ; Track scrolling
+    scrollCount := 0
+    maxScrolls := 3
+
+    MouseMove(546, 813)
+    Sleep(1000)
+    BetterClick(432, 813)
+    
+    while (scrollCount <= maxScrolls) {
+        row := 0
+        col := 0
+        namekFound := false
+
+        while (row < 3) {
+            while (col < 6) {
+                SmoothMouseMove(baseX + (col * colSpacing), baseY + (row * rowSpacing))
+                Sleep(1000)
+
+                if (FindText(&X, &Y, 1154-150000, 620-150000, 1154+150000, 620+150000, 0, 0, ShibuyaPortal)) {
+                    shibuya := true
+                    MouseGetPos(&mouseX, &mouseY)
+                    BetterClick(mouseX, mouseY)
+                    Sleep(1000)
+                    
+                    if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
+                        BetterClick(X, Y)
+                        StartTinyTask()
+                        Sleep(2000)
+                        break
+                    }
+                }
+                col++
+            }
+            col := 0
+            row++
+            if (shibuya)
+                break
+        }
+
+        if (!shibuya) {
+            SmoothMouseMove(baseX, baseY + (2 * rowSpacing))
+            Sleep(200)
+            Send("{WheelDown}")
+            Sleep(1000)
+            scrollCount++
+        } else {
+            break
+        }
+    }
+
 }

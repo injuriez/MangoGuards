@@ -11,6 +11,7 @@ global text := ""  ; Add this line
 global hometab := "" 
 global myGui := ""
 global SelectedWorld := 1
+global worldSelect := ""
 ; GUI Creation
 CreateGui() {
     myGui := Gui("+AlwaysOnTop")
@@ -74,11 +75,10 @@ CreateStatsPanel(myGui) {
     myGui.Add("Text", "x24 y272 w105 h23 +0x200", "Presents - 0")
 
 }
-
 CreateTabControl(myGui) {
-    global hometab
-    global SelectedWorld
-    hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Gems", "others"])
+    global hometab, SelectedWorld, worldSelect
+    
+    hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Gems", "Others"])
     
     ; Raids Tab
     hometab.UseTab(1)
@@ -90,15 +90,13 @@ CreateTabControl(myGui) {
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", SetWinterPortal)
 
-    GROUPIE := myGui.Add("GroupBox", "x178 y154 w205 h60", "Portal Settings")
+    myGui.Add("GroupBox", "x178 y154 w205 h60", "Portal Settings")
+    
+    ; Selection ListBox
     worldSelect := myGui.Add("ListBox", "x186 y170 w100 h40", ["Namek", "Shibuya"])
-    ; worldSelect.OnEvent("Change", (*) => MsgBox("worldSelect.Value: " worldSelect.Value))
-    ; SelectedWorld := worldSelect.Value
-    
+    worldSelect.OnEvent("Change", OnWorldSelect)
+    SelectedWorld := "Namek"  ; Default selection
 
-
-
-    
     ; Gems Tab
     hometab.UseTab(3)
     myGui.Add("Button", "x178 y94 w100 h23", "Farm Gems")
@@ -107,6 +105,11 @@ CreateTabControl(myGui) {
     hometab.UseTab()  ; End tab controls
 }
 
+OnWorldSelect(*) {
+    global SelectedWorld, worldSelect
+    SelectedWorld := worldSelect.Text  ; Update selected world
+    OutputDebug("Selected World: " SelectedWorld "`n")
+}
 CreateFooter(myGui) {
     global connection
     
@@ -118,22 +121,23 @@ CreateFooter(myGui) {
 
 
 SetWinterPortal(*) {
-    global MacroSelected, myGui
+    global MacroSelected, myGui, SelectedWorld
     
     MacroSelected.Name := "WinterPortal"
-    myGui.Title := "MangoGuards [Winter Portal]"  ; Update GUI title properly
+    myGui.Title := "MangoGuards [Winter Portal - " SelectedWorld "]"  ; Show selected world
 }
 ; Event Handlers
 start(*) {
+    global MacroSelected, SelectedWorld
     
     MacroSelected.Enabled := true
     if MacroSelected.Name == "WinterPortal" {
-        ;worldNum := SelectedWorld
-        WinterPortal()
+        WinterPortal(SelectedWorld)  ; Pass the world name
     } else {
         MsgBox("Macro not found")
     }
 }
+
 
 stop(*) {
     MacroSelected.Enabled := false
