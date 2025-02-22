@@ -56,39 +56,57 @@ CollectRewards() {
     ; Define portal positions
     portals := [
         {x: 722, y: 500},  ; Left portal
-        {x: 960, y: 500},  ; Middle portal (960, 500)
-        {x: 1194, y: 499}  ; Right portal (1194, 499)
+        {x: 960, y: 500},  ; Middle portal
+        {x: 1194, y: 499}  ; Right portal
     ]
-    
 
-    
-    ; Check each portal systematically
-    for portal in portals {
-        ; Move to portal position
-        BetterMouseMove(portal.x, portal.y)
-        Sleep(500)  ; Short delay to ensure movement is complete
-        
-        ; Check for map types
-        if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
-            BetterClick(portal.x, portal.y + 120)  ; Click the Select button
-            Sleep(2000)
-            Yesbutton()
-            break
-        } 
-        else if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
-            BetterClick(portal.x, portal.y + 120)  ; Click the Select button
-            Sleep(2000)
-            Yesbutton()
-            break
+    ; Function to check a specific world type
+    CheckWorldType(worldType) {
+        for portal in portals {
+            BetterMouseMove(portal.x, portal.y)
+            Sleep(500)
+            
+            switch worldType {
+                case "Namek":
+                    if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
+                        BetterClick(portal.x, portal.y + 120)
+                        Sleep(2000)
+                        Yesbutton()
+                        return true
+                    }
+                case "Shibuya":
+                    if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
+                        BetterClick(portal.x, portal.y + 120)
+                        Sleep(2000)
+                        Yesbutton()
+                        return true
+                    }
+                case "Spider":
+                    if (FindText(&X, &Y, 1061-150000, 618-150000, 1061+150000, 618+150000, 0, 0, spider)) {
+                        BetterClick(portal.x, portal.y + 120)
+                        Sleep(2000)
+                        Yesbutton()
+                        return true
+                    }
+            }
+            
+            ; Check next portal
+            if (A_Index < portals.Length) {
+                BetterClick(portal.x, portal.y)
+                Sleep(2000)
+            }
         }
-        
-        ; If no match found, click the portal to check next one
-        if (A_Index < portals.Length) {
-            BetterClick(portal.x, portal.y)
-            Sleep(2000)  ; Wait for portal info to load
+        return false
+    }
+
+    ; Check worlds in priority order
+    if (!CheckWorldType("Namek")) {
+        if (!CheckWorldType("Shibuya")) {
+            CheckWorldType("Spider")
         }
     }
 }
+
 
 Yesbutton() {
     loop {
@@ -214,7 +232,7 @@ SmoothMouseMove(targetX, targetY, speed := 2) {
     }
 }
 
-WinterPortal() {
+WinterPortal(world := 1) {
     baseX := 531
     baseY := 432
     

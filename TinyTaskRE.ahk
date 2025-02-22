@@ -10,6 +10,7 @@ global connection := ""
 global text := ""  ; Add this line
 global hometab := "" 
 global myGui := ""
+global SelectedWorld := 1
 ; GUI Creation
 CreateGui() {
     myGui := Gui("+AlwaysOnTop")
@@ -76,6 +77,7 @@ CreateStatsPanel(myGui) {
 
 CreateTabControl(myGui) {
     global hometab
+    global SelectedWorld
     hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Gems", "others"])
     
     ; Raids Tab
@@ -88,7 +90,14 @@ CreateTabControl(myGui) {
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", SetWinterPortal)
 
-    myGui.Add("GroupBox", "x178 y154 w205 h60", "Portal Settings")
+    GROUPIE := myGui.Add("GroupBox", "x178 y154 w205 h60", "Portal Settings")
+    worldSelect := myGui.Add("ListBox", "x186 y170 w100 h40", ["Namek", "Shibuya"])
+    worldSelect.OnEvent("Change", (*) => MsgBox("worldSelect.Value: " worldSelect.Value))
+    SelectedWorld := worldSelect.Value
+    
+
+
+
     
     ; Gems Tab
     hometab.UseTab(3)
@@ -116,11 +125,11 @@ SetWinterPortal(*) {
 }
 ; Event Handlers
 start(*) {
+    
     MacroSelected.Enabled := true
     if MacroSelected.Name == "WinterPortal" {
-        ; CurrencyGrab()
-        ; Sleep(150000)
-        WinterPortal()
+        worldNum := SelectedWorld
+        WinterPortal(worldNum)
     } else {
         MsgBox("Macro not found")
     }
