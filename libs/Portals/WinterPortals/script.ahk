@@ -231,8 +231,8 @@ SmoothMouseMove(targetX, targetY, speed := 2) {
         Sleep(speed)
     }
 }
-
-WinterPortal(world := 1) {
+; winterportal(world := 1)
+WinterPortal() {
     baseX := 531
     baseY := 432
     

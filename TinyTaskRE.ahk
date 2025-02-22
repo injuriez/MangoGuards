@@ -92,8 +92,8 @@ CreateTabControl(myGui) {
 
     GROUPIE := myGui.Add("GroupBox", "x178 y154 w205 h60", "Portal Settings")
     worldSelect := myGui.Add("ListBox", "x186 y170 w100 h40", ["Namek", "Shibuya"])
-    worldSelect.OnEvent("Change", (*) => MsgBox("worldSelect.Value: " worldSelect.Value))
-    SelectedWorld := worldSelect.Value
+    ; worldSelect.OnEvent("Change", (*) => MsgBox("worldSelect.Value: " worldSelect.Value))
+    ; SelectedWorld := worldSelect.Value
     
 
 
@@ -128,8 +128,8 @@ start(*) {
     
     MacroSelected.Enabled := true
     if MacroSelected.Name == "WinterPortal" {
-        worldNum := SelectedWorld
-        WinterPortal(worldNum)
+        ;worldNum := SelectedWorld
+        WinterPortal()
     } else {
         MsgBox("Macro not found")
     }
