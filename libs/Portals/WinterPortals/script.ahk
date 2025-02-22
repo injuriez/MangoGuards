@@ -321,7 +321,7 @@ shibuyaworld() {
         while (scrollCount <= maxScrolls) {
             row := 0
             col := 0
-            namekFound := false
+            Shibuya := false
 
             while (row < 3) {
                 while (col < 6) {
@@ -456,7 +456,7 @@ PickShibuyaAgain() {
     while (scrollCount <= maxScrolls) {
         row := 0
         col := 0
-        namekFound := false
+        shibuya := false
 
         while (row < 3) {
             while (col < 6) {
