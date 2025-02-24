@@ -391,61 +391,7 @@ shibuyaworld() {
 }
 
 PickNamekAgain() {
-    ; Initialize base coordinates and spacing
-    baseX := 531
-    baseY := 432
-    colSpacing := 160
-    rowSpacing := 150
     
-    ; Track scrolling
-    scrollCount := 0
-    maxScrolls := 3
-
-    MouseMove(546, 813)
-    Sleep(1000)
-    BetterClick(432, 813)
-    
-    while (scrollCount <= maxScrolls) {
-        row := 0
-        col := 0
-        namekFound := false
-
-        while (row < 3) {
-            while (col < 6) {
-                SmoothMouseMove(baseX + (col * colSpacing), baseY + (row * rowSpacing))
-                Sleep(1000)
-
-                if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
-                    namekFound := true
-                    MouseGetPos(&mouseX, &mouseY)
-                    BetterClick(mouseX, mouseY)
-                    Sleep(1000)
-                    
-                    if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
-                        BetterClick(X, Y)
-                        StartTinyTask()
-                        Sleep(2000)
-                        break
-                    }
-                }
-                col++
-            }
-            col := 0
-            row++
-            if (namekFound)
-                break
-        }
-
-        if (!namekFound) {
-            SmoothMouseMove(baseX, baseY + (2 * rowSpacing))
-            Sleep(200)
-            Send("{WheelDown}")
-            Sleep(1000)
-            scrollCount++
-        } else {
-            break
-        }
-    }
 }
 
 PickShibuyaAgain() {

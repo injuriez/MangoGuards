@@ -1,5 +1,6 @@
 #Requires Autohotkey v2
-#Include libs/Portals/WinterPortals/script.ahk
+#Include libs/Portals/WinterPortals/WinterPortal.ahk
+#Include libs/Portals/WinterPortals/LovePortal.ahk
 
 
 ; Global Variables
@@ -12,6 +13,7 @@ global hometab := ""
 global myGui := ""
 global SelectedWorld := 1
 global worldSelect := ""
+global hosting := false
 ; GUI Creation
 CreateGui() {
     myGui := Gui("+AlwaysOnTop")
@@ -90,12 +92,20 @@ CreateTabControl(myGui) {
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", SetWinterPortal)
 
+    ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23", "Love Portal")
+    ValentinePortal.OnEvent("Click", SetValentinePortal)
+
     myGui.Add("GroupBox", "x178 y154 w205 h60", "Portal Settings")
     
     ; Selection ListBox
     worldSelect := myGui.Add("ListBox", "x186 y170 w100 h40", ["Namek", "Shibuya"])
     worldSelect.OnEvent("Change", OnWorldSelect)
     SelectedWorld := "Namek"  ; Default selection
+
+    ; Hosting Switch
+    hometab.UseTab(2)
+    hostingSwitch := myGui.Add("CheckBox", "x300 y180 w80 h23", "Hosting")
+    hostingSwitch.OnEvent("Click", ToggleHosting)
 
     ; Gems Tab
     hometab.UseTab(3)
@@ -109,6 +119,11 @@ OnWorldSelect(*) {
     global SelectedWorld, worldSelect
     SelectedWorld := worldSelect.Text  ; Update selected world
     OutputDebug("Selected World: " SelectedWorld "`n")
+}
+toggleHosting(*) {
+    global hosting, connection
+    
+    hosting := !hosting
 }
 CreateFooter(myGui) {
     global connection
@@ -126,13 +141,25 @@ SetWinterPortal(*) {
     MacroSelected.Name := "WinterPortal"
     myGui.Title := "MangoGuards [Winter Portal - " SelectedWorld "]"  ; Show selected world
 }
+
+SetValentinePortal(*) {
+    global MacroSelected, myGui, SelectedWorld
+    
+    MacroSelected.Name := "ValentinePortal"
+    myGui.Title := "MangoGuards [Valentine Portal - " SelectedWorld "]"  ; Show selected world
+}
 ; Event Handlers
 start(*) {
-    global MacroSelected, SelectedWorld
+    global MacroSelected, SelectedWorld, hosting
     
     MacroSelected.Enabled := true
     if MacroSelected.Name == "WinterPortal" {
         WinterPortal(SelectedWorld)  ; Pass the world name
+    } else {
+        MsgBox("Macro not found")
+    } 
+    if MacroSelected.Name == "ValentinePortal" {
+        LovePortal(hosting)  ; Pass the world name
     } else {
         MsgBox("Macro not found")
     }
