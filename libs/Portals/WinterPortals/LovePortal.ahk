@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
-global hosting := true  ; Assign a default value
+global connection
 
+global playerhosting := false
 ; LovePortal(world) {
 ;     global SelectedWorldd  ; Ensure SelectedWorldd is global
 ;     SelectedWorldd := world ; Assign world to SelectedWorldd
@@ -14,7 +15,10 @@ global hosting := true  ; Assign a default value
 
 
 LovePortal(hosting) {
-    if (hosting == true) {
+    global playerhosting
+    playerhosting := hosting
+
+    if (playerhosting == true) {
         Host()
     } else {
         NonHost()
@@ -95,10 +99,10 @@ Host() {
                                 }
 
                                 loop {
-                                    if (ok:=FindText(&X, &Y, 963-150000, 548-150000, 963+150000, 548+150000, 0, 0, cancelPortal))
+                                    if (ok:=FindText(&X, &Y, 962-150000, 550-150000, 962+150000, 550+150000, 0, 0, cancelPortal))
                                         {
                                             BetterClick(X, Y)
-                                            Sleep(100)
+                                            Sleep(10000)
                                             break
                             
                                             
@@ -304,7 +308,8 @@ LoveCancelButton() {
 }
 
 LovePickPortalsAGAIN() {
-    if (hosting == true) {
+    global playerhosting
+    if (playerhosting == true) {
         Namek_lovee()
     } else {
         NonHost()

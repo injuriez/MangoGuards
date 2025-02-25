@@ -155,13 +155,10 @@ start(*) {
     MacroSelected.Enabled := true
     if MacroSelected.Name == "WinterPortal" {
         WinterPortal(SelectedWorld)  ; Pass the world name
-    } else {
-        MsgBox("Macro not found")
-    } 
-    if MacroSelected.Name == "ValentinePortal" {
+    } else if MacroSelected.Name == "ValentinePortal" {
         LovePortal(hosting)  ; Pass the world name
     } else {
-        MsgBox("Macro not found")
+        MsgBox("No macro selected!")
     }
 }
 
