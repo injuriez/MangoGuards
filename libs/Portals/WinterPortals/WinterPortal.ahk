@@ -222,8 +222,7 @@ namekworld() {
     scrollCount := 0
     maxScrolls := 3
 
-    if (FindText(&X, &Y, 602-150000, 259-150000, 602+150000, 259+150000, 0, 0, LobbyCheck)) {
-        BetterClick(1495, 227)
+    BetterClick(1495, 227)
         Sleep(1000)
         Send("{Tab}")
         Sleep(100)
@@ -297,7 +296,6 @@ namekworld() {
                 break
             }
         }
-    }
 }
 
 shibuyaworld() {
@@ -312,8 +310,7 @@ shibuyaworld() {
     scrollCount := 0
     maxScrolls := 3
 
-    if (FindText(&X, &Y, 602-150000, 259-150000, 602+150000, 259+150000, 0, 0, LobbyCheck)) {
-        BetterClick(1495, 227)
+    BetterClick(1495, 227)
         Sleep(1000)
         Send("{Tab}")
         Sleep(100)
@@ -387,7 +384,6 @@ shibuyaworld() {
                 break
             }
         }
-    }
 }
 
 PickNamekAgain() {
