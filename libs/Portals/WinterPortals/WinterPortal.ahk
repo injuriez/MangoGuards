@@ -7,6 +7,9 @@
 global connection
 global SelectedWorldd := "."  ; Assign a default value
 
+class WinterVAR {
+    static Namek_Loading := "|<>*63$252.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz03zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs000Dzzy01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU0001zzy00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU0000Tzy00zzzzzzzzzzzzzzzzzzzzzzzzz0Tzzzzz000007zy00zzzzzzzzzzzzzzzzzzzzzzzzw07zzzzz000001zy00zzzzzzzzzzzzzzzzzzzzzzzzw07zzzzz000000zy00zzzzzzzzzzzzzzzzzzzzzzzzs07zzzzz000000Ty00zzzzzzzzzzzzzzzzzzzzzzzzs07zzzzz000000Dy00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz000000Dy00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz0000007y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz0000003y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz0000003y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz0000001y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz00TzU01y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz00Tzs01y00zzzzzzzzzzzzzzzzzzzsDzzzs03zzzzz00Tzw01y00zzzzUzw3zw1zkDzzzzy00Tzy8021zzzz00Tzw00y00zzzw07k0zk0T01zzzzk007zs0000Dzzz00Tzy00y00zzzk01U0zk0Q00Tzzz0001zs0000Dzzz00Tzy00y00zzz000U0TU0M007zzy0000zs00007zzz00Tzy00y00zzy00000TU00003zzs0000Tk00007zzz00Tzy00y00zzw00000TU00001zzk0000Dk00007zzz00Tzy00y00zzs00000TU00001zzU00007k00007zzz00Tzw00y00zzk00000TU00000zzU00003k00007zzz00Tzw01y00zzU00000TU00000Tz000003k00007zzz00Tzs01y00zzU00000TU00000Ty000003k00007zzz00TzU01y00zz000000TU00000Dy000001s0000Dzzz0000001y00zz000000TU00000Dw007s01s0000Dzzz0000003y00zy000000TU000007w00Tw01w0000Tzzz0000003y00zy007k00TU01y007w00zy01zs03zzzzz0000007y00zy00Tw00TU03zU07s01zy01zs03zzzzz0000007y00zw00zw00TU07zk07s01zy01zs03zzzzz000000Dy00zw00zy00TU0Dzk03s01zw01zs03zzzzz000000Ty00zw01zy00TU0Dzs03s000001zs03zzzzz000000zy00zw01zz00TU0Dzs03s000001zs03zzzzz000001zy00zw01zz00TU0Dzs03s000001zs03zzzzz000007zy00zw01zz00TU0Dzs03s000003zs03zzzzz00000Dzy00zw01zy00TU0Dzs03s000007zs03zzzzz00000zzy00zw00zy00TU0Dzs03s00000Dzs03zzzzz00007zzy00zw00zw00TU0Dzs03s00000zzs03zzzzz00Tzzzzy00zy00Ts00TU0Dzs03s01zzzzzs03zzzzz00Tzzzzy00zy007k00TU0Dzs03w01zzzzzs03zzzzz00Tzzzzy00Dy000000TU0Dzs03w00zzzzzs01zzzzz00Tzzzzy000z000000TU0Dzs03w00DzUTzs001zzzz00Tzzzzy000z000000TU0Dzs03y001s0Dzs000zzzz00Tzzzzy000TU00000TU0Dzs03y00000Dzw000Tzzz00Tzzzzz000TU00000TU0Dzs03z000007zw000Tzzz00Tzzzzz000Tk00000TU0Dzs03z000007zw000Tzzz00Tzzzzz000Ts00000TU0Dzs03zU00003zy000Tzzz00Tzzzzz000Tw00000TU0Dzs03zk00003zy000Tzzz00TzzzzzU00Ty00000TU0Dzs03zs00007zz000Tzzz00TzzzzzU00Tz00000TU0Dzs03zw00007zzU00TzzzU0zzzzzzk00TzU01U0TU0Tzs07zy0000Dzzk00TzzzU0zzzzzzw00zzs07U0zk0Tzw07zzU000Tzzw00zzzzs3zzzzzzzU1zzz0Ts3zw1zzz0Tzzs001zzzzU1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz00TzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
+}
 Countdown(seconds, text) {
     global CountdownText
     if seconds == 0 {
@@ -259,23 +262,23 @@ namekworld() {
                                 BetterClick(X, Y)
                                 Sleep(2000)
                                 
-                                loop {
-                                    if (ok := FindText(&X, &Y, 787-150000, 549-150000, 787+150000, 549+150000, 0, 0, create)) {
-                                        BetterClick(X, Y)
-                                        Sleep(100)
-                                        break
-                                    }
-                                }
-                                                       
-                                Loop {
-                                    if (ok := FindText(&X, &Y, 138-150000, 842-150000, 138+150000, 842+150000, 0, 0, NamekLoading)) {
-                                        Countdown(0, "Loading into [planet namek]")
-                                        Sleep(2000)
-                                        findvoting()
-                                        Sleep(500)
-                                        break
-                                    }
-                                }
+                                break
+                            }
+                        }
+                        loop {
+                            if (ok := FindText(&X, &Y, 787-150000, 549-150000, 787+150000, 549+150000, 0, 0, create)) {
+                                BetterClick(X, Y)
+                                Sleep(100)
+                                break
+                            }
+                        }        
+                                               
+                        Loop {
+                            if (ok := FindText(&X, &Y, 149-150000, 911-150000, 149+150000, 911+150000, 0, 0, WinterVAR.Namek_Loading)) {
+                                Countdown(0, "Loading into [planet namek]")
+                                Sleep(2000)
+                                findvoting()
+                                Sleep(500)
                                 break
                             }
                         }

@@ -46,7 +46,7 @@ CreateGui() {
 
 CreateLeftPanel(myGui) {
     global CountdownText  ; Reference the global variable
-    CountdownText := myGui.Add("GroupBox", "x16 y230 w120 h80", "0")
+    CountdownText := myGui.Add("GroupBox", "x16 y230 w120 h80", "")
 
     ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
     ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Macro Stats")
@@ -73,7 +73,6 @@ CreateHeader(myGui) {
 
 CreateStatsPanel(myGui) {
 
-    CountdownText := myGui.Add("GroupBox", "x16 y230 w120 h80", "0")
     myGui.Add("Text", "x24 y248 w105 h23 +0x200", "Gems - 0")
     myGui.Add("Text", "x24 y272 w105 h23 +0x200", "Presents - 0")
 
