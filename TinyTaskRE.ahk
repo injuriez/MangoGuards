@@ -1,7 +1,8 @@
 #Requires Autohotkey v2
 #Include libs/Portals/WinterPortals/WinterPortal.ahk
 #Include libs/Portals/WinterPortals/LovePortal.ahk
-
+#Include libs/PC_SETTINGS/resolution.ahk
+#Include libs/PC_SETTINGS/Window.ahk
 
 ; Global Variables
 global presents := 0
@@ -78,7 +79,7 @@ CreateStatsPanel(myGui) {
 
 }
 CreateTabControl(myGui) {
-    global hometab, SelectedWorld, worldSelect
+    global hometab, SelectedWorld, worldSelect, winterTab, loveTab
     
     hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Gems", "Others"])
     
@@ -90,22 +91,27 @@ CreateTabControl(myGui) {
     ; Portals Tab
     hometab.UseTab(2)
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
-    WinterPortalBtn.OnEvent("Click", SetWinterPortal)
+    WinterPortalBtn.OnEvent("Click", ShowWinterPortalTab)
 
-    ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23", "Love Portal")
-    ValentinePortal.OnEvent("Click", SetValentinePortal)
+    ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23 Disabled", "Love Portal")
+    ValentinePortal.OnEvent("Click", ShowLovePortalTab)
 
-    myGui.Add("GroupBox", "x178 y154 w205 h60", "Portal Settings")
-    
-    ; Selection ListBox
-    worldSelect := myGui.Add("ListBox", "x186 y170 w100 h40", ["Namek", "Shibuya"])
+    ; Winter Portal Tab (Initially hidden)
+    winterTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Winter Portal Settings"])
+    winterTab.UseTab(1)
+    worldSelect := myGui.Add("ListBox", "x186 y94 w100 h40", ["Namek", "Shibuya"])
+    SelectedWorld := worldSelect.Text  ; Initialize with first selected item
     worldSelect.OnEvent("Change", OnWorldSelect)
-    SelectedWorld := "Namek"  ; Default selection
+    backBtn1 := myGui.Add("Button", "x186 y140 w100 h23", "Back")
+    backBtn1.OnEvent("Click", ShowPortalsTab)
 
-    ; Hosting Switch
-    hometab.UseTab(2)
-    hostingSwitch := myGui.Add("CheckBox", "x300 y180 w80 h23", "Hosting")
+    ; Love Portal Tab (Initially hidden)
+    loveTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden ", ["Love Portal Settings"])
+    loveTab.UseTab(1)
+    hostingSwitch := myGui.Add("CheckBox", "x186 y94 w80 h23", "Hosting")
     hostingSwitch.OnEvent("Click", ToggleHosting)
+    backBtn2 := myGui.Add("Button", "x186 y140 w100 h23", "Back")
+    backBtn2.OnEvent("Click", ShowPortalsTab)
 
     ; Gems Tab
     hometab.UseTab(3)
@@ -115,10 +121,43 @@ CreateTabControl(myGui) {
     hometab.UseTab()  ; End tab controls
 }
 
+ShowWinterPortalTab(*) {
+    global hometab, winterTab, worldSelect, SelectedWorld
+    hometab.Visible := false
+    winterTab.Visible := true
+
+    ; Ensure a selection is made if none exists
+    if !SelectedWorld || SelectedWorld = ""
+    {
+        worldSelect.Choose(1) ; Select the first item in the ListBox
+        Sleep 50  ; Small delay to ensure selection applies
+    }
+
+    ; Explicitly get the selected item after setting it
+    SelectedWorld := worldSelect.Text
+}
+
+
+
+ShowLovePortalTab(*) {
+    global hometab, myGui
+    hometab.Visible := false
+    loveTab.Visible := true
+    SetValentinePortal()
+}
+
+ShowPortalsTab(*) {
+    global hometab, myGui
+    winterTab.Visible := false
+    loveTab.Visible := false
+    hometab.Visible := true
+    hometab.Value := 2  ; Switch back to Portals tab
+}
+
 OnWorldSelect(*) {
     global SelectedWorld, worldSelect
-    SelectedWorld := worldSelect.Text  ; Update selected world
-    OutputDebug("Selected World: " SelectedWorld "`n")
+    SelectedWorld := worldSelect.Text
+    SetWinterPortal()
 }
 toggleHosting(*) {
     global hosting, connection
@@ -136,10 +175,11 @@ CreateFooter(myGui) {
 
 
 SetWinterPortal(*) {
-    global MacroSelected, myGui, SelectedWorld
+    global MacroSelected, myGui, SelectedWorld, worldSelect
     
     MacroSelected.Name := "WinterPortal"
-    myGui.Title := "MangoGuards [Winter Portal - " SelectedWorld "]"  ; Show selected world
+    SelectedWorld := worldSelect.Text  ; Ensure SelectedWorld is updated
+    myGui.Title := "MangoGuards [Winter Portal - " SelectedWorld "]"
 }
 
 SetValentinePortal(*) {
@@ -151,16 +191,30 @@ SetValentinePortal(*) {
 ; Event Handlers
 start(*) {
     global MacroSelected, SelectedWorld, hosting
-    
-    MacroSelected.Enabled := true
-    if MacroSelected.Name == "WinterPortal" {
-        WinterPortal(SelectedWorld)  ; Pass the world name
-    } else if MacroSelected.Name == "ValentinePortal" {
-        LovePortal(hosting)  ; Pass the world name
+    GetDisplayInfo()
+    fullscreen := IsRobloxFullscreen()
+
+    if fullscreen == false {
+        MsgBox("Set your roblox to full screen in roblox settings")
+        return
     } else {
-        MsgBox("No macro selected!")
+        if displayInfo.width < 1920 or displayInfo.height < 1080 or displayInfo.scaling != 100  or !fullscreen {
+            MsgBox("Warning: your display resolution is " displayInfo.width "x" displayInfo.height " at " displayInfo.scaling "% scaling. please use resolution 1920x1080 at 100% scaling.")
+            return
+        } else {
+            MacroSelected.Enabled := true
+        if MacroSelected.Name == "WinterPortal" {
+            WinterPortal(SelectedWorld)  ; Pass the world name
+        } else if MacroSelected.Name == "ValentinePortal" {
+            LovePortal(hosting)  ; Pass the world name
+        } else {
+            MsgBox("No macro selected!")
+        }
+        
     }
 }
+}
+    
 
 
 stop(*) {
