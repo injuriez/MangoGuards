@@ -49,7 +49,7 @@ CreateLeftPanel(myGui) {
     CountdownText := myGui.Add("GroupBox", "x16 y230 w120 h80", "")
 
     ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
-    ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Macro Stats")
+    ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Stats")
     ButtonUpdates := myGui.Add("Button", "x8 y128 w145 h23", "Updates!")
 
     
