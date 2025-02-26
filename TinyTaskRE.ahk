@@ -3,7 +3,7 @@
 #Include libs/Portals/WinterPortals/LovePortal.ahk
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
-
+#Include libs/Legend/Bleach/AllStages.ahk
 ; Global Variables
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
@@ -80,7 +80,7 @@ CreateStatsPanel(myGui) {
 CreateTabControl(myGui) {
     global hometab, SelectedWorld, worldSelect, winterTab, loveTab
     
-    hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Gems", "Others"])
+    hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Legend"])
     
     ; Raids Tab
     hometab.UseTab(1)
@@ -114,8 +114,10 @@ CreateTabControl(myGui) {
 
     ; Gems Tab
     hometab.UseTab(3)
-    myGui.Add("Button", "x178 y94 w100 h23", "Farm Gems")
-    myGui.Add("Text", "x178 y124", "Total Gems: 0")
+    bleachBtn := myGui.Add("Button", "x178 y94 w100 h23", "Bleach Secret")
+    bleachBtn.OnEvent("Click", SetBleachWorld)
+
+
     
     hometab.UseTab()  ; End tab controls
 }
@@ -187,6 +189,13 @@ SetValentinePortal(*) {
     MacroSelected.Name := "ValentinePortal"
     myGui.Title := "MangoGuards [Valentine Portal - " SelectedWorld "]"  ; Show selected world
 }
+
+SetBleachWorld(*) {
+    global MacroSelected, myGui, SelectedWorld
+    SelectedWorld := "Bleach"
+    MacroSelected.Name := "Bleach"
+    myGui.Title := "MangoGuards [Bleach]"
+}
 ; Event Handlers
 start(*) {
     global MacroSelected, SelectedWorld, hosting
@@ -206,8 +215,10 @@ start(*) {
             WinterPortal(SelectedWorld)  ; Pass the world name
         } else if MacroSelected.Name == "ValentinePortal" {
             LovePortal(hosting)  ; Pass the world name
+        } else if MacroSelected.Name == "Bleach" {
+            LegendStart()
         } else {
-            MsgBox("No macro selected!")
+            MsgBox("No macro selected")
         }
         
     }

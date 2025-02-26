@@ -3,7 +3,7 @@
 #Include ../Modules.ahk
 
 IsRobloxFullscreen() {
-    Sleep(3000)
+
 
     if hwnd := WinExist("Roblox") {
         style := WinGetStyle(hwnd)
