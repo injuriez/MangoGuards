@@ -9,35 +9,32 @@ global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
 global CountdownText := "" 
 global connection := ""
-global text := ""  ; Add this line
+global text := ""  ; 
 global hometab := "" 
 global myGui := ""
 global SelectedWorld := 1
 global worldSelect := ""
 global hosting := false
-; GUI Creation
+
 CreateGui() {
     myGui := Gui("+AlwaysOnTop")
     myGui.SetFont("s8 w600", "Karla")
 
-    
-    
-    ; Left Panel
+
     CreateLeftPanel(myGui)
-    
-    ; Main Header
+
     CreateHeader(myGui)
     
-    ; Stats Panel
+
     CreateStatsPanel(myGui)
     
-    ; Tab Control
+   
     CreateTabControl(myGui)
-    
-    ; Footer
+ 
+
     CreateFooter(myGui)
     
-    ; Window Settings
+  
     myGui.Title := "MangoGuards"
     myGui.Show("w426 h378")
     
@@ -45,7 +42,7 @@ CreateGui() {
 }
 
 CreateLeftPanel(myGui) {
-    global CountdownText  ; Reference the global variable
+    global CountdownText  
     CountdownText := myGui.Add("GroupBox", "x16 y230 w120 h80", "")
 
     ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
@@ -82,12 +79,10 @@ CreateTabControl(myGui) {
     
     hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Legend"])
     
-    ; Raids Tab
     hometab.UseTab(1)
     myGui.Add("Button", "x178 y94 w100 h23", "Start Raid")
     myGui.Add("ComboBox", "x178 y124 w100", ["Raid 1", "Raid 2", "Raid 3"])
     
-    ; Portals Tab
     hometab.UseTab(2)
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", ShowWinterPortalTab)
@@ -95,16 +90,14 @@ CreateTabControl(myGui) {
     ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23 Disabled", "Love Portal")
     ValentinePortal.OnEvent("Click", ShowLovePortalTab)
 
-    ; Winter Portal Tab (Initially hidden)
     winterTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Winter Portal Settings"])
     winterTab.UseTab(1)
     worldSelect := myGui.Add("ListBox", "x186 y94 w100 h40", ["Namek", "Shibuya"])
-    SelectedWorld := worldSelect.Text  ; Initialize with first selected item
+    SelectedWorld := worldSelect.Text  
     worldSelect.OnEvent("Change", OnWorldSelect)
     backBtn1 := myGui.Add("Button", "x186 y140 w100 h23", "Back")
     backBtn1.OnEvent("Click", ShowPortalsTab)
 
-    ; Love Portal Tab (Initially hidden)
     loveTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden ", ["Love Portal Settings"])
     loveTab.UseTab(1)
     hostingSwitch := myGui.Add("CheckBox", "x186 y94 w80 h23", "Hosting")
@@ -119,7 +112,7 @@ CreateTabControl(myGui) {
 
 
     
-    hometab.UseTab()  ; End tab controls
+    hometab.UseTab() 
 }
 
 ShowWinterPortalTab(*) {
@@ -127,14 +120,14 @@ ShowWinterPortalTab(*) {
     hometab.Visible := false
     winterTab.Visible := true
 
-    ; Ensure a selection is made if none exists
+
     if !SelectedWorld || SelectedWorld = ""
     {
-        worldSelect.Choose(1) ; Select the first item in the ListBox
-        Sleep 50  ; Small delay to ensure selection applies
+        worldSelect.Choose(1) 
+        Sleep 50 
     }
 
-    ; Explicitly get the selected item after setting it
+
     SelectedWorld := worldSelect.Text
 }
 
@@ -152,7 +145,7 @@ ShowPortalsTab(*) {
     winterTab.Visible := false
     loveTab.Visible := false
     hometab.Visible := true
-    hometab.Value := 2  ; Switch back to Portals tab
+    hometab.Value := 2  
 }
 
 OnWorldSelect(*) {
@@ -179,7 +172,7 @@ SetWinterPortal(*) {
     global MacroSelected, myGui, SelectedWorld, worldSelect
     
     MacroSelected.Name := "WinterPortal"
-    SelectedWorld := worldSelect.Text  ; Ensure SelectedWorld is updated
+    SelectedWorld := worldSelect.Text 
     myGui.Title := "MangoGuards [Winter Portal - " SelectedWorld "]"
 }
 
@@ -187,7 +180,7 @@ SetValentinePortal(*) {
     global MacroSelected, myGui, SelectedWorld
     
     MacroSelected.Name := "ValentinePortal"
-    myGui.Title := "MangoGuards [Valentine Portal - " SelectedWorld "]"  ; Show selected world
+    myGui.Title := "MangoGuards [Valentine Portal - " SelectedWorld "]"
 }
 
 SetBleachWorld(*) {
@@ -212,9 +205,9 @@ start(*) {
         } else {
             MacroSelected.Enabled := true
         if MacroSelected.Name == "WinterPortal" {
-            WinterPortal(SelectedWorld)  ; Pass the world name
+            WinterPortal(SelectedWorld) 
         } else if MacroSelected.Name == "ValentinePortal" {
-            LovePortal(hosting)  ; Pass the world name
+            LovePortal(hosting) 
         } else if MacroSelected.Name == "Bleach" {
             LegendStart()
         } else {
