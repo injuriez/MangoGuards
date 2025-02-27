@@ -46,13 +46,13 @@ class Cards {
     static gems := "|<>*116$66.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzXzzzzzzzzzw0zzzzzzzzzs0Dzzzzzzzzk0TzzzzzzzzUwTzzzzzzzzVzz0wEky0zzVzy0A00Q0zzXkA0A00A0zzXUACA00ADzzXkACAAAA1zzVwA0AAAC0zzUwA0QAAD0Tzk0ADwAAAsTzs0A0AAAA0Tzw0S0AAAA0zzy0z0QQSC1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
     static RewardsText := "|<>*86$162.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy7zzzzzzzzzzzzzzzzzzzzzzzzzw3zzzzzz00Dzzzzzzzzzzzzzzzzw3zzzzzy003zzzzzzzzzzzzzzzzw3zzzzzy001zzzzzzzzzzzzzzzzw3zzzzzy000zzzzzzzzzzzzzzzzw3zzzzzy000Tzzzzzzzzzzzzzzzw3zzzzzy000Tzzzzzzzzzzzzzzzw3zzzzzy0z0Dzzzzzzzzzzzzzzzw3zzzzzy0zUDs1z3yDszsC7UsDsA3y0Dzzy0zUDU0S1w7kDU43U07U03s07zzy0zUD00C1s7kD003007003k03zzy0zUC0061s3UC003006003k03zzy0z0A0060k3UQ00300C003k07zzy000Q0k30k10Q00300A003kTjzzy000M1s30E10M1U30DQ0U3kDzzzy000s3s30000s3s30Ts3s3k0Tzzy000s003U000s7s30Ts3s3k07zzy001s007U001s7s30Ts7w3s03zzy000s007k001s7s30Ts3s3w03zzy000s00Tk001s3s30Ts3s3z01zzy0z0M3zzk0U3s0U30Tw0U3zs1zzy0z0Q1yTs1U3w0030Tw003ky1zzy0zUA00Ds1k7w0030Ty003U01zzy0zUC007w1k7y0030Ty003U03zzz0zkD007w3k7z0030Tz003U03zzz0zkDU0Dy3sDzU43UTzU03k07zzzVzszk0Ty7wTzsC7UzzsC7w0TzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
  }
- Countdown1(seconds, text) {
+Countdown1(seconds, text) {
     global CountdownText
-    if seconds == 0 {
+    if (seconds == 0) {
         CountdownText.Text := text  ; Clear the countdown text
     } else {
         Loop (seconds) {
-            CountdownText.Text := "Starting in " seconds - A_Index " seconds..."
+            CountdownText.Text := "Starting in " (seconds - A_Index) " seconds..."
             Sleep(1000)
         }
         CountdownText.Text := ""  ; Clear the countdown text
@@ -64,13 +64,16 @@ class Cards {
 StartTinyTask1() {
     global connection
     ; Starts tiny task
+    Countdown1(0, "Waiting for rewards...")
     connection.Text := "[CONNECTED]"
-    Send("{F8 down}")
+    Send("{F8 down}") ; start tinytask
     Sleep(100)
     Send("{F8 up}")
-    Sleep(1000)
+    Sleep(500)
     Loop {
         if (ok := FindText(&X, &Y, 669-150000, 586-150000, 669+150000, 586+150000, 0, 0, Cards.RewardsText)) {
+            Countdown1(0, "Found Rewards...")
+
             Sleep(1000)
             Send("{F8 down}")
             Sleep(100)
@@ -79,9 +82,12 @@ StartTinyTask1() {
             BetterClick(1184, 840)
             Sleep(500)
             LegendStart()
+            Sleep(500)
             CountdownText.Text := ""
+            Sleep(500)
             break
         } else if (ok := FindText(&X, &Y, 1142-150000, 448-150000, 1142+150000, 448+150000, 0, 0, Cards.gems)) {
+            Countdown1(0, "Found Gems...")
             Sleep(1000)
             Send("{F8 down}")
             Sleep(100)
@@ -111,6 +117,7 @@ StartTinyTask1() {
             Sleep(500)
             LegendStart()
             CountdownText.Text := ""
+            Sleep(500)
             break
         }
 
@@ -143,40 +150,36 @@ StartTinyTask1() {
         {name: "thirce", id: Cards.thirce.id, priority: Cards.thirce.prio}
     ]
     
-    ; Sort cards by priority (lower number = higher priority)
     cardsArray := SortByPriority(cardsArray)
     
-    ; Track selected cards
+
     selectedCards := 0
     maxSelections := 3
     
-    ; Try to find each card in priority order
+
     for card in cardsArray {
         if (selectedCards >= maxSelections)
             break
             
-        ; Search the entire screen for this card
+
         if (ok := FindText(&X, &Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0, 0, card.id)) {
-            ; Card found, click it
             BetterClick(X, Y)
             Sleep(300)
             selectedCards++
-            
-            ; Log the selected card
-            OutputDebug("Selected card: " card.name " (priority: " card.priority ")")
+
         }
     }
     
-    ; If we haven't selected 3 cards, just click on any remaining visible cards
+
     if (selectedCards < maxSelections) {
-        ; Define common card positions
+
         cardPositions := [
-            {x: 735, y: 466},   ; Left position
-            {x: 960, y: 473},   ; Middle position
-            {x: 1190, y: 478}   ; Right position
+            {x: 735, y: 466},  
+            {x: 960, y: 473},  
+            {x: 1190, y: 478}   
         ]
         
-        ; Click on remaining positions
+
         for pos in cardPositions {
             if (selectedCards >= maxSelections)
                 break
@@ -187,9 +190,9 @@ StartTinyTask1() {
         }
     }
     
-    ; Click the confirm button after selecting cards
+
     Sleep(500)
-    BetterClick(962,571) ; Adjust this position if needed for the confirm button
+    BetterClick(962,571)
     Sleep(500)
     StartTinyTask1()
     Sleep(500)
