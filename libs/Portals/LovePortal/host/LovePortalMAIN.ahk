@@ -248,7 +248,6 @@ WaitForMatchStart_HOST() {
     loop {
         ; Wait for the voting text to disappear
         if !(ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, VotingText)) {
-            MsgBox("World: " . WorldLoaded . "`nHost: " . PlayerHost . "`nPosition: " . selectedPosition)
 
             LookDown1(selectedPosition, WorldLoaded, PlayerHost)
             break

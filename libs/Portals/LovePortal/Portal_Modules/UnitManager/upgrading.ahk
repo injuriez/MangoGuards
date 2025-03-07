@@ -106,6 +106,7 @@ UpgradeUnits(x, y, upgrade) {
         Sleep(500)
 
         if (ok := FindText(&X, &Y, 449 - 150000, 387 - 150000, 449 + 150000, 387 + 150000, 0, 0, LEVELTHREE)) {
+            CheckPortalStatus(WorldRightNOW)
             return
         } else {
             UpgradeUnits(x, y, upgrade)
@@ -124,6 +125,7 @@ UpgradeUnits(x, y, upgrade) {
         Sleep(500)
 
         if (ok := FindText(&X, &Y, 446 - 150000, 387 - 150000, 446 + 150000, 387 + 150000, 0, 0, levelsix)) {
+            CheckPortalStatus(WorldRightNOW)
             return
         } else {
 
