@@ -175,7 +175,7 @@ HostAwaitingVote(position := "", host := "", CurrentWorldPlaying := "") {
         selectedPosition := position
     if (host != "")
         PlayerHost := host
-    MsgBox(PlayerHost)
+ 
     Countdown(0, "Waiting for world...")
 
     ;So when the player picks another portal after the last portal and picks the same portal the ui vote will pop up 
