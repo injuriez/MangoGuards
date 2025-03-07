@@ -1,7 +1,7 @@
 #Requires Autohotkey v2
 #Include libs/Portals/WinterPortals/WinterPortal.ahk
-#Include libs/Portals/LovePortal/host/LovePortalMAIN.ahk ; For hosting Players
-#Include libs/JXON_ahk2-master/JXON_ahk2-master/_JXON.ahk
+; #Include libs/Portals/LovePortal/host/LovePortalMAIN.ahk ; For hosting Players
+
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
 #Include libs/Legend/Bleach/AllStages.ahk
@@ -110,7 +110,7 @@ CreateTabControl(myGui) {
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", ShowWinterPortalTab)
 
-    ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23 ", "Love Portal")
+    ValentinePortal := myGui.Add("Button", " Disabled x178 y120 w100 h23 ", "Love Portal")
     ValentinePortal.OnEvent("Click", ShowLovePortalTab)
 
     ; Winter Portal Tab
@@ -237,7 +237,8 @@ start(*) {
             if MacroSelected.Name == "WinterPortal" {
                 WinterPortal(WinterPortal_data.World) 
             } else if MacroSelected.Name == "ValentinePortal" {
-                LovePortalMain(LovePortal_data.Position, LovePortal_data.Hosting)
+                MsgBox("WIP")
+                ; LovePortalMain(LovePortal_data.Position, LovePortal_data.Hosting)
             } else if MacroSelected.Name == "Bleach" {
                 LegendStart()
             } else {
