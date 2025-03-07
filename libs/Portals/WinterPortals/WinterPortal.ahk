@@ -3,12 +3,12 @@
 #Include ../../Modules.ahk
 #Include ../../FindText.ahk
 #Include ../../../TinyTaskRE.ahk
-
+#Include ../../webhook.ahk
 global connection
 global SelectedWorldd := "."  ; Assign a default value
 
 class WinterVAR {
-    static Namek_Loading := "|<>*63$252.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz03zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs000Dzzy01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU0001zzy00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU0000Tzy00zzzzzzzzzzzzzzzzzzzzzzzzz0Tzzzzz000007zy00zzzzzzzzzzzzzzzzzzzzzzzzw07zzzzz000001zy00zzzzzzzzzzzzzzzzzzzzzzzzw07zzzzz000000zy00zzzzzzzzzzzzzzzzzzzzzzzzs07zzzzz000000Ty00zzzzzzzzzzzzzzzzzzzzzzzzs07zzzzz000000Dy00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz000000Dy00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz0000007y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz0000003y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz0000003y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz0000001y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz00TzU01y00zzzzzzzzzzzzzzzzzzzzzzzzs03zzzzz00Tzs01y00zzzzzzzzzzzzzzzzzzzsDzzzs03zzzzz00Tzw01y00zzzzUzw3zw1zkDzzzzy00Tzy8021zzzz00Tzw00y00zzzw07k0zk0T01zzzzk007zs0000Dzzz00Tzy00y00zzzk01U0zk0Q00Tzzz0001zs0000Dzzz00Tzy00y00zzz000U0TU0M007zzy0000zs00007zzz00Tzy00y00zzy00000TU00003zzs0000Tk00007zzz00Tzy00y00zzw00000TU00001zzk0000Dk00007zzz00Tzy00y00zzs00000TU00001zzU00007k00007zzz00Tzw00y00zzk00000TU00000zzU00003k00007zzz00Tzw01y00zzU00000TU00000Tz000003k00007zzz00Tzs01y00zzU00000TU00000Ty000003k00007zzz00TzU01y00zz000000TU00000Dy000001s0000Dzzz0000001y00zz000000TU00000Dw007s01s0000Dzzz0000003y00zy000000TU000007w00Tw01w0000Tzzz0000003y00zy007k00TU01y007w00zy01zs03zzzzz0000007y00zy00Tw00TU03zU07s01zy01zs03zzzzz0000007y00zw00zw00TU07zk07s01zy01zs03zzzzz000000Dy00zw00zy00TU0Dzk03s01zw01zs03zzzzz000000Ty00zw01zy00TU0Dzs03s000001zs03zzzzz000000zy00zw01zz00TU0Dzs03s000001zs03zzzzz000001zy00zw01zz00TU0Dzs03s000001zs03zzzzz000007zy00zw01zz00TU0Dzs03s000003zs03zzzzz00000Dzy00zw01zy00TU0Dzs03s000007zs03zzzzz00000zzy00zw00zy00TU0Dzs03s00000Dzs03zzzzz00007zzy00zw00zw00TU0Dzs03s00000zzs03zzzzz00Tzzzzy00zy00Ts00TU0Dzs03s01zzzzzs03zzzzz00Tzzzzy00zy007k00TU0Dzs03w01zzzzzs03zzzzz00Tzzzzy00Dy000000TU0Dzs03w00zzzzzs01zzzzz00Tzzzzy000z000000TU0Dzs03w00DzUTzs001zzzz00Tzzzzy000z000000TU0Dzs03y001s0Dzs000zzzz00Tzzzzy000TU00000TU0Dzs03y00000Dzw000Tzzz00Tzzzzz000TU00000TU0Dzs03z000007zw000Tzzz00Tzzzzz000Tk00000TU0Dzs03z000007zw000Tzzz00Tzzzzz000Ts00000TU0Dzs03zU00003zy000Tzzz00Tzzzzz000Tw00000TU0Dzs03zk00003zy000Tzzz00TzzzzzU00Ty00000TU0Dzs03zs00007zz000Tzzz00TzzzzzU00Tz00000TU0Dzs03zw00007zzU00TzzzU0zzzzzzk00TzU01U0TU0Tzs07zy0000Dzzk00TzzzU0zzzzzzw00zzs07U0zk0Tzw07zzU000Tzzw00zzzzs3zzzzzzzU1zzz0Ts3zw1zzz0Tzzs001zzzzU1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz00TzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
+    static Namek_Loading := "|<>*63$243.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs3zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw0DzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU000zzzs07zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk0000zzz00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy00001zzs03zzzzzzzzzzzzzzzzzzzzzzzzw1zzzzU00003zz00Tzzzzzzzzzzzzzzzzzzzzzzzy03zzzw000007zs03zzzzzzzzzzzzzzzzzzzzzzzzk0TzzzU00000Tz00Tzzzzzzzzzzzzzzzzzzzzzzzw03zzzw000001zs03zzzzzzzzzzzzzzzzzzzzzzzzU0TzzzU000007z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw000000zs03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU000003z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw000000Ds03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU000001z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw0000007s03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU0Dzk00z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw01zzU07s03zzzzzzzzzzzzzzzzzzzUzzzzU0DzzzU0Dzy00z00TzzzkTy1zy0zs7zzzzz00Dzz4010zzw01zzk03s03zzzk0T03z01w07zzzz000TzU0000zzU0Dzz00T00Tzzs00k0Ts0C00DzzzU000zw00007zw01zzs03s03zzw00201y01U00Tzzs0003zU0000TzU0Dzz00T00Tzz00000Dk00001zzw0000Ds00003zw01zzs03s03zzk00001y000007zz00000z00000TzU0Dzz00T00Tzw00000Dk00000zzk00003s00003zw01zzk03s03zz000001y000003zy00000D00000TzU0Dzy00z00Tzk00000Dk00000DzU00001s00003zw01zzU07s03zy000001y000001zs00000D00000TzU0Dzk00z00TzU00000Dk000007z000000w00007zw0000007s03zw000001y000000zk00TU07U0000zzU000001z00Tz000000Dk000003y00Dy00y0000Dzw000000Ds03zs00T001y007s00Tk03zs07zU0DzzzU000003z00Tz00Dy00Dk01zk03w00zz00zw01zzzw000000Ts03zk03zk01y00Tz00TU07zs07zU0DzzzU000007z00Ty00Tz00Dk07zs01w00zy00zw01zzzw000001zs03zk07zs01y00zzU0DU000007zU0DzzzU00000Tz00Ty00zzU0Dk07zw01w000000zw01zzzw000007zs03zk07zw01y00zzU0DU000007zU0DzzzU00003zz00Ty00zzU0Dk07zw01w000001zw01zzzw00000zzs03zk07zs01y00zzU0DU00000TzU0DzzzU0000Tzz00Ty00Tz00Dk07zw01w000007zw01zzzw0000Tzzs03zk03zk01y00zzU0DU00003zzU0DzzzU0Dzzzzz00Tz00Dw00Dk07zw01w00zzzzzw01zzzw01zzzzzs03zs00T001y00zzU0Dk07zzzzzU0DzzzU0Dzzzzz007z000000Dk07zw01y00Tzzzzw00zzzw01zzzzzs003w000001y00zzU0Dk00zy1zzU007zzU0Dzzzzz000TU00000Dk07zw01z000w07zw000Tzw01zzzzzs001y000001y00zzU0Ds00000zzk001zzU0DzzzzzU00Dk00000Dk07zw01zU00003zy000Dzw01zzzzzw001z000001y00zzU0Dw00000Tzk001zzU0DzzzzzU00Dw00000Dk07zw01zk00001zz000Dzw01zzzzzw001zk00001y00zzU0Dz00000Dzs001zzU0Dzzzzzk00Dz00000Dk07zw01zw00003zzU00Dzw01zzzzzy001zw00001y00zzU0Dzk0000Tzy001zzk0Tzzzzzs00Dzk00k0Dk0Dzw03zz00007zzs00Dzy03zzzzzzk03zzU0S03z01zzk0Tzy0001zzzk03zzw1zzzzzzzk0zzzUDw1zy0zzzUDzzw000zzzzk0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 }
 Countdown(seconds, text) {
     global CountdownText
@@ -32,7 +32,12 @@ StartTinyTask() {
     Sleep(100)
     Send("{F8 up}")
     Sleep(1000)
+    WinORloserChecker()
+    
+}
+WinORloserChecker() {
     Loop {
+        Sleep(500)
         if (ok := FindText(&X, &Y, 1040-150000, 345-150000, 1040+150000, 345+150000, 0, 0, PortalPicker)) {
             Sleep(1000)
             Send("{F8 down}")
@@ -43,6 +48,7 @@ StartTinyTask() {
             CountdownText.Text := ""
             break
         } else {
+            Sleep(500)
             if (ok := FindText(&X, &Y, 667-150000, 247-150000, 667+150000, 247+150000, 0, 0, Failed)) {
                 Sleep(1000)
                 Send("{F8 down}")
@@ -91,21 +97,21 @@ CollectRewards() {
                     if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
                         BetterClick(portal.x, portal.y + 120)
                         Sleep(2000)
-                        Yesbutton()
+                        Yesbutton1()
                         return true
                     }
                 case "Shibuya":
                     if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
                         BetterClick(portal.x, portal.y + 120)
                         Sleep(2000)
-                        Yesbutton()
+                        Yesbutton1()
                         return true
                     }
                 case "Spider":
                     if (FindText(&X, &Y, 1061-150000, 618-150000, 1061+150000, 618+150000, 0, 0, spider)) {
                         BetterClick(portal.x, portal.y + 120)
                         Sleep(2000)
-                        Yesbutton()
+                        Yesbutton1()
                         return true
                     }
             }
@@ -127,19 +133,19 @@ CollectRewards() {
     }
 }
 
-Yesbutton() {
+Yesbutton1() {
     loop {
         if (ok := FindText(&X, &Y, 841-150000, 568-150000, 841+150000, 568+150000, 0, 0, yes)) {
             BetterClick(X, Y)
             Sleep(500)
-            CancelButton()
+            CancelButton1()
             Sleep(1000)
             break
         } else {
             if (ok := FindText(&X, &Y, 853-150000, 556-150000, 853+150000, 556+150000, 0, 0, darkerYes)) {
                 BetterClick(X, Y)
                 Sleep(2000)
-                CancelButton()
+                CancelButton1()
                 Sleep(1000)
                 break
             }
@@ -147,7 +153,7 @@ Yesbutton() {
     }
 }
 
-CancelButton() {
+CancelButton1() {
     ; global presents
     loop {
         if (ok := FindText(&X, &Y, 961-150000, 569-150000, 961+150000, 569+150000, 0, 0, cancel)) {
@@ -160,7 +166,10 @@ CancelButton() {
             Sleep(500)
             BetterClick(X, Y)
             Sleep(500)
+
             BetterClick(X, Y)
+            Sleep(1000)
+            InitiateWebhook()
             Sleep(1000)
             PickPortalsAGAIN()
             break
@@ -179,6 +188,7 @@ PickPortalsAGAIN() {
 }
 
 findvoting() {
+    Countdown(0, "waiting for voting ui")
     loop {
         if (ok := FindText(&X, &Y, 925-150000, 109-150000, 925+150000, 109+150000, 0, 0, voteDectect)) {
             ; if find voting ui then start countdown
@@ -189,22 +199,12 @@ findvoting() {
     }
 }
 
-SmoothMouseMove(targetX, targetY, speed := 2) {
-    MouseGetPos(&startX, &startY)
-    count := 25  ; number of steps
-    
-    Loop count {
-        progress := A_Index / count
-        currentX := startX + (targetX - startX) * progress
-        currentY := startY + (targetY - startY) * progress
-        MouseMove(Round(currentX), Round(currentY))
-        Sleep(speed)
-    }
-}
 
 WinterPortal(world) {
     global SelectedWorldd  ; Ensure SelectedWorldd is global
     SelectedWorldd := world ; Assign world to SelectedWorldd
+    Countdown(0, "Namek Selected")
+
     
     if (world == "Namek") {
         namekworld()
@@ -214,6 +214,7 @@ WinterPortal(world) {
 }
 
 namekworld() {
+    Countdown(0, "Namek world")
     baseX := 531
     baseY := 432
     
@@ -274,7 +275,7 @@ namekworld() {
                         }        
                                                
                         Loop {
-                            if (ok := FindText(&X, &Y, 149-150000, 911-150000, 149+150000, 911+150000, 0, 0, WinterVAR.Namek_Loading)) {
+                            if (ok := FindText(&X, &Y, 149-150000, 912-150000, 149+150000, 912+150000, 0, 0, WinterVAR.Namek_Loading)) {
                                 Countdown(0, "Loading into [planet namek]")
                                 Sleep(2000)
                                 findvoting()

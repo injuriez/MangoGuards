@@ -26,7 +26,7 @@ class Cards {
     ;     {
     ;       ; FindText().Click(X, Y, "L")
     ;     }
-    static thirce := {
+    static thrice := {
         id: "<>*15$73.zzzzzzzzzzzzzzzszzz7zzzzzU0ATzzXzzzzzk02Dzzlzzzzzw037zztzzzzzzsTXzzzzzzzzzwDl7l6D1w3zzy7s1s370Q0zzz3w0Q1X0A0TzzVy467lV6CDzzkz737slz07zzsTXVXwMzU3zzwDlklyA9lzzzy7ssMz60M1zzz3wQATXUC0TzznyDCDlsDUTzzzzzzzzzzzzzzzzzzzzzzzzzU",
         prio: 6
     }
@@ -147,7 +147,7 @@ StartTinyTask1() {
         {name: "immunity", id: Cards.immunity.id, priority: Cards.immunity.prio},
         {name: "exploding", id: Cards.exploding.id, priority: Cards.exploding.prio},
         {name: "revitalize", id: Cards.revitalize.id, priority: Cards.revitalize.priority},
-        {name: "thirce", id: Cards.thirce.id, priority: Cards.thirce.prio}
+        {name: "thrice", id: Cards.thrice.id, priority: Cards.thrice.prio}
     ]
     
     cardsArray := SortByPriority(cardsArray)

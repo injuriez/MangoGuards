@@ -1,4 +1,9 @@
 #Requires AutoHotkey v2.0
+#Include ../../AllText.ahk
+#Include ../../Modules.ahk
+#Include ../../FindText.ahk
+#Include ../../../TinyTaskRE.ahk
+#Include LoveModules.ahk
 global connection
 
 global playerhosting := false
@@ -13,8 +18,37 @@ global playerhosting := false
 ;     }
 ; }
 
+class LovePortal_VAR {
+    static MatchStarted := "|<>*92$250.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001z0000000000000000000000Ds000Tk07w00000000Dy0001zk0000000000000001zrw03zU0zs000Ds001ss000TzsDk0000003w00000Dzzs0Tz07zk001zk0071k003sTlzk000000Tw00000sDzk1kQ0w7000DjU00s7000S07jzU000003zs00003Uw70C0s7UQ000sC003UQ003U0CsC000000C3U0000C1kQ0s3kQ0k0030s00C1k00S00T0s000000sC00000s61k3U7XU3000A3U0Us7001k01w3U0000030s04003UM70C0CS0ADzxkDkzvUTs07007kDkTztzzw3wDz03y1UQ0s0Tk0nzzz0zjzy1zk0M3Uz0zXzzzzzkDvzz0zs61k3U0y03TbXw1Ty7s7zk3UTbw1zzzzzwz0TzUyDzUM70C03k0Dk4700T07UE7UC1zz00TU8D10k07k0xw01UQ0s0700y00M01s0600C0M1zs01w00s0100S01z0061k3U0803k01U0700M00Q1k0TU07U03U0001k03s00M70C0000S00600M01U01k700S00Q00C00U06007001UQ0s4021s00Q01U06003UC00Q01k00s0300M00Q0061k3UM087081w1w0ks00C0w00s0C003U6S030S1U00M70C1k1UQ3s7kDkDrUD0M1w03kDs7kC1zw3w3s60w1UQ0s70C1kDUT0z0zy1y1UDz0D0zUT0s7zkDk00M7k71k3US0s70y1w3w3zs7s61zz0w3i1w3UQ30z001UT0SD0C1w7UQ3s7kDkDzUTUM73w3kDs7kC1kA3w00C1w1zs0s7ty1k70T0T0SS1y1Us7kD0zUC0s70kDk7zs3U7zU3UTzs7001y0Q00s7s63UC0y0y003UQ30D0TzU00Q70C1rtUS007s0s01UTUMC003s0w00C1kC0C00D001UQ0s7061w00TU3U061y1Uw00TU3k00s70s0s00y0060k3UQ0M7k01y0D00M7s61k01y07U03UQ3U1k03s00s3061k1kTk07Q0z03UTUM3U0CQ0z00C1k70DU0Dk03UQ0QD071rUkQw3y0z3z3UDU3kw3z1Uw70T0z01zk8D1k1zs0DyDzzVzwzzzyTy0Dzy3zwTzzzs0zzzkzDzzzz03z00zkTzw3zlzwzkzk0Tzk3zkzzzz00zwzzsDzzzs03k00Q0C701w0z0y1w00Tw03w0yT3s00z0zy0Dzlz000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000U"
+}
+class LovePortal_Namek {
+    static Namek_PO1 := {
+        Value: "yes",
+        Cords: ""
+    }
+    static Namek_PO2 := {
+        Value: "yes",
+        Cords: ""
+    }
+    static Namek_PO3 := {
+        Value: "yes",
+        Cords: ""
+    }
+}
 
-LovePortal(hosting) {
+; class LovePortal_Portals {
+;     static Namek := {
+;         Value: "|<>*87$120.TzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzTzyTzzzzzzzzzzzzzztzT0CDzzzzzDyDXzzzzzszT06Dzzzzz7y7VzzzzzszT02Dzzzzz7y3VzzzzzszT72Dzzzzy1y3VzzzzzszT7UDWN7sA1y1VWM37WMXT72D0M1U41y0V0M030M3T02C0M1U61y000M000M3T06CAMkX77yA0AMkUAM7T0CAQMs077yA0QMlkQM7T3yCAMsUT7yC0AMlkAM7T7y60MsVD1yD00Mlk0M3T7y70MsU71yDX0Mll0MVT7z7WNtsDVyDnWMlnWNnTzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzU",
+;         Cords: "&X, &Y, 999-150000, 644-150000, 999+150000, 644+150000, 0, 0"
+;     }
+;     static DoubleDungeon := {
+;         Value: "|<>*95$61.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyTtzzw0zzzz7wTzy07zzzXyDzz03zzzlz7zzXkzzzsbXzzlwQDDA1lsDsyA1XW0Mk3wT00ll0AM1yDUA8sX2AMz7UD4QFV40TXUX2A8lX0zk0k3040kVDs0w1k20sE3w1z3wH8yC3zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+;         cord: "&X, &Y, 1166-150000, 634-150000, 1166+150000, 634+150000, 0, 0"
+;     }
+; }
+
+
+LovePortal(hosting, position) {
     global playerhosting
     playerhosting := hosting
 
@@ -35,7 +69,13 @@ findvoting_Love() {
             ; if find voting ui then start countdown
             CountdownLove(0, "Found Voting UI")
             Sleep(5000)
-            CountdownLove(20, "")
+            ; Presses yes button for the vote
+            Sleep(1000)
+        
+            LovePosition()
+            Sleep(500)
+            break
+            ; CountdownLove(20, "")
         }
     }
 }
@@ -73,15 +113,15 @@ Host() {
         while (scrollCount <= maxScrolls) {
             row := 0
             col := 0
-            Sandvillage := false
+            WorldLoaded := false
 
             while (row < 3) {
                 while (col < 6) {
                     SmoothMouseMove(baseX + (col * colSpacing), baseY + (row * rowSpacing))
                     Sleep(500) 
 
-                    if (FindText(&X, &Y, 999-150000, 644-150000, 999+150000, 644+150000, 0, 0, Love_NAMEK)) {
-                        Sandvillage := true
+                    if (FindText(LovePortal_Portals.Namek.Cords, Love_NAMEK)) {
+                        WorldLoaded := true
                         MouseGetPos(&mouseX, &mouseY)
                         BetterClick(mouseX, mouseY)
                         
@@ -133,7 +173,7 @@ Host() {
                 row++
             }
 
-            if (!Sandvillage) {
+            if (!WorldLoaded) {
                 SmoothMouseMove(baseX, baseY + (2 * rowSpacing))
                 Sleep(200)
                 Send("{WheelDown}")
@@ -307,14 +347,14 @@ LoveCancelButton() {
     }
 }
 
-LovePickPortalsAGAIN() {
-    global playerhosting
-    if (playerhosting == true) {
-        Namek_lovee()
-    } else {
-        NonHost()
-    }
-}
+ LovePickPortalsAGAIN() {
+     global playerhosting
+     if (playerhosting == true) {
+         Namek_lovee()
+     } else {
+         NonHost()
+     }
+ }
 
 Namek_lovee() {
     ; Initialize base coordinates and spacing
@@ -372,4 +412,33 @@ while (scrollCount <= maxScrolls) {
         break
     }
 }
+}
+
+
+LovePosition() {
+    ; DETECT MATCH STARTED
+    BetterClick(880, 180) ;Clicks the yes button for the voting ui
+    loop {
+        if (ok:=FindText(&X, &Y, 962-150000, 844-150000, 962+150000, 844+150000, 0, 0, LovePortal_VAR))
+            {
+              Sleep(500) ;TIMEOUT
+              ; Lets Zoom out real quicky
+              LookDown()
+              Sleep(1000)
+              PlaceDownSpeedWagon()
+              Sleep(1000)
+              SpeedWagonSpectate() ; Clicks Spectate
+              Sleep(500)
+              Respawn()
+              break
+
+
+            }
+    }
+
+}
+
+Respawn() {
+    ; This function will find the position the player is at and also move the camera by using the spectate mode
+
 }

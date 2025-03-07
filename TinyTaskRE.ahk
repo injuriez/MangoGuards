@@ -1,20 +1,38 @@
 #Requires Autohotkey v2
 #Include libs/Portals/WinterPortals/WinterPortal.ahk
-#Include libs/Portals/WinterPortals/LovePortal.ahk
+#Include libs/Portals/LovePortal/host/LovePortalMAIN.ahk ; For hosting Players
+#Include libs/JXON_ahk2-master/JXON_ahk2-master/_JXON.ahk
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
 #Include libs/Legend/Bleach/AllStages.ahk
-; Global Variables
+
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
 global CountdownText := "" 
 global connection := ""
-global text := ""  ; 
+global text := ""
 global hometab := "" 
+global winterTab := ""
+global loveTab := ""
 global myGui := ""
-global SelectedWorld := 1
-global worldSelect := ""
-global hosting := false
+global DisplaySessions 
+
+; Use these data objects to store both settings and UI references
+global WinterPortal_data := {
+    World: "Namek",
+    worldSelect: "" ; Will store the ListBox reference
+}
+
+global LovePortal_data := {
+    Hosting: false, 
+    Position: "Start",
+    hostingSwitch: "", ; Will store the CheckBox reference
+    positionSelect: "" ; Will store the ListBox reference
+}
+
+global Legends_data := {
+    World: "Bleach"
+}
 
 CreateGui() {
     myGui := Gui("+AlwaysOnTop")
@@ -47,13 +65,14 @@ CreateLeftPanel(myGui) {
 
     ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
     ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Stats")
-    ButtonUpdates := myGui.Add("Button", "x8 y128 w145 h23", "Updates!")
+
+    Settings := myGui.Add("Button", "x8 y128 w145 h23", "Settings")
 
     
     ; Add button events
     ButtonAnimeVanguards.OnEvent("Click", Home)
     ButtonMacroStats.OnEvent("Click", stats)
-    ButtonUpdates.OnEvent("Click", updates)
+    Settings.OnEvent("Click", SettingFUNC)
 
     myGui.Add("Picture", "x8 y8 w24 h20", A_ScriptDir "\.\libs\photos\K.png")
     myGui.Add("Picture", "x8 y32 w25 h20", A_ScriptDir "\.\libs\photos\M.png")
@@ -74,8 +93,12 @@ CreateStatsPanel(myGui) {
     myGui.Add("Text", "x24 y272 w105 h23 +0x200", "Presents - 0")
 
 }
+CreateSettingsPanel(myGui) {
+    myGui.Add("Text", "x168 y64 w225 h160 +0x8", "dsa")
+}
 CreateTabControl(myGui) {
-    global hometab, SelectedWorld, worldSelect, winterTab, loveTab
+    global hometab, winterTab, loveTab
+    global WinterPortal_data, LovePortal_data, Legends_data
     
     hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Legend"])
     
@@ -87,57 +110,83 @@ CreateTabControl(myGui) {
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", ShowWinterPortalTab)
 
-    ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23 Disabled", "Love Portal")
+    ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23 ", "Love Portal")
     ValentinePortal.OnEvent("Click", ShowLovePortalTab)
 
+    ; Winter Portal Tab
     winterTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Winter Portal Settings"])
     winterTab.UseTab(1)
-    worldSelect := myGui.Add("ListBox", "x186 y94 w100 h40", ["Namek", "Shibuya"])
-    SelectedWorld := worldSelect.Text  
-    worldSelect.OnEvent("Change", OnWorldSelect)
-    backBtn1 := myGui.Add("Button", "x186 y140 w100 h23", "Back")
+    WinterPortal_data.worldSelect := myGui.Add("ListBox", "x186 y94 w100 h40", ["Namek", "Shibuya"])
+    backBtn1 := myGui.Add("Button", "x180 y190 w100 h23", "Back")
+    ApplyBtn1 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
+    ApplyBtn1.OnEvent("Click", ApplyWinterPortalSettings)
     backBtn1.OnEvent("Click", ShowPortalsTab)
 
+    ; Love Portal Tab
     loveTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden ", ["Love Portal Settings"])
     loveTab.UseTab(1)
-    hostingSwitch := myGui.Add("CheckBox", "x186 y94 w80 h23", "Hosting")
-    hostingSwitch.OnEvent("Click", ToggleHosting)
-    backBtn2 := myGui.Add("Button", "x186 y140 w100 h23", "Back")
+    LovePortal_data.hostingSwitch := myGui.Add("CheckBox", "x186 y94 w80 h23", "Hosting")
+    myGui.Add("Text", "x270 y74 w100 h23", "Position")
+    LovePortal_data.positionSelect := myGui.Add("ListBox", "x270 y94 w100 h40", ["Start", "Middle", "End"])
+    backBtn2 := myGui.Add("Button", "x180 y190 w100 h23", "Back")
     backBtn2.OnEvent("Click", ShowPortalsTab)
-
-    ; Gems Tab
+    applyBTN2 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
+    applyBTN2.OnEvent("Click", ApplyLovePortalSettings)
+    
+    ; Legend Tab
     hometab.UseTab(3)
     bleachBtn := myGui.Add("Button", "x178 y94 w100 h23", "Bleach Secret")
     bleachBtn.OnEvent("Click", SetBleachWorld)
-
-
     
     hometab.UseTab() 
 }
+ApplyWinterPortalSettings(*) {
+    global WinterPortal_data, myGui, MacroSelected
+    WinterPortal_data.World := WinterPortal_data.worldSelect.Text
+    MacroSelected.Name := "WinterPortal"
+    myGui.Title := "MangoGuards [Winter Portal - " WinterPortal_data.World "]"
+}
 
-ShowWinterPortalTab(*) {
-    global hometab, winterTab, worldSelect, SelectedWorld
-    hometab.Visible := false
-    winterTab.Visible := true
+ApplyLovePortalSettings(*) {
+    global LovePortal_data, myGui, MacroSelected
+    LovePortal_data.Position := LovePortal_data.positionSelect.Text
+    
 
-
-    if !SelectedWorld || SelectedWorld = ""
-    {
-        worldSelect.Choose(1) 
-        Sleep 50 
-    }
-
-
-    SelectedWorld := worldSelect.Text
+    LovePortal_data.Hosting := LovePortal_data.hostingSwitch.Value ? "true" : "false"
+    
+    MacroSelected.Name := "ValentinePortal"
+    myGui.Title := "MangoGuards [Valentine Portal] - " LovePortal_data.Position " - " (LovePortal_data.Hosting = "true" ? "Hosting" : "Not Hosting")
 }
 
 
+ShowWinterPortalTab(*) {
+    global hometab, winterTab, WinterPortal_data
+    hometab.Visible := false
+    winterTab.Visible := true
+
+    if (!WinterPortal_data.worldSelect.Text) {
+        WinterPortal_data.worldSelect.Choose(1) 
+        Sleep(50)
+    }
+
+    WinterPortal_data.World := WinterPortal_data.worldSelect.Text
+    
+    ; Call ApplyWinterPortalSettings to set initial values
+    ApplyWinterPortalSettings()
+}
 
 ShowLovePortalTab(*) {
-    global hometab, myGui
+    global hometab, loveTab, LovePortal_data
     hometab.Visible := false
     loveTab.Visible := true
-    SetValentinePortal()
+    
+    if (!LovePortal_data.positionSelect.Text) {
+        LovePortal_data.positionSelect.Choose(1)
+    }
+    
+    LovePortal_data.hostingSwitch.Value := LovePortal_data.Hosting
+    
+    ApplyLovePortalSettings()
 }
 
 ShowPortalsTab(*) {
@@ -148,16 +197,8 @@ ShowPortalsTab(*) {
     hometab.Value := 2  
 }
 
-OnWorldSelect(*) {
-    global SelectedWorld, worldSelect
-    SelectedWorld := worldSelect.Text
-    SetWinterPortal()
-}
-toggleHosting(*) {
-    global hosting, connection
-    
-    hosting := !hosting
-}
+
+
 CreateFooter(myGui) {
     global connection
     
@@ -168,30 +209,19 @@ CreateFooter(myGui) {
 }
 
 
-SetWinterPortal(*) {
-    global MacroSelected, myGui, SelectedWorld, worldSelect
-    
-    MacroSelected.Name := "WinterPortal"
-    SelectedWorld := worldSelect.Text 
-    myGui.Title := "MangoGuards [Winter Portal - " SelectedWorld "]"
-}
 
-SetValentinePortal(*) {
-    global MacroSelected, myGui, SelectedWorld
-    
-    MacroSelected.Name := "ValentinePortal"
-    myGui.Title := "MangoGuards [Valentine Portal - " SelectedWorld "]"
-}
+
 
 SetBleachWorld(*) {
-    global MacroSelected, myGui, SelectedWorld
-    SelectedWorld := "Bleach"
+    global MacroSelected, myGui, Legends_data
+    
+    Legends_data.World := "Bleach"
     MacroSelected.Name := "Bleach"
     myGui.Title := "MangoGuards [Bleach]"
 }
 ; Event Handlers
 start(*) {
-    global MacroSelected, SelectedWorld, hosting
+    global MacroSelected, WinterPortal_data, LovePortal_data, Legends_data
     GetDisplayInfo()
     fullscreen := IsRobloxFullscreen()
 
@@ -199,53 +229,81 @@ start(*) {
         MsgBox("Set your roblox to full screen in roblox settings")
         return
     } else {
-        if displayInfo.width < 1920 or displayInfo.height < 1080 or displayInfo.scaling != 100  or !fullscreen {
+        if displayInfo.width < 1920 or displayInfo.height < 1080 or displayInfo.scaling != 100 or !fullscreen {
             MsgBox("Warning: your display resolution is " displayInfo.width "x" displayInfo.height " at " displayInfo.scaling "% scaling. please use resolution 1920x1080 at 100% scaling.")
             return
         } else {
             MacroSelected.Enabled := true
-        if MacroSelected.Name == "WinterPortal" {
-            WinterPortal(SelectedWorld) 
-        } else if MacroSelected.Name == "ValentinePortal" {
-            LovePortal(hosting) 
-        } else if MacroSelected.Name == "Bleach" {
-            LegendStart()
-        } else {
-            MsgBox("No macro selected")
+            if MacroSelected.Name == "WinterPortal" {
+                WinterPortal(WinterPortal_data.World) 
+            } else if MacroSelected.Name == "ValentinePortal" {
+                LovePortalMain(LovePortal_data.Position, LovePortal_data.Hosting)
+            } else if MacroSelected.Name == "Bleach" {
+                LegendStart()
+            } else {
+                MsgBox("No macro selected")
+            }
         }
-        
     }
 }
-}
-    
-
 
 stop(*) {
     MacroSelected.Enabled := false
 }
 
 Home(*) {
-    text.Text := "Anime Macroguards"
+    text.Text := "Anime Mangoguards"
     hometab.Visible := true
 }
 
 stats(*) {
-    text.Text := "Macro Stats"
+    text.Text := "Mango Stats"
     hometab.Visible := false
 }
 
-updates(*) {
-    text.Text := "Updates!!"
-    hometab.Visible := false
+SettingFUNC(*) {
+    global SettingsGUI, Webhookbox, DisplaySessions ; Declare globally
+
+    hometab.Visible := true
+    SettingsGUI := Gui("+AlwaysOnTop")
+    SettingsGUI.SetFont("s8 w600", "Karla")
+    SettingsGUI.Add("Text", "x10 y8", "Webhook")
+    Webhookbox := SettingsGUI.Add("Edit", "x10 y25 w200", "")
+    
+    SaveBtn := SettingsGUI.Add("Button", "x10 y60 w100 h30", "Save")
+    SaveBtn.OnEvent("Click", SaveSettings)
+
+    SettingsGUI.Add("Text", "x10 y100", "Sessions")
+    DisplaySessions := SettingsGUI.Add("CheckBox", "x10 y120 w150 h30", "Display Session UI")
+    DisplaySessions.OnEvent("Click", (*) => SessionUIsave())
+    SettingsGUI.OnEvent("Close", CloseSettings)
+    SettingsGUI.Title := "Settings"
+    SettingsGUI.Show()
 }
 
+SaveSettings(*) {
+    global Webhookbox
+    TXTFILE := FileOpen(A_ScriptDir "\.\libs\settings\webhookURL.txt", "w")
+    TXTFILE.Write(Webhookbox.Text)
+    TXTFILE.Close()
+}
+
+CloseSettings(*) {
+    global SettingsGUI
+    SettingsGUI.Destroy()
+}
+SessionUIsave(*) {
+    global DisplaySessions
+    TXTFILE := FileOpen(A_ScriptDir "\.\libs\settings\SessionUI", "w")
+    TXTFILE.Write(DisplaySessions.Value)
+    TXTFILE.Close()
+}
 
 
 ; Hotkeys
 Hotkey "k", start
-Hotkey "m", stop
-Hotkey "9", (*) => ExitApp()
-Hotkey "8", (*) => Reload()
+Hotkey "m", (*) => Reload()
+
 
 ; Initialize GUI
 myGui := CreateGui()
