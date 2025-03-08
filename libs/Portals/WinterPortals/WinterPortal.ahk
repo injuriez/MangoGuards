@@ -262,17 +262,14 @@ namekworld() {
                             if (FindText(&X, &Y, 744-150000, 554-150000, 744+150000, 554+150000, 0, 0, usebutton)) {
                                 BetterClick(X, Y)
                                 Sleep(2000)
+                                BetterClick(781,553) ; presses create
+                                Sleep(1000)
+                                BetterClick(966,553) ; presses cancel
                                 
                                 break
                             }
                         }
-                        loop {
-                            if (ok := FindText(&X, &Y, 787-150000, 549-150000, 787+150000, 549+150000, 0, 0, create)) {
-                                BetterClick(X, Y)
-                                Sleep(100)
-                                break
-                            }
-                        }        
+                              
                                                
                         Loop {
                             if (ok := FindText(&X, &Y, 149-150000, 912-150000, 149+150000, 912+150000, 0, 0, WinterVAR.Namek_Loading)) {
@@ -351,13 +348,9 @@ shibuyaworld() {
                                 BetterClick(X, Y)
                                 Sleep(2000)
                                 
-                                loop {
-                                    if (ok := FindText(&X, &Y, 787-150000, 549-150000, 787+150000, 549+150000, 0, 0, create)) {
-                                        BetterClick(X, Y)
-                                        Sleep(100)
-                                        break
-                                    }
-                                }
+                                BetterClick(781,553) 
+                                Sleep(1000)
+                                BetterClick(966,553) 
                                                        
                                 Loop {
                                     if (ok := FindText(&X, &Y, 175-150000, 914-150000, 175+150000, 914+150000, 0, 0, shibuyaloading)) {

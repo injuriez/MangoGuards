@@ -1,6 +1,5 @@
 #Requires Autohotkey v2
 #Include libs/Portals/WinterPortals/WinterPortal.ahk
-; #Include libs/Portals/LovePortal/host/LovePortalMAIN.ahk ; For hosting Players
 
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
@@ -74,10 +73,10 @@ CreateLeftPanel(myGui) {
     ButtonMacroStats.OnEvent("Click", stats)
     Settings.OnEvent("Click", SettingFUNC)
 
-    myGui.Add("Picture", "x8 y8 w24 h20", A_ScriptDir "\.\libs\photos\K.png")
-    myGui.Add("Picture", "x8 y32 w25 h20", A_ScriptDir "\.\libs\photos\M.png")
-    myGui.Add("Text", "x40 y8 w77 h23 +0x200", "Start")
-    myGui.Add("Text", "x40 y32 w77 h23 +0x200", "Stop")
+    myGui.Add("Text", "x8 y8 w24 h20 +0x200", "K - ")
+    myGui.Add("Text", "x8 y32 w25 h20 +0x200", "F2 - ")
+    myGui.Add("Text", "x30 y8 w77 h23 +0x200", "Start")
+    myGui.Add("Text", "x35 y32 w77 h23 +0x200", "Stop")
 }
 
 CreateHeader(myGui) {
@@ -110,7 +109,7 @@ CreateTabControl(myGui) {
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", ShowWinterPortalTab)
 
-    ValentinePortal := myGui.Add("Button", " Disabled x178 y120 w100 h23 ", "Love Portal")
+    ValentinePortal := myGui.Add("Button", "  x178 y120 w100 h23 ", "Love Portal")
     ValentinePortal.OnEvent("Click", ShowLovePortalTab)
 
     ; Winter Portal Tab
@@ -150,7 +149,15 @@ ApplyWinterPortalSettings(*) {
 ApplyLovePortalSettings(*) {
     global LovePortal_data, myGui, MacroSelected
     LovePortal_data.Position := LovePortal_data.positionSelect.Text
-    
+
+    ; host
+    HostSettings := FileOpen(A_ScriptDir "\.\libs\Settings\LovePortal\host.txt", "w")
+    HostSettings.Write(LovePortal_data.hostingSwitch.Value ? "true" : "false")
+    HostSettings.Close()
+
+    ; World 
+    PositionSettings := FileOpen(A_ScriptDir "\.\libs\Settings\LovePortal\position.txt", "w")
+    PositionSettings.Write(LovePortal_data.positionSelect.Text)
 
     LovePortal_data.Hosting := LovePortal_data.hostingSwitch.Value ? "true" : "false"
     
@@ -205,7 +212,7 @@ CreateFooter(myGui) {
     myGui.Add("Text", "x8 y328 w138 h2 0x10")
     myGui.Add("Text", "x48 y336 w108 h17", "TinyTask")
     myGui.Add("Picture", "x8 y336 w35 h38 0x6 +Border", A_ScriptDir "\.\libs\photos\TinyTask.png")
-    connection := myGui.Add("Text", "x48 y352 w102 h18", "[DISCONNECTED]")
+    connection := myGui.Add("Text", "x48 y352 w100 h18", "[DISCONNECTED]")
 }
 
 
@@ -237,8 +244,8 @@ start(*) {
             if MacroSelected.Name == "WinterPortal" {
                 WinterPortal(WinterPortal_data.World) 
             } else if MacroSelected.Name == "ValentinePortal" {
-                MsgBox("WIP")
-                ; LovePortalMain(LovePortal_data.Position, LovePortal_data.Hosting)
+               
+                LovePortalFile()
             } else if MacroSelected.Name == "Bleach" {
                 LegendStart()
             } else {
@@ -246,6 +253,13 @@ start(*) {
             }
         }
     }
+}
+
+LovePortalFile() {
+    ; this opens a ahk file
+    Run(A_ScriptDir "\.\libs\Portals\LovePortal\host\LovePortalMAIN.ahk")
+    ; close the main ui 
+    ExitApp()
 }
 
 stop(*) {
@@ -303,7 +317,7 @@ SessionUIsave(*) {
 
 ; Hotkeys
 Hotkey "k", start
-Hotkey "m", (*) => Reload()
+Hotkey "m", (*) => ExitApp()
 
 
 ; Initialize GUI
