@@ -6,7 +6,7 @@
 
 #Include ../../../Portal_Modules/CollectRewards.ahk
 hostingplayer := "yes"
-WorldRightNOW := "Spirits"
+WorldRightNOW := "Spirit"
 unitManager25(Playerhost1) {
     global hostingplayer
     hostingplayer := Playerhost1
