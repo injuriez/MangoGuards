@@ -42,7 +42,7 @@ Aizen1(x, y) {
         Send("{1}")
         Sleep(500)
         BetterClick(x, y)
-       
+        Sleep(500)
         
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
@@ -59,7 +59,7 @@ Aizen2(x, y) {
         Sleep(500)
         BetterClick(x, y)
         
-        
+        Sleep(500)
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
         } else {
@@ -75,7 +75,7 @@ RandomUnit(x, y) { ; This is the only slot that supports monarch and other units
         Send("{2}")
         Sleep(500)
         BetterClick(x, y)
-       
+        Sleep(500)
         
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
@@ -92,7 +92,7 @@ Taka(x, y) {
         Sleep(500)
         BetterClick(x, y)
 
-        
+        Sleep(500)
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
         } else {
@@ -106,8 +106,8 @@ SpeedWagons(x, y) {
         Send("{6}")
         Sleep(500)
         BetterClick(x, y)
-  
-        
+        Sleep(500)
+ 
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
         } else {
@@ -122,8 +122,9 @@ SpeedWagons2(x, y) {
         Send("{6}")
         Sleep(500)
         BetterClick(x, y)
+        Sleep(500)
 
-        
+        Sleep(500)
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
         } else {
@@ -138,8 +139,7 @@ SpeedWagons3(x, y) {
         Send("{6}")
         Sleep(500)
         BetterClick(x, y)
-
-        
+        Sleep(500)
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
         } else {
@@ -154,7 +154,7 @@ Gojo(x, y) {
         Send("{3}")
         Sleep(500)
         BetterClick(x, y)
-   
+        Sleep(500)
         
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
@@ -171,7 +171,7 @@ Gojo2(x, y) {
         Sleep(500)
         BetterClick(x, y)
    
-        
+        Sleep(500)
         if (ok := FindText(&X, &Y, 368 - 150000, 386 - 150000, 368 + 150000, 386 + 150000, 0, 0, UnitPlaced)) {
             break
         } else {
