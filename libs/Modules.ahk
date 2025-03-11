@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0
-#Include OCR.ahk
+
 
 BetterClick(x, y) {
     MouseMove(x, y)
