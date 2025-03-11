@@ -184,11 +184,11 @@ CreateTabControl(myGui) {
     GemBtn := myGui.Add("Button", "x178 y94 w100 h23", "GEM Farm")
     GreenEssenceBTN := myGui.Add("Button", "Disabled x178 y120 w100 h23", "Green Essence")
     GemBtn.OnEvent("Click", GemFarm)
-    GreenEssenceBTN.OnEvent("Click", GreenEssenceFarm)
+    ; GreenEssenceBTN.OnEvent("Click", GreenEssenceFarm)
 
      
     ; 
-    TeamTab := myGui.Add("Tab3", "x168 y64 w225 h220 +0x8 +AltSubmit", ["Team Setup"])
+    TeamTab := myGui.Add("Tab3", " Disabled x168 y64 w225 h220 +0x8 +AltSubmit", ["Team Setup"])
     TeamTab.UseTab(1)
     
     ; Column headers
@@ -404,7 +404,8 @@ start(*) {
 
                 GemStart()
             } else if MacroSelected.Name == "Green Essence" {
-                GreenEssenceFarm()
+                ; GreenEssenceFarm()
+                MsgBox("Green Essence Farm not implemented")
             } else {
                 MsgBox("No macro selected")
             }
