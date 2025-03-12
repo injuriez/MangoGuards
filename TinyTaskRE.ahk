@@ -18,6 +18,7 @@ global loveTab := ""
 global myGui := ""
 global DisplaySessions 
 
+
 ; Use these data objects to store both settings and UI references
 global WinterPortal_data := {
     World: "Namek",
@@ -129,11 +130,14 @@ CreateHeader(myGui) {
 }
 
 CreateStatsPanel(myGui) {
-
-    myGui.Add("Text", "x24 y248 w105 h23 +0x200", "...")
-
-
+    
+    ; Create a multi-line, read-only text box with vertical scrollbar for logs
+    ActivityLog := myGui.Add("Text", "x830 y140 w238 h260 r7 cffffff +BackgroundTrans +Center", "Macro Launched")
+    ; Initialize with empty text or welcome message
 }
+
+; Function to add log entries
+
 CreateSettingsPanel(myGui) {
     myGui.Add("Text", "x168 y64 w225 h160 +0x8", "dsa")
 }

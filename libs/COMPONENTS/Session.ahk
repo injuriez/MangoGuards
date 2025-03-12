@@ -4,13 +4,11 @@
 global myGui := "", timerText := "", totalSeconds := 0
 
 CreateSessionUI(modeText := "WINTER PORTAL [HOST]") {
-    ; Create GUI with options for no caption (prevents moving) and always on top
     myGui := Gui("-Caption +AlwaysOnTop +ToolWindow")
-    myGui.Add("Picture", "x16 y8 w63 h62", "C:\Users\Peyto\Downloads\mango.png")
+    myGui.Add("Picture", "x16 y8 w63 h62", A_ScriptDir "\libs\COMPONENTS\mango.png")
     myGui.SetFont("s10 Bold")
     myGui.Add("Text", "x88 y8 w186 h23 +0x200", modeText)
 
-    ; Create timer text control with a variable reference - explicitly declare as global
     global timerText
     timerText := myGui.Add("Text", "x88 y40 w86 h23 +0x200", "⌚ 0:00:00")
 
@@ -25,17 +23,14 @@ CreateSessionUI(modeText := "WINTER PORTAL [HOST]") {
     guiWidth := 381
     guiHeight := 82
 
-    ; Calculate position for bottom right corner
-    xPos := screenWidth - guiWidth - 10  ; 10px margin from right edge
-    yPos := screenHeight - guiHeight - 10  ; 10px margin from bottom edge
+    xPos := screenWidth - guiWidth - 10  ;
+    yPos := screenHeight - guiHeight - 10 
 
-    ; Reset timer variables
+
     totalSeconds := 0
 
-    ; Show the GUI at the calculated position
     myGui.Show(Format("w{1} h{2} x{3} y{4}", guiWidth, guiHeight, xPos, yPos))
 
-    ; Set up timer function to update display every second
     SetTimer(UpdateTimer, 1000)
 }
 
