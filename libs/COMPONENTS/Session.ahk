@@ -5,7 +5,22 @@ global myGui := "", timerText := "", totalSeconds := 0
 
 CreateSessionUI(modeText := "WINTER PORTAL [HOST]") {
     myGui := Gui("-Caption +AlwaysOnTop +ToolWindow")
-    myGui.Add("Picture", "x16 y8 w63 h62", A_ScriptDir "\libs\COMPONENTS\mango.png")
+    
+    ; Create the image path and check if it exists
+    imagePath := A_ScriptDir "\libs\COMPONENTS\mango.png"
+    
+    ; Debug message box to show the path
+    MsgBox("Looking for image at: " imagePath "`nFile exists: " (FileExist(imagePath) ? "Yes" : "No"))
+    
+    ; Try to add the picture, with fallback if it fails
+    try {
+        myGui.Add("Picture", "x16 y8 w63 h62", imagePath)
+    } catch Error as e {
+        MsgBox("Error loading image: " e.Message)
+        ; Add text instead as fallback
+        myGui.Add("Text", "x16 y8 w63 h62", "🥭")
+    }
+    
     myGui.SetFont("s10 Bold")
     myGui.Add("Text", "x88 y8 w186 h23 +0x200", modeText)
 
@@ -26,7 +41,6 @@ CreateSessionUI(modeText := "WINTER PORTAL [HOST]") {
     xPos := screenWidth - guiWidth - 10  ;
     yPos := screenHeight - guiHeight - 10 
 
-
     totalSeconds := 0
 
     myGui.Show(Format("w{1} h{2} x{3} y{4}", guiWidth, guiHeight, xPos, yPos))
@@ -34,32 +48,30 @@ CreateSessionUI(modeText := "WINTER PORTAL [HOST]") {
     SetTimer(UpdateTimer, 1000)
 }
 
-; Update timer display function
+
 UpdateTimer() {
     global timerText, totalSeconds
     
-    ; Increment seconds
+
     totalSeconds++
     
-    ; Format time as h:mm:ss
+
     hours := Floor(totalSeconds / 3600)
     minutes := Floor(Mod(totalSeconds, 3600) / 60)
     seconds := Mod(totalSeconds, 60)
+
+    minStr := minutes < 10 ? "0" . minutes : minutes
+    secStr := seconds < 10 ? "0" . seconds : seconds
     
-    ; Update display
-    timerText.Value := Format("⌚ {1}:{2:02}:{3:02}", hours, minutes, seconds)
+ 
+    timerText.Value := "⌚ " . hours . ":" . minStr . ":" . secStr
 }
 
-; Function to reset the timer
 ResetTimer() {
     global totalSeconds
     totalSeconds := 0
 }
 
-; Function to close the UI
 CloseSessionUI() {
     ExitApp()
 }
-
-; Example of how to use the function - uncomment to test
-; CreateSessionUI()
