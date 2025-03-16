@@ -7,11 +7,11 @@ CreateSessionUI(modeText := "WINTER PORTAL [HOST]") {
     myGui := Gui("-Caption +AlwaysOnTop +ToolWindow")
     
     ; Create the image path and check if it exists
-    imagePath := A_ScriptDir "\libs\COMPONENTS\mango.png"
+    imagePath := A_ScriptDir "\mango.png"
     
-    ; Debug message box to show the path
 
-    
+
+    myGui.Add("Picture", "x16 y8 w63 h62", imagePath)
     myGui.SetFont("s10 Bold")
     myGui.Add("Text", "x88 y8 w186 h23 +0x200", modeText)
 
@@ -66,3 +66,6 @@ ResetTimer() {
 CloseSessionUI() {
     ExitApp()
 }
+
+F1::CreateSessionUI("winterportal")
+F2::Reload
