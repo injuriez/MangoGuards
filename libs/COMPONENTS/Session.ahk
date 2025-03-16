@@ -67,5 +67,3 @@ CloseSessionUI() {
     ExitApp()
 }
 
-F1::CreateSessionUI("winterportal")
-F2::Reload
