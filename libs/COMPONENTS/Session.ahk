@@ -10,16 +10,7 @@ CreateSessionUI(modeText := "WINTER PORTAL [HOST]") {
     imagePath := A_ScriptDir "\libs\COMPONENTS\mango.png"
     
     ; Debug message box to show the path
-    MsgBox("Looking for image at: " imagePath "`nFile exists: " (FileExist(imagePath) ? "Yes" : "No"))
-    
-    ; Try to add the picture, with fallback if it fails
-    try {
-        myGui.Add("Picture", "x16 y8 w63 h62", imagePath)
-    } catch Error as e {
-        MsgBox("Error loading image: " e.Message)
-        ; Add text instead as fallback
-        myGui.Add("Text", "x16 y8 w63 h62", "🥭")
-    }
+
     
     myGui.SetFont("s10 Bold")
     myGui.Add("Text", "x88 y8 w186 h23 +0x200", modeText)
