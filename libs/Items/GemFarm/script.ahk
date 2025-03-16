@@ -3,7 +3,7 @@
 
 UnitPlaced := "|<>*87$115.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzszzzyDy7zzzzzzzzzzzsDzzy3z3zzzzzzzzzzzw7zzz1zUzzzzzzzzzzzy3zzzUzkTzzzzzzzzzzz1zzzkTsDzzzzzzzzzzzUzzzsDw7zzzzzzzzzzzkTtzw7y323zUVkES13w0DU7y3z1U0TU0M0C01s07U1z1zUk07U0A0600s03U0TUzkM03U060700Q01U07kTsA00k830n00A00kC3sDwC3kMD1UzUw63kMD1w7w71sADUkTky31sA00y1y3Uw63kMDsD1Uw600zUy1kA31kA7w70kS31zzk41s03U063y00M01Uzzw00w01s031zU0C00s07z00y01y01Uzk07U0Q03zk0z01zU0kTw03s0D01zw1zUnzzkQTzVXy6Ds1zzzzkTzzsDzzzzzzzzzzzzzsDzssDzzzzzzzzzzzzzw7zs07zzzzzzzzzzzzzy3zw07zzzzzzzzzzzzzz1zz07zzzzzzzzzzzzzzlzzsDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk"
 Vote:= "<>*92$71.zzzzzzzzzzzzzzzzzzzzzzzzzbzwzzzzzzzzy7zkzzy7zzzzs7zUzzw7zzzzsDy3zzsDzzzzkTw7zzkTzzzzkTkTbzUzzTzzUzUs1w0DU7zzUy3U1k0C07zz1w601U0M07zz1kM01U0U0Dzy3UkA3UL0sDzy23Uw7Uy3kTzw471wD1w00zzw0S3sS3s03zzs0w7Uw7kTzzzs3s01sDUzzzzk7s03k3U0TzzkTk0Dk700zzzUzk0zUD01zzzXzs7zkzU7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
-Round12:="|<>*132$27.zzzzzzzzzzjwDzsS0Ty3U1z0M07k31Uy0MS7k33kS0MS7z3bUzsTs7z3y1zsT0Tz3k7zsQ1zz300TsM03z300Tss03zzzzzzzzzU"
+Round12:="|<>*134$29.zzzzzzzzzzzzzzzzTsTzwD0DzkQ0Dy0s0Ds1UETk31kzU67Uz0ADVzsMT3zkky7zVVwDz33sTy67UzwA73zsQ07zks0TzVs0zz7s7zzzzzzzzzzzzzzzzzzzz"
 ; developer notes
 ; Monarch is the top priority unit if the team has it [Will be placed down first]
 ; MoneyUnits are the units that will be placed down after Monarch [Will be placed down second]
@@ -55,7 +55,7 @@ upgradeAll() {
 }
 
 CheckRound12() {
-    if (ok:=FindText(&X, &Y, 748-150000, 39-150000, 748+150000, 39+150000, 0, 0, Round12)) {
+    if (ok:=FindText(&X, &Y, 747-150000, 62-150000, 747+150000, 62+150000, 0, 0, Round12)) {
 
         
         BetterClick(31, 1046)
