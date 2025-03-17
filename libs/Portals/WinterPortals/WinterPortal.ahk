@@ -226,13 +226,13 @@ namekworld() {
     scrollCount := 0
     maxScrolls := 3
 
-    BetterClick(1495, 227)
+    BetterClick(556, 319)
         Sleep(1000)
         Send("{Tab}")
         Sleep(100)
         Send("{j}")
         Sleep(2000)
-        BetterClick(1180, 326 - 10)
+        BetterClick(556, 319)
         
         text := "winter portal"
         for each, char in StrSplit(text) {
@@ -317,7 +317,7 @@ shibuyaworld() {
         Sleep(100)
         Send("{j}")
         Sleep(2000)
-        BetterClick(1180, 326 - 10)
+        BetterClick(556, 319)
         
         text := "winter portal"
         for each, char in StrSplit(text) {

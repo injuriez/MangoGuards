@@ -57,7 +57,7 @@ HostPickPortal(position, host) {
     Sleep(100)
     Send("{j}")
     Sleep(2000)
-    BetterClick(1180, 316)
+    BetterClick(556, 319)
 
     text := "love"
     for each, char in StrSplit(text) {
