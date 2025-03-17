@@ -33,6 +33,5 @@ ResetStage() {
     Sleep(1000)
     BetterClick(834, 569) 
     Sleep(5000) ; Add delay to give game time to reset and show cards
-    ; Remove the recursive MainCards() call here
 }
 
