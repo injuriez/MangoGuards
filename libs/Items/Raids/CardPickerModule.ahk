@@ -8,6 +8,9 @@ MainCards() {
     while (true) {
         if (FindText(&X, &Y, 960-150000, 455-150000, 960+150000, 455+150000, 0, 0, Exterminate)) {
             BetterClick(X, Y) ; will select exterminate
+            Sleep(2000)
+            SmoothMouseMove(1343, 562, 2)
+            SmoothMouseMove(957, 565, 2)
             BetterClick(957, 565) ; clicks the cancel button
             break
         } else {
