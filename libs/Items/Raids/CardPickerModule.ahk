@@ -5,17 +5,17 @@ KingsBurden := "|<>*14$170.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 Exterminate:="|<>*30$170.zzzzzzzzzzzzzyzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsTzzzzzzzzzzzzk03zzyTzzzzzzzy7zzzzznzzzzzzw00zzz3zzzzzzzzVzzzzzsTzzzzzz00DzzkzzzzzzzzsTzzzzy7zzzzzzk03zzwDzzzzzzzzzzzzzzVzzzzzzwDzzzz3zzzzzzzzzzzzzzsTzzzzzz3zwTX07k7V1231sMETs8M0y0y47zkTz3k00s0s0E00C603w040707U1zw07kM00A0604001VU0S0101U0s0Tz00w030200U3000MM0300M0E060Dzk0DU1wDUs8DkM4661UkM7Vw71Uzzw07w0z3sC27w63VVUwAD1sT3sMTzz3zzUTky01Vz3UsMMT33kS7ky67zzkzzk3wDU0sTksC667kkw7VwDVVzzw7zs0T3sDy7wC3VVVwA21sT1kMTzz00A03k61XVz3UsMMT300S0k067zzk031UQ1k0MTkwC667ks07UC03Vzzw00kwDUS067wD3VVVwD01w3k1sTzzU0CTby7k3lzXlwQQT7wMzkz1z7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 
 MainCards() {
-    loop {
+    while (true) {
         if (FindText(&X, &Y, 960-150000, 455-150000, 960+150000, 455+150000, 0, 0, Exterminate)) {
             BetterClick(X, Y) ; will select exterminate
+            BetterClick(957, 565) ; clicks the cancel button
             break
         } else {
             ResetStage()
+            ; Added delay after ResetStage returns
+            Sleep(2000)
         }
     }
-    
-    
-
 }
 
 
@@ -30,7 +30,9 @@ ResetStage() {
     BetterClick(37, 1039) ; clicks settings icon
     Sleep(1000)
     BetterClick(1204, 504) ; clicks the restart match button
-    MainCards()
+    Sleep(1000)
+    BetterClick(834, 569) 
+    Sleep(5000) ; Add delay to give game time to reset and show cards
+    ; Remove the recursive MainCards() call here
 }
-
 

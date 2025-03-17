@@ -114,37 +114,29 @@ CreateTabControl(myGui) {
     
     hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Legend", "Items"])
 
-
     hometab.UseTab(1)
     AntBtn := myGui.Add("Button", "x178 y94 w100 h23", "Ant Raid")
     AntBtn.OnEvent("Click", AntRaid)
-
-
-
-    
 
     hometab.UseTab(2)
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", ShowWinterPortalTab)
 
-    ValentinePortal := myGui.Add("Button", "  x178 y120 w100 h23 ", "Love Portal")
+    ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23", "Love Portal")
     ValentinePortal.OnEvent("Click", ShowLovePortalTab)
 
     ; Winter Portal Tab
     winterTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Winter Portal Settings"])
-    winterTab.UseTab(2)
+    winterTab.UseTab(1)
     WinterPortal_data.worldSelect := myGui.Add("ListBox", "x186 y94 w100 h40", ["Namek", "Shibuya"])
     backBtn1 := myGui.Add("Button", "x180 y190 w100 h23", "Back")
     ApplyBtn1 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
     ApplyBtn1.OnEvent("Click", ApplyWinterPortalSettings)
     backBtn1.OnEvent("Click", ShowPortalsTab)
-    
-   
-    
 
     ; Love Portal Tab
-    loveTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden ", ["Love Portal Settings"])
-    loveTab.UseTab(2)
+    loveTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Love Portal Settings"])
+    loveTab.UseTab(1)
     LovePortal_data.hostingSwitch := myGui.Add("CheckBox", "x186 y94 w80 h23", "Hosting")
     myGui.Add("Text", "x270 y74 w100 h23", "Position")
     LovePortal_data.positionSelect := myGui.Add("ListBox", "x270 y94 w100 h40", ["Start", "Middle", "End"])
@@ -152,22 +144,17 @@ CreateTabControl(myGui) {
     backBtn2.OnEvent("Click", ShowPortalsTab)
     applyBTN2 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
     applyBTN2.OnEvent("Click", ApplyLovePortalSettings)
-    
+
     ; Legend Tab
     hometab.UseTab(3)
     bleachBtn := myGui.Add("Button", "x178 y94 w100 h23", "Bleach Secret")
     bleachBtn.OnEvent("Click", SetBleachWorld)
-    
-    hometab.UseTab(4)
 
+    hometab.UseTab(4)
     GemBtn := myGui.Add("Button", "x178 y94 w100 h23", "GEM Farm")
     GreenEssenceBTN := myGui.Add("Button", "Disabled x178 y120 w100 h23", "Green Essence")
     GemBtn.OnEvent("Click", GemFarm)
     ; GreenEssenceBTN.OnEvent("Click", GreenEssenceFarm)
-
-
-
-
 }
 AntRaid(*) {
     global MacroSelected, myGui
@@ -295,7 +282,6 @@ start(*) {
             if MacroSelected.Name == "WinterPortal" {
                 WinterPortal(WinterPortal_data.World) 
             } else if MacroSelected.Name == "ValentinePortal" {
-               
                 LovePortalFile()
             } else if MacroSelected.Name == "Bleach" {
                 LegendStart()
@@ -311,11 +297,11 @@ start(*) {
             } else if MacroSelected.Name == "Green Essence" {
                 ; GreenEssenceFarm()
                 MsgBox("Green Essence Farm not implemented")
+            } else if MacroSelected.Name == "AntRaid" {
+                AntRaids()
             } else {
                 MsgBox("No macro selected")
-            }  if MacroSelected.Name == "AntRaid" {
-                AntRaids()
-            }
+            }  
         }
     }
 }
