@@ -2,7 +2,6 @@
 #Include libs/Portals/WinterPortals/WinterPortal.ahk
 #Include libs/Items/GemFarm/script.ahk
 #Include libs/Items/GreenEssence/script.ahk
-#Include libs/COMPONENTS/Session.ahk
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
 #Include libs/Legend/Bleach/AllStages.ahk
@@ -401,7 +400,9 @@ start(*) {
             } else if MacroSelected.Name == "Bleach" {
                 LegendStart()
             } else if MacroSelected.Name == "Gems" {
-                CreateSessionUI("Gem / Stat Farm")
+                Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+                Sleep(3000)
+
                 BetterClick(985, 517) ; focuses back on roblox
                 BetterClick(985, 517) ; focuses back on roblox
                 Sleep(1000)
@@ -494,7 +495,8 @@ Hotkey "F2", KILLNOW
 
 KILLNOW(*) {
     ; Check if CloseSessionUI function exists before calling it
-    CloseSessionUI()
+    ; Check if Session.ahk is running in the tray and close it
+    WinClose("Window")
     ExitApp()
 }
 
