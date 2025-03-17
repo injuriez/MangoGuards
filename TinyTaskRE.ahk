@@ -5,6 +5,7 @@
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
 #Include libs/Legend/Bleach/AllStages.ahk
+#Include libs/Items/Raids/ant/script.ahk
 
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
@@ -30,42 +31,7 @@ global LovePortal_data := {
     hostingSwitch: "", ; Will store the CheckBox reference
     positionSelect: "" ; Will store the ListBox reference
 }
-global Team := {
-    Slot1: {
-        Placement: 0,
-        Monarch: false,
-        MoneyUnit: false
 
-    },
-    Slot2: {
-        Placement: 0,
-        Monarch: false,
-        MoneyUnit: false
-
-    },
-    Slot3: {
-        Placement: 0,
-        Monarch: false,
-        MoneyUnit: false
-
-    },
-    Slot4: {
-        Placement: 0,
-        Monarch: false,
-        MoneyUnit: false
-    },
-    Slot5: {
-        Placement: 0,
-        Monarch: false,
-        MoneyUnit: false
-    },
-    Slot6: {
-        Placement: 0,
-        Monarch: false,
-        MoneyUnit: false
-    }
-    
-}
 global Legends_data := {
     World: "Bleach"
 }
@@ -91,7 +57,9 @@ CreateGui() {
   
     myGui.Title := "MangoGuards"
     myGui.Show("w426 h378")
-    TeamTab.Visible := false
+   
+
+
     
     return myGui
 }
@@ -142,12 +110,20 @@ CreateSettingsPanel(myGui) {
 }
 CreateTabControl(myGui) {
     global hometab, winterTab, loveTab
-    global WinterPortal_data, LovePortal_data, Legends_data, TeamTab
+    global WinterPortal_data, LovePortal_data, Legends_data
     
-    hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Portals", "Legend", "Items"])
-    
+    hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Legend", "Items"])
+
 
     hometab.UseTab(1)
+    AntBtn := myGui.Add("Button", "x178 y94 w100 h23", "Ant Raid")
+    AntBtn.OnEvent("Click", AntRaid)
+
+
+
+    
+
+    hometab.UseTab(2)
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", ShowWinterPortalTab)
 
@@ -156,7 +132,7 @@ CreateTabControl(myGui) {
 
     ; Winter Portal Tab
     winterTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Winter Portal Settings"])
-    winterTab.UseTab(1)
+    winterTab.UseTab(2)
     WinterPortal_data.worldSelect := myGui.Add("ListBox", "x186 y94 w100 h40", ["Namek", "Shibuya"])
     backBtn1 := myGui.Add("Button", "x180 y190 w100 h23", "Back")
     ApplyBtn1 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
@@ -168,7 +144,7 @@ CreateTabControl(myGui) {
 
     ; Love Portal Tab
     loveTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden ", ["Love Portal Settings"])
-    loveTab.UseTab(1)
+    loveTab.UseTab(2)
     LovePortal_data.hostingSwitch := myGui.Add("CheckBox", "x186 y94 w80 h23", "Hosting")
     myGui.Add("Text", "x270 y74 w100 h23", "Position")
     LovePortal_data.positionSelect := myGui.Add("ListBox", "x270 y94 w100 h40", ["Start", "Middle", "End"])
@@ -178,101 +154,25 @@ CreateTabControl(myGui) {
     applyBTN2.OnEvent("Click", ApplyLovePortalSettings)
     
     ; Legend Tab
-    hometab.UseTab(2)
+    hometab.UseTab(3)
     bleachBtn := myGui.Add("Button", "x178 y94 w100 h23", "Bleach Secret")
     bleachBtn.OnEvent("Click", SetBleachWorld)
     
-    hometab.UseTab(3)
+    hometab.UseTab(4)
 
     GemBtn := myGui.Add("Button", "x178 y94 w100 h23", "GEM Farm")
     GreenEssenceBTN := myGui.Add("Button", "Disabled x178 y120 w100 h23", "Green Essence")
     GemBtn.OnEvent("Click", GemFarm)
     ; GreenEssenceBTN.OnEvent("Click", GreenEssenceFarm)
 
-     
-    ; 
-    TeamTab := myGui.Add("Tab3", " Disabled x168 y64 w225 h220 +0x8 +AltSubmit", ["Team Setup"])
-    TeamTab.UseTab(1)
-    
-    ; Column headers
-    myGui.Add("Text", "x178 y74 w100 h20", "Unit Slots")
-    myGui.Add("Text", "x280 y74 w100 h20", "Placement")
-    
-    ; Slot layout with combo boxes in a grid formation
-    slotBaseY := 94
-    slotSpacing := 30
-    
-    ; Slot 1
-    myGui.Add("Text", "x178 y" slotBaseY " w100 h23", "Slot 1")
-    Team.Slot1.PlacementBox := myGui.Add("DropDownList", "x280 y" slotBaseY " w100", ["Monarch", "3/3", "4/4", "SprintWagon", "Taka"])
-    Team.Slot1.PlacementBox.OnEvent("Change", UpdateTeamSlot.Bind("Slot1"))
-    Team.Slot1.PlacementBox.Choose(Team.Slot1.Placement)
-    
-    ; Slot 2
-    myGui.Add("Text", "x178 y" (slotBaseY + slotSpacing) " w100 h23", "Slot 2")
-    Team.Slot2.PlacementBox := myGui.Add("DropDownList", "x280 y" (slotBaseY + slotSpacing) " w100", ["Monarch", "3/3", "4/4", "SprintWagon", "Taka"])
-    Team.Slot2.PlacementBox.OnEvent("Change", UpdateTeamSlot.Bind("Slot2"))  ; Changed from Team.Slot1 to Team.Slot2
-    Team.Slot2.PlacementBox.Choose(Team.Slot2.Placement)
-
-    
-    ; Slot 3
-    myGui.Add("Text", "x178 y" (slotBaseY + slotSpacing*2) " w100 h23", "Slot 3")
-    Team.Slot3.PlacementBox := myGui.Add("DropDownList", "x280 y" (slotBaseY + slotSpacing*2) " w100", ["Monarch", "3/3", "4/4", "SprintWagon", "Taka"])
-    Team.Slot3.PlacementBox.OnEvent("Change", UpdateTeamSlot.Bind("Slot3"))  ; Changed from Team.Slot1 to Team.Slot3
-    Team.Slot3.PlacementBox.Choose(Team.Slot3.Placement)
-
-    
-    ; Slot 4
-    myGui.Add("Text", "x178 y" (slotBaseY + slotSpacing*3) " w100 h23", "Slot 4")
-    Team.Slot4.PlacementBox := myGui.Add("DropDownList", "x280 y" (slotBaseY + slotSpacing*3) " w100", ["Monarch", "3/3", "4/4", "SprintWagon", "Taka"])
-    Team.Slot4.PlacementBox.OnEvent("Change", UpdateTeamSlot.Bind("Slot4"))  ; Changed from Team.Slot1 to Team.Slot4
-    Team.Slot4.PlacementBox.Choose(Team.Slot4.Placement)
-
-    
-    ; Slot 5
-    myGui.Add("Text", "x178 y" (slotBaseY + slotSpacing*4) " w100 h23", "Slot 5")
-    Team.Slot5.PlacementBox := myGui.Add("DropDownList", "x280 y" (slotBaseY + slotSpacing*4) " w100", ["Monarch", "3/3", "4/4", "SprintWagon", "Taka"])
-    Team.Slot5.PlacementBox.OnEvent("Change", UpdateTeamSlot.Bind("Slot5"))  ; Changed from Team.Slot1 to Team.Slot5
-    Team.Slot5.PlacementBox.Choose(Team.Slot5.Placement)
-
-    
-    ; Slot 6
-    myGui.Add("Text", "x178 y" (slotBaseY + slotSpacing*5) " w100 h23", "Slot 6")
-    Team.Slot6.PlacementBox := myGui.Add("DropDownList", "x280 y" (slotBaseY + slotSpacing*5) " w100", ["Monarch", "3/3", "4/4", "SprintWagon", "Taka"])
-    Team.Slot6.PlacementBox.OnEvent("Change", UpdateTeamSlot.Bind("Slot6"))  ; Changed from Team.Slot1 to Team.Slot6
-    Team.Slot6.PlacementBox.Choose(Team.Slot6.Placement)
 
 
 
 }
-UpdateTeamSlot(slotName, *) {
-    global Team
-    
-    slot := Team.%slotName%
-    selection := slot.PlacementBox.Text
-    
-    if (selection = "Monarch") {
-        slot.Placement := 1
-        slot.Monarch := true
-    } else if (selection = "3/3") {
-        slot.Placement := 3
-        slot.Monarch := false
-    } else if (selection = "4/4") {
-        slot.Placement := 4
-        slot.Monarch := false
-    } else if (selection = "SprintWagon") {
-        slot.Placement := 3
-        slot.Monarch := false
-        slot.MoneyUnit := true
-    } else if (selection = "Taka") {
-        slot.Placement := 1
-        slot.Monarch := false
-        slot.MoneyUnit := true
-
-    }
-    
-    ; Optional: Debug message to confirm update
-    ; MsgBox(slotName " updated to: " selection " (Placement: " slot.Placement ", Monarch: " slot.Monarch ")")
+AntRaid(*) {
+    global MacroSelected, myGui
+    MacroSelected.Name := "AntRaid"
+    myGui.Title := "MangoGuards [Ant Raid]"
 }
 ApplyWinterPortalSettings(*) {
     global WinterPortal_data, myGui, MacroSelected
@@ -413,6 +313,8 @@ start(*) {
                 MsgBox("Green Essence Farm not implemented")
             } else {
                 MsgBox("No macro selected")
+            }  if MacroSelected.Name == "AntRaid" {
+                AntRaids()
             }
         }
     }
@@ -432,13 +334,13 @@ stop(*) {
 Home(*) {
     text.Text := "Anime Mangoguards"
     hometab.Visible := true
-    TeamTab.Visible := false
+  
 }
 
 stats(*) {
     text.Text := "Mango Stats"
     hometab.Visible := false
-    TeamTab.Visible := false
+ 
 }
 
 SettingFUNC(*) {
@@ -470,7 +372,7 @@ SaveSettings(*) {
 TeamCreate(*) {
     text.Text := "Team Setup"
     hometab.Visible := false
-    TeamTab.Visible := true
+    
 
 
 
