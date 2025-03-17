@@ -48,6 +48,7 @@ HostPickPortal(position, host) {
     baseX := 531
     baseY := 432
     
+    
     ; Grid spacing
     colSpacing := 160
     rowSpacing := 150
