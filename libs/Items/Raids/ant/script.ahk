@@ -39,7 +39,7 @@ AntRaids() {
     Send("{F8 up}")
     ; While TinyTask is running, the script will search for the alt cards
     loop {
-        Sleep(5000)
+        Sleep(2000)
         AltCards()
     }
 
@@ -52,6 +52,7 @@ AntRaids() {
 
 
 AltCards() {
+    
 
     
    
