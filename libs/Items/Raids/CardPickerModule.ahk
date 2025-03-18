@@ -1,23 +1,83 @@
 #Requires AutoHotkey v2.0
 #Include ../../FindText.ahk
 #Include ../../Modules.ahk
-KingsBurden := "|<>*14$170.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzvVzzzzzzzzzzzzzzzzzkzzzzzzz3wMTzzzzszzzU0zzzzzzwDzzzzzzky27zzzzy7zzs03zzzzzz3zzzzzzwD0VzzzzzVzzy00zzzzzzkzzzzzzz3UTzzzzzszzzU07zzzzzwDzzzzzzkkDzzzzzyDzzsT1zzzzzz3zzzzzzw87VV1zUXXUDy7sMT323k0y0w8Dzz03sM0Dk0Mk1zVw67kk0s0D0701zzk1y601s0780TsM3VwA0A03U0k0Dzw0zVU0A01y7Dy60sT30600k0A01zz07sM631UTUzzVk67kkTUkA710kTzk0y63kkw7s0zsT1VwADsS31kES7zw07VVwAD1z07y7sMT33y7Uk0ADVzz30sMT33kTs1zVy63UkzVsA073sTzks667kk07zkDsD1UEADs431zky7zwD1VVwC01y63y00Q033z00k0QDVzz3k8MT3U0TU1zU0D00kzk0C033sTzky267kw07s0Ts03s0ADy03k0ky7zyDlVlwDv1z0Dz03zX33zsFy0SDVzzzzzzzzzkTzzzzzzzzzzzzzzzzzzzzzzzzzsMDzzzzzzzzzzzzzzzzzzzzzzzzzy03zzzzzzzzzzzzzzzzzzzzzzzzzzU1zzzzzzzzzzzzzzzzzzzzzzzzzzw0zzzzzzzzzzzzzzzzzzzzzzzzzzzszzzzzzzzzzzzzzzzzzzzU"
+NoTrait:="|<>*27$102.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy7zzsTsTzzz001zzzy7nzsDsTzzy001zzzy7Vzs7sTzzz001zzzy7Vzs3sTzzzz3zzzzzzVzs3sTzzzz3zzzzzzVzs1sT0Tzz3sES2660Ds0sS0Dzz3s0Q06407s0sQ07zz3s0M06407sEMM03zz3s0k06607sM8MC3zz3sDkM67VzsQ0MT3zz3sTkw67VzsQ0MT3zz3sTkw67VzsS0MT3zz3sTkw67VzsT0MC3zz3sTk867VzsTUM03zz3sTk067UDsTUQ07zz3sTs067UDsTkS0Dzz3sTw067kDsTsTUTzz3sTz2C7sDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
+KingsBurden := "|<>*14$75.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzvVzzzzzzzzzVyADzzzzwTzzwDUVzzzzzVzzzVs4DzzzzwDzzwC1zzzzzzXzzzVUTzzzzzwTzzw87VV1zUXXUDzU1wA07s0AM0zw0TVU0S01m07zU7wA01U0Dktzw0TVUMA61y3zzU1wA7VVsDk1zw07VVwAD1z07zVUQADVVsDw0zwC1VVwA01zw3zVsAADVk0DkkTwD0VVwC01y07zVw4ADVs0Dk0zyDlVlwDv1z0DzzzzzzzzsDzzzzzzzzzy63zzzzzzzzzzk0Tzzzzzzzzzy07zzzzzzzzzzs1zzzzzzzzzzzszzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 Exterminate:="|<>*30$170.zzzzzzzzzzzzzyzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsTzzzzzzzzzzzzk03zzyTzzzzzzzy7zzzzznzzzzzzw00zzz3zzzzzzzzVzzzzzsTzzzzzz00DzzkzzzzzzzzsTzzzzy7zzzzzzk03zzwDzzzzzzzzzzzzzzVzzzzzzwDzzzz3zzzzzzzzzzzzzzsTzzzzzz3zwTX07k7V1231sMETs8M0y0y47zkTz3k00s0s0E00C603w040707U1zw07kM00A0604001VU0S0101U0s0Tz00w030200U3000MM0300M0E060Dzk0DU1wDUs8DkM4661UkM7Vw71Uzzw07w0z3sC27w63VVUwAD1sT3sMTzz3zzUTky01Vz3UsMMT33kS7ky67zzkzzk3wDU0sTksC667kkw7VwDVVzzw7zs0T3sDy7wC3VVVwA21sT1kMTzz00A03k61XVz3UsMMT300S0k067zzk031UQ1k0MTkwC667ks07UC03Vzzw00kwDUS067wD3VVVwD01w3k1sTzzU0CTby7k3lzXlwQQT7wMzkz1z7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
-
+Money:="|<>*34$183.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzlzzzzzzzzzzzzzzsTz3zzzzzzzzzzzk3zzzzzzzzzzzzzz1zsDzzzzzzzzzzw07zzzzzzzzzzzzzs7y1zzzzzzzzzzzU0zzzzzzzzzzzzzz0TUDzzzzzzzzzzs0Dzzzzzzzzzzzzzs3s1zzzzzzzzzzz3nzzzzzzzzzzzzzz0D0DUDV1zUD7wTsDz3sMES2Dk7zzzzs0k1s0w07s0kT1z0zsT303U0w0Tzzzz000C03U0S031sTw0T3sM0M0701zzzzsE11U0A01U0MC3zU0sT30600k0Dzzzz308A71UMA71UkTz073sMDkM63UzzzzsQ31VwA7VUsA47zy0MT33y7UkQ7zzzz3UsADVVwA03k0zzy33sMTkw601zzzzsS71VwADVU0z0DzbkMC33y7Uk0Tzzzz3zsA71VwA7zs1zsC30UMTk063zzzzzsTz1U0ADVU0zUTz00w033z00k0Tzzzz3zsC03VwC03w3zs07U0MTs0701zzzzsTz1s0wDVs0TkzzU1y033zU0w0DzzzzXzwTkDlwDU7w7zz0TwMMTzg7k3zzzzzzzzzzzzzzzzUzzzzzzzzzzUzzzzzzzzzzzzzzzzzzsDzzzzzzzzsMDzzzzzzzzzzzzzzzzzz1zzzzzzzzz01zzzzzzzzzzzzzzzzzzsTzzzzzzzzs0Tzzzzzzzzzzzzzzzzzz3zzzzzzzzzU7zzzzzzzzzzzzzzzzzzwzzzzzzzzzzXzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
+Lifeline:="|<>*24$105.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsTUzzwD3zzzzzzzsTz3s7zzVsTzzzzzzz3zsS0zzwD3zzzzzzzsTz3k7zzVsTzzzzzzz3zzy7zzwDzzzzzzzzsTzzkzzzVzzzzzzzzz3zsM0S0wD323z0TzzsTz203U3VsM0Dk1zzz3zsE0M0AD300w07zzsTz30200VsM0300Tzz3zsS7kQ4D30kMC3zzsTz3ky3UVsMD31kTzz3zsS7k0AD33sM07zzsTz3ky03VsMT301zzz3zsS7kTw733sMDzzzs073ky1XUMMT30lzzz00MS7s0A133sQ07zzs033kzU1k8MT3k0zzzU0wSDy0T3XXwz0Dzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
 MainCards() {
     while (true) {
-        if (FindText(&X, &Y, 960-150000, 455-150000, 960+150000, 455+150000, 0, 0, Exterminate)) {
-            BetterClick(X, Y) ; will select exterminate
-            Sleep(2000)
-            SmoothMouseMove(1343, 562, 2)
-            SmoothMouseMove(957, 565, 2)
-            BetterClick(957, 565) ; clicks the cancel button
-            break
-        } else {
-            ResetStage()
-            ; Added delay after ResetStage returns
-            Sleep(2000)
+        if StarterCard == "Exterminator" {
+            if (FindText(&X, &Y, 960-150000, 455-150000, 960+150000, 455+150000, 0, 0, Exterminate)) {
+                BetterClick(X, Y) ; will select exterminate
+                Sleep(2000)
+                SmoothMouseMove(1343, 562, 2)
+                SmoothMouseMove(957, 565, 2)
+                BetterClick(957, 565) ; clicks the cancel button
+                break
+            } else {
+                ResetStage()
+                ; Added delay after ResetStage returns
+                Sleep(2000)
+            }
+        } else if StarterCard == "Kings Burden" {
+            if (FindText(&X, &Y, 604-150000, 456-150000, 604+150000, 456+150000, 0, 0, KingsBurden)) {
+                BetterClick(X, Y) ; will select kings burden
+                Sleep(2000)
+                SmoothMouseMove(1343, 562, 2)
+                SmoothMouseMove(957, 565, 2)
+                BetterClick(957, 565) ; clicks the cancel button
+                break
+            } else {
+                ResetStage()
+                ; Added delay after ResetStage returns
+                Sleep(2000)
+            }
+        } else if StarterCard == "Lifeline" {
+            if (FindText(&X, &Y, 652-150000, 453-150000, 652+150000, 453+150000, 0, 0, Lifeline)) {
+                BetterClick(X, Y) ; will select lifeline
+                Sleep(2000)
+                SmoothMouseMove(1343, 562, 2)
+                SmoothMouseMove(957, 565, 2)
+                BetterClick(957, 565) ; clicks the cancel button
+                break
+            } else {
+                ResetStage()
+                ; Added delay after ResetStage returns
+                Sleep(2000)
+            }
+        } else if StarterCard == "Money Surge" {
+            if (FindText(&X, &Y, 1272-150000, 456-150000, 1272+150000, 456+150000, 0, 0, Money)) {
+                BetterClick(X, Y) ; will select lifeline
+                Sleep(2000)
+                SmoothMouseMove(1343, 562, 2)
+                SmoothMouseMove(957, 565, 2)
+                BetterClick(957, 565) ; clicks the cancel button
+                break
+            } else {
+                ResetStage()
+                ; Added delay after ResetStage returns
+                Sleep(2000)
+            }
+
+
+        } else if StarterCard == "no trait no problem" {
+            if (FindText(&X, &Y, 887-150000, 453-150000, 887+150000, 453+150000, 0, 0, NoTrait)) {
+                BetterClick(X, Y) ; will select lifeline
+                Sleep(2000)
+                SmoothMouseMove(1343, 562, 2)
+                SmoothMouseMove(957, 565, 2)
+                BetterClick(957, 565) ; clicks the cancel button
+                break
+            } else {
+                ResetStage()
+                ; Added delay after ResetStage returns
+                Sleep(2000)
+            }
+
         }
+       
     }
 }
 

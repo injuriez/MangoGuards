@@ -17,7 +17,8 @@ global winterTab := ""
 global loveTab := ""
 global myGui := ""
 global DisplaySessions 
-
+global antRaidOptions := ""
+global StarterCard := ""
 
 ; Use these data objects to store both settings and UI references
 global WinterPortal_data := {
@@ -110,13 +111,26 @@ CreateSettingsPanel(myGui) {
 }
 CreateTabControl(myGui) {
     global hometab, winterTab, loveTab
-    global WinterPortal_data, LovePortal_data, Legends_data
+    global WinterPortal_data, LovePortal_data, Legends_data, antTab, antRaidOptions, StarterCard
     
     hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Legend", "Items"])
 
     hometab.UseTab(1)
     AntBtn := myGui.Add("Button", "x178 y94 w100 h23", "Ant Raid")
-    AntBtn.OnEvent("Click", AntRaid)
+    AntBtn.OnEvent("Click", ShowAntTab)
+    antTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Ant Raid Settings"])
+    antTab.UseTab(1)
+    myGui.Add("Text", "x190 y100 w100 h23 ", "Select Starter")
+    antRaidOptions := myGui.Add("ListBox", "x190 y120 w100 h60", ["Kings Burden", "Lifeline", "Money Surge", "Exterminator", "no trait no problem"])
+    applyBTN3 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
+    backBtn2 := myGui.Add("Button", "x180 y190 w100 h23", "Back")
+
+    applyBTN3.OnEvent("Click", ApplyAntRaidSettings)
+
+
+
+    backBtn2.OnEvent("Click", ShowPortalsTab)
+
 
     hometab.UseTab(2)
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
@@ -156,7 +170,25 @@ CreateTabControl(myGui) {
     GemBtn.OnEvent("Click", GemFarm)
     ; GreenEssenceBTN.OnEvent("Click", GreenEssenceFarm)
 }
-AntRaid(*) {
+ApplyAntRaidSettings(*) {
+    global antRaidOptions, StarterCard
+    StarterCard := antRaidOptions.Text
+    if (StarterCard = "") {
+        MsgBox("Please select a starter card")
+        return
+    }
+    AntRaid(StarterCard)
+}
+ShowAntTab(*) {
+    global hometab, antTab
+    hometab.Visible := false
+    antTab.Visible := true
+    antTab.Value := 1
+}
+AntRaid(CardSelected) {
+    StarterCard := CardSelected
+
+    hometab.Visible := false 
     global MacroSelected, myGui
     MacroSelected.Name := "AntRaid"
     myGui.Title := "MangoGuards [Ant Raid]"
@@ -223,6 +255,7 @@ ShowPortalsTab(*) {
     winterTab.Visible := false
     loveTab.Visible := false
     hometab.Visible := true
+    antTab.Visible := false
     hometab.Value := 2  
 }
 

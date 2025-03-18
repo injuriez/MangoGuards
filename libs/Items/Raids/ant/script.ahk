@@ -25,6 +25,10 @@ CommonLoot:="|<>*36$113.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 Speed:="|<>*25$35.lzzzzt1zzzzkTzzzzYS31Uk8A6H9US9UYHAiGNwyF1UkMA37TksQg"
 
 AntRaids() {
+    
+
+    
+
 
     MainCards() ; picks the three main cards
     Sleep(2000)

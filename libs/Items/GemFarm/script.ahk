@@ -161,6 +161,8 @@ CheckAbility() {
     
     loop {
         if (ok := FindText(&X, &Y, 671-150000, 345-150000, 671+150000, 345+150000, 0, 0, AutoAbility)) {
+            BetterClick1(679, 377)
+            Sleep(1000)
             return true
         } else {
             return false
