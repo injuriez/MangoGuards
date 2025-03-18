@@ -2,30 +2,22 @@
 #Include ../../AllText.ahk
 #Include ../../Modules.ahk
 #Include ../../FindText.ahk
-#Include ../../../TinyTaskRE.ahk
+
 #Include ../../webhook.ahk
-global connection
-global SelectedWorldd := "."  ; Assign a default value
+
+
 
 class WinterVAR {
     static Namek_Loading := "|<>*63$243.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs3zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw0DzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU000zzzs07zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk0000zzz00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy00001zzs03zzzzzzzzzzzzzzzzzzzzzzzzw1zzzzU00003zz00Tzzzzzzzzzzzzzzzzzzzzzzzy03zzzw000007zs03zzzzzzzzzzzzzzzzzzzzzzzzk0TzzzU00000Tz00Tzzzzzzzzzzzzzzzzzzzzzzzw03zzzw000001zs03zzzzzzzzzzzzzzzzzzzzzzzzU0TzzzU000007z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw000000zs03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU000003z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw000000Ds03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU000001z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw0000007s03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU0Dzk00z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw01zzU07s03zzzzzzzzzzzzzzzzzzzUzzzzU0DzzzU0Dzy00z00TzzzkTy1zy0zs7zzzzz00Dzz4010zzw01zzk03s03zzzk0T03z01w07zzzz000TzU0000zzU0Dzz00T00Tzzs00k0Ts0C00DzzzU000zw00007zw01zzs03s03zzw00201y01U00Tzzs0003zU0000TzU0Dzz00T00Tzz00000Dk00001zzw0000Ds00003zw01zzs03s03zzk00001y000007zz00000z00000TzU0Dzz00T00Tzw00000Dk00000zzk00003s00003zw01zzk03s03zz000001y000003zy00000D00000TzU0Dzy00z00Tzk00000Dk00000DzU00001s00003zw01zzU07s03zy000001y000001zs00000D00000TzU0Dzk00z00TzU00000Dk000007z000000w00007zw0000007s03zw000001y000000zk00TU07U0000zzU000001z00Tz000000Dk000003y00Dy00y0000Dzw000000Ds03zs00T001y007s00Tk03zs07zU0DzzzU000003z00Tz00Dy00Dk01zk03w00zz00zw01zzzw000000Ts03zk03zk01y00Tz00TU07zs07zU0DzzzU000007z00Ty00Tz00Dk07zs01w00zy00zw01zzzw000001zs03zk07zs01y00zzU0DU000007zU0DzzzU00000Tz00Ty00zzU0Dk07zw01w000000zw01zzzw000007zs03zk07zw01y00zzU0DU000007zU0DzzzU00003zz00Ty00zzU0Dk07zw01w000001zw01zzzw00000zzs03zk07zs01y00zzU0DU00000TzU0DzzzU0000Tzz00Ty00Tz00Dk07zw01w000007zw01zzzw0000Tzzs03zk03zk01y00zzU0DU00003zzU0DzzzU0Dzzzzz00Tz00Dw00Dk07zw01w00zzzzzw01zzzw01zzzzzs03zs00T001y00zzU0Dk07zzzzzU0DzzzU0Dzzzzz007z000000Dk07zw01y00Tzzzzw00zzzw01zzzzzs003w000001y00zzU0Dk00zy1zzU007zzU0Dzzzzz000TU00000Dk07zw01z000w07zw000Tzw01zzzzzs001y000001y00zzU0Ds00000zzk001zzU0DzzzzzU00Dk00000Dk07zw01zU00003zy000Dzw01zzzzzw001z000001y00zzU0Dw00000Tzk001zzU0DzzzzzU00Dw00000Dk07zw01zk00001zz000Dzw01zzzzzw001zk00001y00zzU0Dz00000Dzs001zzU0Dzzzzzk00Dz00000Dk07zw01zw00003zzU00Dzw01zzzzzy001zw00001y00zzU0Dzk0000Tzy001zzk0Tzzzzzs00Dzk00k0Dk0Dzw03zz00007zzs00Dzy03zzzzzzk03zzU0S03z01zzk0Tzy0001zzzk03zzw1zzzzzzzk0zzzUDw1zy0zzzUDzzw000zzzzk0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 }
-Countdown(seconds, text) {
-    global CountdownText
-    if seconds == 0 {
-        CountdownText.Text := text  ; Clear the countdown text
-    } else {
-        Loop (seconds) {
-            CountdownText.Text := "Starting in " seconds - A_Index " seconds..."
-            Sleep(1000)
-        }
-        CountdownText.Text := ""  ; Clear the countdown text
-        StartTinyTask()
-    }
+
+PlayerPosition() {
+    MsgBox("Press okay once you found your position")
+    StartTinyTask()
 }
 
 StartTinyTask() {
-    global connection
+ 
     ; Starts tiny task
   
     Send("{F8 down}")
@@ -45,7 +37,7 @@ WinORloserChecker() {
             Send("{F8 up}")
             Sleep(500)
             CollectRewards()
-            CountdownText.Text := ""
+           
             break
         } else {
             Sleep(500)
@@ -55,10 +47,10 @@ WinORloserChecker() {
                 Sleep(100)
                 Send("{F8 up}")
                 Sleep(500)
-                Countdown(0, "foundsomething failed")
+                
                 Sleep(2000)
                 PickPortalsAGAIN()
-                CountdownText.Text := ""
+                
                 break
             } else {
                 if (ok := FindText(&X, &Y, 668-150000, 247-150000, 668+150000, 247+150000, 0, 0, shibuyafailed)) {
@@ -67,10 +59,10 @@ WinORloserChecker() {
                     Sleep(100)
                     Send("{F8 up}")
                     Sleep(500)
-                    Countdown(0, "foundsomething failed")
+                    
                     Sleep(2000)
                     PickPortalsAGAIN()
-                    CountdownText.Text := ""
+                    
                     break
                 }
             }
@@ -178,43 +170,44 @@ CancelButton1() {
 }
 
 PickPortalsAGAIN() {
-    global SelectedWorldd  ; Ensure SelectedWorldd is global
-    Countdown(0, "Picking portals again")
-    if (SelectedWorldd == "Namek") {
+    Setting := FileOpen("../../Settings/MangoSettings/map.txt", "r")
+    World := Setting.ReadLine()
+    
+    if (World == "Namek") {
         PickNamekAgain()
-    } else if (SelectedWorldd == "Shibuya") {
+    } else if (World == "Shibuya") {
         PickShibuyaAgain()
     } 
 }
 
 findvoting() {
-    Countdown(0, "waiting for voting ui")
+   
     loop {
         if (ok := FindText(&X, &Y, 925-150000, 109-150000, 925+150000, 109+150000, 0, 0, voteDectect)) {
             ; if find voting ui then start countdown
-            Countdown(0, "Found Voting UI")
+            
             Sleep(5000)
-            Countdown(20, "")
+            PlayerPosition()
         }
     }
 }
 
 
-WinterPortal(world) {
-    global SelectedWorldd  ; Ensure SelectedWorldd is global
-    SelectedWorldd := world ; Assign world to SelectedWorldd
-    Countdown(0, "Namek Selected")
+WinterPortal() {
+    Setting := FileOpen("../../Settings/MangoSettings/map.txt", "r")
+    World := Setting.ReadLine()
+   
 
     
-    if (world == "Namek") {
+    if (World == "Namek") {
         namekworld()
-    } else if (world == "Shibuya") {
+    } else if (World == "Shibuya") {
         shibuyaworld()
     }
 }
 
 namekworld() {
-    Countdown(0, "Namek world")
+  
     baseX := 531
     baseY := 432
     
@@ -273,7 +266,7 @@ namekworld() {
                                                
                         Loop {
                             if (ok := FindText(&X, &Y, 149-150000, 912-150000, 149+150000, 912+150000, 0, 0, WinterVAR.Namek_Loading)) {
-                                Countdown(0, "Loading into [planet namek]")
+                               
                                 Sleep(2000)
                                 findvoting()
                                 Sleep(500)
@@ -354,7 +347,7 @@ shibuyaworld() {
                                                        
                                 Loop {
                                     if (ok := FindText(&X, &Y, 175-150000, 914-150000, 175+150000, 914+150000, 0, 0, shibuyaloading)) {
-                                        Countdown(0, "Loading into [Shibuya]")
+                                      
                                         Sleep(2000)
                                         findvoting()
                                         Sleep(500)
@@ -498,3 +491,5 @@ PickShibuyaAgain() {
         }
     }
 }
+WinterPortal()
+F2::ExitApp

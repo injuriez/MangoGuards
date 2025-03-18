@@ -5,7 +5,12 @@ global myGui := "", timerText := "", totalSeconds := 0, Logs := "", countdownSec
 
 CreateSessionUI(modeText := "WINTER PORTAL [HOST]", type := "timer", logText := "") {
     global Logs
+    ModeText := FileOpen("../Settings/MangoSettings/session/SessionName.txt", "r")
+    modeText := ModeText.ReadLine()
+    Type := FileOpen("../Settings/MangoSettings/session/TypeSession.txt", "r")
+    type := Type.ReadLine()
     myGui := Gui("-Caption +AlwaysOnTop ")
+    
     
     ; Use the correct path to mango.png in the COMPONENTS directory
     imagePath := A_ScriptDir . "\mango.png"
@@ -98,4 +103,4 @@ UpdateCountdown() {
 CloseSessionUI() {
     ExitApp()
 }
-CreateSessionUI("Gem Farm", "timer")
+CreateSessionUI()

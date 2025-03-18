@@ -1,12 +1,11 @@
 #Requires Autohotkey v2
-#Include libs/Portals/WinterPortals/WinterPortal.ahk
 #Include libs/Items/GemFarm/script.ahk
 #Include libs/Items/GreenEssence/script.ahk
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
 #Include libs/Legend/Bleach/AllStages.ahk
-#Include libs/Items/Raids/ant/script.ahk
 
+#Include libs/PC_SETTINGS/Auto.ahk
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
 global CountdownText := "" 
@@ -16,7 +15,6 @@ global hometab := ""
 global winterTab := ""
 global loveTab := ""
 global myGui := ""
-global DisplaySessions 
 global antRaidOptions := ""
 global StarterCard := ""
 
@@ -72,13 +70,13 @@ CreateLeftPanel(myGui) {
     ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
     ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Stats")
 
-    TeamSetUp := myGui.Add("Button", "x8 y128 w145 h23 Disabled", "Team Setup")
+    SettingsApply := myGui.Add("Button", "x8 y128 w145 h23 ", "Apply Settings")
     Settings := myGui.Add("Button", "x8 y160 w145 h23", "Settings")
 
 
     
     ; Add button events
-    TeamSetUp.OnEvent("Click", TeamCreate)
+    SettingsApply.OnEvent("Click", SettingsApplyFUNC)
     ButtonAnimeVanguards.OnEvent("Click", Home)
     ButtonMacroStats.OnEvent("Click", stats)
     Settings.OnEvent("Click", SettingFUNC)
@@ -180,18 +178,26 @@ ShowAntTab(*) {
     antTab.Value := 1
 }
 AntRaid(CardSelected) {
+    global MacroSelected, myGui
     StarterCard := CardSelected
+    MangoSettings := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\StarterCard.txt", "w")
+    MangoSettings.Write(StarterCard)
+    MangoSettings.Close()
 
     hometab.Visible := false 
-    global MacroSelected, myGui
-    MacroSelected.Name := "AntRaid"
+ 
     myGui.Title := "MangoGuards [Ant Raid]"
+    MacroSelected.Name := "AntRaid"
 }
 ApplyWinterPortalSettings(*) {
     global WinterPortal_data, myGui, MacroSelected
+    mangosettings := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\map.txt", "w")
+    mangosettings.Write(WinterPortal_data.worldSelect.Text)
+    mangosettings.Close()
     WinterPortal_data.World := WinterPortal_data.worldSelect.Text
     MacroSelected.Name := "WinterPortal"
     myGui.Title := "MangoGuards [Winter Portal - " WinterPortal_data.World "]"
+
 }
 
 ApplyLovePortalSettings(*) {
@@ -307,12 +313,20 @@ start(*) {
         } else {
             MacroSelected.Enabled := true
             if MacroSelected.Name == "WinterPortal" {
-                WinterPortal(WinterPortal_data.World) 
+                Run(A_ScriptDir "\.\libs\Portals\WinterPortals\WinterPortal.ahk")
             } else if MacroSelected.Name == "ValentinePortal" {
                 LovePortalFile()
             } else if MacroSelected.Name == "Bleach" {
                 LegendStart()
             } else if MacroSelected.Name == "Gems" {
+                sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
+                sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
+                SessionRename := "Gem Farm"
+                SessionTypeValue := "timer"
+                sessionName.Write(SessionRename)
+                sessionType.Write(SessionTypeValue)
+                sessionName.Close()
+                sessionType.Close()
                 Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
                 Sleep(3000)
 
@@ -325,7 +339,8 @@ start(*) {
                 ; GreenEssenceFarm()
                 MsgBox("Green Essence Farm not implemented")
             } else if MacroSelected.Name == "AntRaid" {
-                AntRaids()
+                Run(A_ScriptDir "\.\libs\Items\Raids\ant\script.ahk")
+
             } else {
                 MsgBox("No macro selected")
             }  
@@ -357,7 +372,7 @@ stats(*) {
 }
 
 SettingFUNC(*) {
-    global SettingsGUI, Webhookbox, DisplaySessions ; Declare globally
+    global SettingsGUI, Webhookbox
 
     hometab.Visible := true
     SettingsGUI := Gui("+AlwaysOnTop")
@@ -380,9 +395,10 @@ SaveSettings(*) {
     TXTFILE.Write(Webhookbox.Text)
     TXTFILE.Close()
 }
-TeamCreate(*) {
-    text.Text := "Team Setup"
+SettingsApplyFUNC(*) {
     hometab.Visible := false
+    MsgBox("[WARNING] This will change your display resolution and scale, press OK to continue")
+    SetDisplayInfo()
     
 
 
