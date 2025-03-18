@@ -11,13 +11,13 @@ Slayer:="|<>*35$85.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 
 PressIt:="|<>*30$72.zzzzzzzzzzzzz01zzzzzzzzzz00zzzzzzzzzz00Tzzzzzzzzz00Dzzzzzzzzz3sDzzzzzzzzz3wA8D0TUDUDz3wA0C0D0707z3sA0A060607z1kA0M067C7Dz00Q7sC23y3zz00QDsC20C0Dz00wDs070707z03wDs0DU7U7z3zwDsDzw3w3z3zwDs0C6263z3zwDw060607z3zwDy060607zXzyDz0D0D0DzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 
-Damage:="|<>*15$107.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk0TzzzzzzzzzzzzzzzU0Tzzzzzzzzzzzzzzz00Tzzzzzzzzzzzzzzy00Tzzzzzzzzzzzzzzw7UTzzzzzzzzzzzzzzsTUz13231z13s8z0TzkzUw06001w07U0w0TzVz1k0A001k0C01k0Tz3y300M00300M0300Ty7w630kM4630kM63UzwDsAD1UkQAD1VsA71zsTkMS33UsMS33kM07zkz1kw671kkw67Uk0TzUs3UEAC3VUEA01Uzzz00D00MS7300Q030lzy00z00kwC700s0701zw03z01VsQD01w0D03zw0zzX7XlwTX7zkz0DzzzzzzzzzzzzzzVzzzzzzzzzzzzzzzz63zzzzzzzzzzzzzzzw0Dzzzzzzzzzzzzzzzs0Tzzzzzzzzzzzzzzzw3zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
+Damage:="|<>*15$103.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs0Dzzzzzzzzzzzzzzw03zzzzzzzzzzzzzzy00zzzzzzzzzzzzzzz00DzzzzzzzzzzzzzzUw3zzzzzzzzzzzzzzkz1y26463y27kFy0zsTkS03000y03k0S0DwDsC01U00C01k0C03y7w600k00600k0600z3y31UMA231UMA31kTVz1VsA63VVsAD1UsDkzUkw671kkw67Uk0DsTUsS33UsMS33kM0Dw70Q21VkQA21U0A7zy00S00kwC600s061Xz00TU0MS73U0Q03U0zU0Ts0AD3Vs0DU1s0Ts1zz6D7Xsz6DzVy0TzzzzzzzzzzzzzkzzzzzzzzzzzzzzzskTzzzzzzzzzzzzzzs0Tzzzzzzzzzzzzzzw0DzzzzzzzzzzzzzzzUTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 
-Cooldown:="|<>*24$130.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyTzzzzzkzzVzzzzzzzzzzz0Dzzzzz3zy7zzzzzzzzzzk0DzzzzwDzsTzzzzzzzzzy00zzzzzkzzVzzzzzzzzzzk03zzzzz3zy7zzzzzzzzzz0wTzzzzwDzsTzzzzzzzzzsDzy0zk7kzU1w1wSD323zzUzzk1y0D3w07U3UsQA07zy7zy03k0QDU0Q0731kk0DzsTzk0600kw01U0A42300TzVzz1kMC33kM63UkE8Q31zy7zwDVVwAD3kMT3U01kS7zsDzky67kkwD1VwC0073sTzUTz3sMT33kw67kw00wDVzz0wA71UsA70UMC3k83ky7zy00k0600k601U0DUkT3sTzs03U0w070M0701y31wDVzzs0T07s0y1k0S0DsSDky7zzs7z1zsDwDkXy3zlszXsTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
+Cooldown:="|<>*49$127.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyTzzzzzkzzVzzzzzzzzzzs1zzzzzsTzkzzzzzzzzzzk0DzzzzwDzsTzzzzzzzzzk07zzzzy7zwDzzzzzzzzzk03zzzzz3zy7zzzzzzzzzs7XzzzzzVzz3zzzzzzzzzsDzy0zk7kzU1w1wSD323zw7zy0Dk1sTU0w0Q73VU0zy7zy03k0QDU0Q0731kk0Dz3zy00k067U0A01UUEM03zVzz1kMC33kM63UkE8Q31zkzzVwADVVsS33sQ00C3kzsDzky67kkwD1VwC0073sTw3zsT33sMS7Uky7U07VwDz0wA71UsA70UMC3k83ky7zk0600k060k0A01w63sT3zs03U0w070M0701y31wDVzz03s0z07kC03k1z3ly7kzzs7z1zsDwDkXy3zlszXsTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
 
 Champion:="|<>*16$60.trzzzzvzzzULzzzzvzzzCrzzzzzzzzDkQA8kvVUkTkMA0kP9UrTrPharPQilDr/BaGPQiQUL8BaEP1iIkrQhakvXikU"
 
-Dodge:="|<>*27$36.Uzznzz0TzXzz4CzXzz78A21170421071UUE0610UE10M4211UwC311U"
+Dodge:="|<>*32$88.zzzzzzzzzzzzzzzzzzzzzzz3zzzzzzw07zzzzwDzzzzzzk0Dzzzzkzzzzzzz00Tzzzz3zzzzzzw00zzzzwDzzzzzzky1zzzzkzzzzzzz3w7s3z03s8z0TzwDsD07s0D01s0zzkzUs0D00s0701zz3z300M0300M07zwDwA71UkA61UsDzkzUky67Ukw63Uzz3y33sMS33kM07zwDkQDVVsAD1U0zzkM1kQ610k063zzz00D00Q03U0M0Dzw01y03k0C01k0Tzk0Dw0TU0w07U1zzU3zw3zV7wkT0Dzzzzzzzzzzz1zzzzzzzzzzzzsMDzzzzzzzzzzzzU0zzzzzzzzzzzzy07zzzzzzzzzzzzw0zzzy"
 
 UncommonLoot:="|<>*30$139.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwDwDzzzzzzzzzzzzzzzzzzzy7y7zzzzzzzzzzzzzzzzzzzz3z3zzzzzzzzzzzzzzzzzzzzVzVzzzzzzzzzzzzzzzzzzzzkzkzzzzzzzzzzzzzzzzzzzzsTsMETs3w1w8C7V1kzUDV1zwDwA07s0w0S001k00DU3k0Ty7y601s0Q07000M003U0s07z3z300M0A01U00A001U0A01zVzVUMA7C3UkM4630UkQ61UzkTkkS67z3sMA731UsMT31sTsDkMT33zVwAC3VVkQADVVwDy7sADVVzky671kksC67kky7z0sC7kk8sC33UsMQ731kMT3zU073sM0A01VkQAC3VU0ADVzs07VwC0701ksC671ks0C7kzy07ky7U3k1sQ733UsS0D3sTzkDwT3w7y1wD7VVswDkDlwDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk"
 
@@ -55,7 +55,7 @@ AltCards() {
 
     
    
-    if (FindText(&X, &Y, 1258-150000, 455-150000, 1258+150000, 455+150000, 0, 0, Cooldown)) {
+    if (FindText(&X, &Y, 952-150000, 456-150000, 952+150000, 456+150000, 0, 0, Cooldown)) {
         BetterClick(X, Y) 
     }
     if (FindText(&X, &Y, 641-150000, 457-150000, 641+150000, 457+150000, 0, 0, Range)) {
@@ -73,16 +73,16 @@ AltCards() {
     if (FindText(&X, &Y, 946-150000, 458-150000, 946+150000, 458+150000, 0, 0, PressIt)) {
         BetterClick(X, Y) 
     }
-    if (FindText(&X, &Y, 644-150000, 457-150000, 644+150000, 457+150000, 0, 0, Damage)) {
+    if (FindText(&X, &Y, 953-150000, 457-150000, 953+150000, 457+150000, 0, 0, Damage)) {
         BetterClick(X, Y) 
     }
     if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Champion)) {
         BetterClick(X, Y)
     }
-    if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Dodge)) {
+    if (FindText(&X, &Y, 1254-150000, 457-150000, 1254+150000, 457+150000, 0, 0, Dodge)) {
         BetterClick(X, Y) 
     }
-    if (FindText(&X, &Y, 1235-150000, 457-150000, 1235+150000, 457+150000, 0, 0)) {
+    if (FindText(&X, &Y, 1235-150000, 457-150000, 1235+150000, 457+150000, 0, 0, UncommonLoot)) {
         BetterClick(X, Y) 
     }
     if (FindText(&X, &Y, 619-150000, 455-150000, 619+150000, 455+150000, 0, 0, CommonLoot)) {
