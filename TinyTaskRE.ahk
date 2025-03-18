@@ -81,7 +81,7 @@ CreateLeftPanel(myGui) {
     ButtonMacroStats.OnEvent("Click", stats)
     Settings.OnEvent("Click", SettingFUNC)
 
-    myGui.Add("Text", "x8 y8 w24 h20 +0x200", "K - ")
+    myGui.Add("Text", "x8 y8 w24 h20 +0x200", "F1 - ")
     myGui.Add("Text", "x8 y32 w25 h20 +0x200", "F2 - ")
     myGui.Add("Text", "x30 y8 w77 h23 +0x200", "Start")
     myGui.Add("Text", "x35 y32 w77 h23 +0x200", "Stop")
@@ -90,7 +90,7 @@ CreateLeftPanel(myGui) {
 
 CreateHeader(myGui) {
     global text
-    text := myGui.Add("Text", "x218 y10 w279 h40 +0x200", "ANIME MACROGUARDS")
+    text := myGui.Add("Text", "x218 y10 w279 h40 +0x200", "ANIME MANGOGUARDS")
     text.SetFont("s12 w600", "Karla")
     myGui.Add("Picture", "x168 y8 w46 h46 0x6 ", A_ScriptDir "\.\libs\photos\Monarch.png")
 }
@@ -412,7 +412,7 @@ CloseSettings(*) {
 }
 
 
-Hotkey "k", start
+Hotkey "F1", start
 Hotkey "F2", KILLNOW
 
 KILLNOW(*) {
