@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 #Include ../CardPickerModule.ahk
 Harvest:="|<>*29$45.jDzzzzzstzzzzzn7Dzzzzy8t00QUkU0801U2I008780En710w876Mt07XUUkjA5yS674"
-
+MonarchCoins:="|<>*134$94.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzXzz3zXzzzzzzzzzyDzwDwDzzzzzzzzzszzkTUzzzzzzzzzzXzz0w3zzzzzzzzzyDzw1kDUy8TsXW7UsVzk60s1s0y060M1U3z00303U1k0M10607wM2A460301Vg0M0TlUMlsMQAS67kzVkz73X7VXklsMz7yD3wSSAS6D33VXwDswDlzskEMwA06Dk1Xkz7zXU3Xks0MzU6D3wTyC0SD3U1Xy0MwDlzsy3syTXCDy3XtzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 Range:="|<>*31$83.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs0Dzzzzzzzzzzzk0DzzzzzzzzzzzU0Dzzzzzzzzzzz00Dzzzzzzzzzzy3kTzzzzzzzzzzwDkw4A8Dw4TUDzsTVk0M0Dk0S0Dzky300k0D00s0DzUs401U0A01U0Dz00MA30kMA31kTy00kw63kkw63Uzw01VsADVVsA03zs033kMT33kM0Dzky610ky600kTzzVw401VwC01U0zz3sA033sQ03U0zy7sQ067kw07U1zyDlyASDVzMDU7zzzzzzzzzzkzzzzzzzzzzzzX1zzzzzzzzzzzy03zzzzzzzzzzzw0Dzzzzzzzzzzzw0zzzzzzzzzzzzzjzzzs"
 
 Strong:="|<>*24$36.Xzzzzz1bzzzzDbzzzzD1331k1V2H1UtrStRiRrSvRg9nS3RUU"
@@ -104,6 +104,21 @@ status() {
         Send("{F8 up}")
         BetterClick1(1167, 819) ; clicks replay
         Sleep(5000)
+        AntRaids()
+        return
+    } else  if (ok:=FindText(&X, &Y, 1159-150000, 448-150000, 1159+150000, 448+150000, 0, 0, MonarchCoins)) {
+        Send("{F8 down}") ;stops tinytask
+        Sleep(100)
+        Send("{F8 up}")
+        BetterClick1(929, 525) ; clicks middle of screen
+        
+        BetterClick1(929, 525) ; clicks middle of screen
+        BetterClick1(929, 525) ; clicks middle of screen
+        BetterClick1(929, 525) ; clicks middle of screen
+        BetterClick1(929, 525) ; clicks middle of screen
+        Sleep(5000)
+        BetterClick1(1167, 819)
+        Sleep(1000)
         AntRaids()
         return
     } else {
