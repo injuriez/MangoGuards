@@ -47,7 +47,7 @@ CreateGui() {
     CreateHeader(myGui)
     
 
-    CreateStatsPanel(myGui)
+    ; CreateStatsPanel(myGui)
     
    
     CreateTabControl(myGui)
@@ -72,7 +72,7 @@ CreateLeftPanel(myGui) {
     ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
     ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Stats")
 
-    TeamSetUp := myGui.Add("Button", "x8 y128 w145 h23", "Team Setup")
+    TeamSetUp := myGui.Add("Button", "x8 y128 w145 h23 Disabled", "Team Setup")
     Settings := myGui.Add("Button", "x8 y160 w145 h23", "Settings")
 
 
@@ -97,12 +97,6 @@ CreateHeader(myGui) {
     myGui.Add("Picture", "x168 y8 w46 h46 0x6 ", A_ScriptDir "\.\libs\photos\Monarch.png")
 }
 
-CreateStatsPanel(myGui) {
-    
-    ; Create a multi-line, read-only text box with vertical scrollbar for logs
-    ActivityLog := myGui.Add("Text", "x830 y140 w238 h260 r7 cffffff +BackgroundTrans +Center", "Macro Launched")
-    ; Initialize with empty text or welcome message
-}
 
 ; Function to add log entries
 
@@ -374,9 +368,7 @@ SettingFUNC(*) {
     SaveBtn := SettingsGUI.Add("Button", "x10 y60 w100 h30", "Save")
     SaveBtn.OnEvent("Click", SaveSettings)
 
-    SettingsGUI.Add("Text", "x10 y100", "Sessions")
-    DisplaySessions := SettingsGUI.Add("CheckBox", "x10 y120 w150 h30", "Display Session UI")
-    DisplaySessions.OnEvent("Click", (*) => SessionUIsave())
+
     SettingsGUI.OnEvent("Close", CloseSettings)
     SettingsGUI.Title := "Settings"
     SettingsGUI.Show()
@@ -402,26 +394,21 @@ CloseSettings(*) {
     global SettingsGUI
     SettingsGUI.Destroy()
 }
-SessionUIsave(*) {
-    global DisplaySessions
-    TXTFILE := FileOpen(A_ScriptDir "\.\libs\settings\SessionUI", "w")
-    TXTFILE.Write(DisplaySessions.Value)
-    TXTFILE.Close()
-}
 
 
-; Hotkeys
 Hotkey "k", start
 Hotkey "F2", KILLNOW
 
 KILLNOW(*) {
-    ; Check if CloseSessionUI function exists before calling it
-    ; Check if Session.ahk is running in the tray and close it
-    WinClose("Window")
+
+    sessionui := WinExist("Window")
+    if (sessionui) {
+        WinClose("Window")
+    }
     ExitApp()
 }
 
-; Initialize GUI
+
 myGui := CreateGui()
 myGui.OnEvent('Close', (*) => ExitApp())
 
