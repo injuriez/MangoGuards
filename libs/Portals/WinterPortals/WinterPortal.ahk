@@ -9,6 +9,7 @@ class WinterVAR {
 
 PlayerPosition() {
     MsgBox("Press okay once you found your position")
+    Sleep(5000)
     StartTinyTask()
 }
 

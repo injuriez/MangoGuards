@@ -50,12 +50,10 @@ AntRaids() {
 
 
 
-
-
 AltCards() {
     priorityList := []
     try {
-        priorityFile := FileOpen(A_ScriptDir "\..\..\libs\Settings\MangoSettings\CardPriority.txt", "r")
+        priorityFile := FileOpen(A_ScriptDir "\..\..\..\Settings\MangoSettings\CardPriority.txt", "r")
         if (priorityFile) {
             while !priorityFile.AtEOF {
                 line := priorityFile.ReadLine()
@@ -67,7 +65,7 @@ AltCards() {
     } catch {
   
         priorityList := ["Cooldown", "Range", "Slayer", "Harvest", "Strong", "PressIt", 
-                        "Damage", "Champion", "Dodge", "UncommonLoot", "CommonLoot", "Speed"]
+                        "Damage", "Champion", "UncommonLoot", "CommonLoot", "Speed"]
     }
     
     ; Process cards in priority order
