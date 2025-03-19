@@ -3,7 +3,7 @@
 #Include ../../Modules.ahk
 #Include ../../FindText.ahk
 
-#Include ../../webhook.ahk
+
 
 
 
@@ -158,10 +158,12 @@ CancelButton1() {
             Sleep(500)
             BetterClick(X, Y)
             Sleep(500)
+            webhook()
 
             BetterClick(X, Y)
             Sleep(1000)
-            InitiateWebhook()
+
+          
             Sleep(1000)
             PickPortalsAGAIN()
             break
@@ -170,6 +172,7 @@ CancelButton1() {
 }
 
 PickPortalsAGAIN() {
+    
     Setting := FileOpen("../../Settings/MangoSettings/map.txt", "r")
     World := Setting.ReadLine()
     
@@ -194,9 +197,10 @@ findvoting() {
 
 
 WinterPortal() {
+
     Setting := FileOpen("../../Settings/MangoSettings/map.txt", "r")
     World := Setting.ReadLine()
-   
+    
 
     
     if (World == "Namek") {
@@ -493,3 +497,6 @@ PickShibuyaAgain() {
 }
 WinterPortal()
 F2::ExitApp
+webhook() {
+    Run(A_ScriptDir "\..\..\webhook.ahk")   
+}

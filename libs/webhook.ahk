@@ -94,20 +94,40 @@ CropImage(pBitmap, x, y, width, height) {
 }
 
 InitiateWebhook() {
-    filePath := A_ScriptDir . "\libs\Settings\webhookURL.txt"
-
-
+    ; Get the correct path - remove the duplicate "libs\"
+    filePath := A_ScriptDir . "\Settings\webhookURL.txt"
     
-    global WebhookURL := FileRead(filePath, "UTF-8")
-
+    ; Check if directory exists, create if it doesn't
+    fileDir := A_ScriptDir . "\Settings"
+    if !DirExist(fileDir)
+        DirCreate(fileDir)
+    
+    ; Use try/catch to handle file errors
+    try {
+        global WebhookURL := FileRead(filePath, "UTF-8")
+    } catch as err {
+        MsgBox("Error reading webhook file: " . err.Message . "`n`nCreating empty file at:`n" . filePath)
+        ; Create the file if it doesn't exist
+        try {
+            FileAppend("", filePath)
+            global WebhookURL := ""
+        } catch as writeErr {
+            MsgBox("Failed to create webhook file: " . writeErr.Message)
+            return
+        }
+    }
+    
     if (WebhookURL = "") {
-       
+        MsgBox("No webhook URL found. Please set a webhook URL in settings.")
         return
     }
 
-    if (webhookURL ~= 'i)https?:\/\/discord\.com\/api\/webhooks\/(\d{18,19})\/[\w-]{68}') {
+    ; Updated regex to be more flexible with webhook URLs
+    if (WebhookURL ~= 'i)https?:\/\/discord\.com\/api\/webhooks\/\d{17,19}\/[\w-]+') {
         global webhook := WebHookBuilder(WebhookURL)
         SendWebhook()
+    } else {
+        MsgBox("Invalid webhook URL format")
     }
 }
-
+InitiateWebhook()

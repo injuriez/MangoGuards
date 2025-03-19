@@ -129,4 +129,12 @@ status() {
 
 }
 AntRaids()
-F2::ExitApp
+F2::QUITAPP()
+
+QUITAPP() {
+    sessionui := WinExist("Window")
+    if (sessionui) {
+       WinClose("Window")
+    }
+    ExitApp
+}

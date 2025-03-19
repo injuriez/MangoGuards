@@ -339,6 +339,20 @@ start(*) {
                 ; GreenEssenceFarm()
                 MsgBox("Green Essence Farm not implemented")
             } else if MacroSelected.Name == "AntRaid" {
+                sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
+                sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
+                SessionRename := "ANT RAID"
+                SessionTypeValue := "timer"
+                sessionName.Write(SessionRename)
+                sessionType.Write(SessionTypeValue)
+                sessionName.Close()
+                sessionType.Close()
+                Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+                Sleep(3000)
+
+                WinActive("Roblox")
+                Sleep(1000)
+
                 Run(A_ScriptDir "\.\libs\Items\Raids\ant\script.ahk")
 
             } else {
@@ -391,9 +405,21 @@ SettingFUNC(*) {
 
 SaveSettings(*) {
     global Webhookbox
+    regrex := "https://discord\.com/api/webhooks/\d{17,19}/[a-zA-Z0-9_-]+"
+    if !RegExMatch(Webhookbox.Text, regrex) {
+        MsgBox("Invalid webhook URL")
+        ; Add a red background to indicate error
+
+        return
+    }
+
+    ; Reset styling if valid
+
+    
     TXTFILE := FileOpen(A_ScriptDir "\.\libs\settings\webhookURL.txt", "w")
     TXTFILE.Write(Webhookbox.Text)
     TXTFILE.Close()
+    MsgBox("Webhook URL saved")
 }
 SettingsApplyFUNC(*) {
     hometab.Visible := false
@@ -413,7 +439,7 @@ CloseSettings(*) {
 
 
 Hotkey "F1", start
-Hotkey "F2", KILLNOW
+Hotkey "F3", KILLNOW
 
 KILLNOW(*) {
 
