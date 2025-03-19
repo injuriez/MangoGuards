@@ -112,10 +112,13 @@ CreateTabControl(myGui) {
     AntBtn.OnEvent("Click", ShowAntTab)
     antTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Ant Raid Settings"])
     antTab.UseTab(1)
-    myGui.Add("Text", "x190 y100 w100 h23 ", "Select Starter")
-    antRaidOptions := myGui.Add("ListBox", "x190 y120 w100 h60", ["Kings Burden", "Lifeline", "Money Surge", "Exterminator", "no trait no problem"])
+    myGui.Add("Text", "x180 y100 w100 h23 ", "Select Starter")
+    antRaidOptions := myGui.Add("ListBox", "x180 y120 w100 h60", ["Kings Burden", "Lifeline", "Money Surge", "Exterminator", "no trait no problem"])
     applyBTN3 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
     backBtn2 := myGui.Add("Button", "x180 y190 w100 h23", "Back")
+
+    AltCardPriority := myGui.Add("Button", "x280 y120 w100 h23", "Card Priority")
+    AltCardPriority.OnEvent("Click", ShowAltCardPriority)
 
     applyBTN3.OnEvent("Click", ApplyAntRaidSettings)
 
@@ -161,6 +164,63 @@ CreateTabControl(myGui) {
     GreenEssenceBTN := myGui.Add("Button", "Disabled x178 y120 w100 h23", "Green Essence")
     GemBtn.OnEvent("Click", GemFarm)
     ; GreenEssenceBTN.OnEvent("Click", GreenEssenceFarm)
+}
+
+ShowAltCardPriority(*) {
+    global antRaidOptions, cardPriorityLists := []
+    
+    CardPriorityPicker := Gui("+AlwaysOnTop")
+    CardPriorityPicker.SetFont("s8 w600", "Karla")
+    CardPriorityPicker.Add("Text", "x10 y8 w200 h20", "Alt Card Priority Selection")
+    
+    cardOptions :=  ["Cooldown", "Range", "Slayer", "Harvest", "Strong", "PressIt", "Damage", "Champion", "Dodge", "UncommonLoot", "CommonLoot", "Speed"]
+    
+    yPos := 40
+    loop 10 {
+        priority := A_Index
+        CardPriorityPicker.Add("Text", "x10 y" yPos " w80 h20", priority . " Priority:")
+        cardPriorityLists.Push(CardPriorityPicker.Add("DropDownList", "x90 y" yPos-4 " w150", cardOptions))
+        yPos += 30
+    }
+    
+    for i, dropdown in cardPriorityLists {
+        dropdown.Choose(i <= cardOptions.Length ? i : 1)
+    }
+
+    ApplyBtn := CardPriorityPicker.Add("Button", "x60 y" yPos " w80 h30", "Apply")
+    CancelBtn := CardPriorityPicker.Add("Button", "x150 y" yPos " w80 h30", "Cancel")
+    
+  
+    ApplyBtn.OnEvent("Click", SaveCardPriority)
+    CancelBtn.OnEvent("Click", (*) => CardPriorityPicker.Destroy())
+    
+
+    CardPriorityPicker.OnEvent("Close", (*) => CardPriorityPicker.Destroy())
+    CardPriorityPicker.Title := "Card Priority Settings"
+    CardPriorityPicker.Show("w260 h" (yPos + 80))
+    
+
+    SaveCardPriority(*) {
+        priorities := []
+        for dropdown in cardPriorityLists {
+            if dropdown.Text != ""
+                priorities.Push(dropdown.Text)
+        }
+        
+
+        priorityFile := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\CardPriority.txt", "w")
+        if (priorityFile) {
+            for priority in priorities {
+                priorityFile.WriteLine(priority)
+            }
+            priorityFile.Close()
+            MsgBox("Card priorities saved successfully")
+        } else {
+            MsgBox("Failed to save card priorities")
+        }
+        
+        CardPriorityPicker.Destroy()
+    }
 }
 ApplyAntRaidSettings(*) {
     global antRaidOptions, StarterCard
