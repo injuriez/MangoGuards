@@ -118,7 +118,6 @@ InitiateWebhook() {
     }
     
     if (WebhookURL = "") {
-        MsgBox("No webhook URL found. Please set a webhook URL in settings.")
         return
     }
 
