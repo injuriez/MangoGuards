@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 
-#Include ../../../webhook.ahk
 #Include ../../../Modules.ahk
 #Include ../../../AllText.ahk
 

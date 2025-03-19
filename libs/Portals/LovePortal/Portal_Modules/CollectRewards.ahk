@@ -3,7 +3,7 @@
 #Include ../host/LovePortalMAIN.ahk ; this has the host variable
 #Include ../../../Modules.ahk
 #Include ../../../AllText.ahk
-#Include ../../../webhook.ahk
+
 ThreeRewardsText := "|<>*125$74.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzkzzzzzzzzzzzw7zzzzzzzzzkz1zzzzzzzzzwDkTzzzzzzzzz3w7zzzzzzzzzkz1zzzzzzzzzk1kNzX7s7z0zw0A07k0s0z07y0300w0A07U0zU0k070300s07w0A01k0UMA31zkz1kA7sD31sTwDkS31y00k07z3w7UkTU0A01zkz1sA7s0D01zw7kS31y3zkTzz0Q7UkTU0Q03zk31sA7w07U0zy0kS31zU1w0DzkSDlszw0TU3zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
 
 Host := "..."
@@ -110,7 +110,7 @@ CancelButton() {
             BetterClick(X, Y)
             Sleep(500)
             BetterClick(X, Y)
-            InitiateWebhook()
+          
             Sleep(1000)
             LovePortalPickAgain()
             break
