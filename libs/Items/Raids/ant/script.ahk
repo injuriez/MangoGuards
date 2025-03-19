@@ -51,7 +51,6 @@ AntRaids() {
 
 
 AltCards() {
-    ; Load priority list
     priorityList := []
     try {
         priorityFile := FileOpen(A_ScriptDir "\..\..\..\Settings\MangoSettings\CardPriority.txt", "r")
@@ -64,59 +63,72 @@ AltCards() {
             priorityFile.Close()
         }
     } catch {
+  
         priorityList := ["Cooldown", "Range", "Slayer", "Harvest", "Strong", "PressIt", 
                         "Damage", "Champion", "UncommonLoot", "CommonLoot", "Speed"]
     }
-
-    foundCards := []
-
-    if (FindText(&X, &Y, 952-150000, 456-150000, 952+150000, 456+150000, 0, 0, Cooldown))
-        foundCards.Push({name: "Cooldown", x: X, y: Y})
     
-    if (FindText(&X, &Y, 641-150000, 457-150000, 641+150000, 457+150000, 0, 0, Range))
-        foundCards.Push({name: "Range", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 950-150000, 457-150000, 950+150000, 457+150000, 0, 0, Slayer))
-        foundCards.Push({name: "Slayer", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Harvest))
-        foundCards.Push({name: "Harvest", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Strong))
-        foundCards.Push({name: "Strong", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 946-150000, 458-150000, 946+150000, 458+150000, 0, 0, PressIt))
-        foundCards.Push({name: "PressIt", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 953-150000, 457-150000, 953+150000, 457+150000, 0, 0, Damage))
-        foundCards.Push({name: "Damage", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Champion))
-        foundCards.Push({name: "Champion", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 1254-150000, 457-150000, 1254+150000, 457+150000, 0, 0, Dodge))
-        foundCards.Push({name: "Dodge", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 1235-150000, 457-150000, 1235+150000, 457+150000, 0, 0, UncommonLoot))
-        foundCards.Push({name: "UncommonLoot", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 619-150000, 455-150000, 619+150000, 455+150000, 0, 0, CommonLoot))
-        foundCards.Push({name: "CommonLoot", x: X, y: Y})
-    
-    if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Speed))
-        foundCards.Push({name: "Speed", x: X, y: Y})
-
-    if (foundCards.Length() = 0) {
-        status()
-        return
-    }
-
-    for _, cardName in priorityList {
-        for _, card in foundCards {
-            if (card.name = cardName) {
-                BetterClick(card.x, card.y)
-                status()
-                return
+    ; Process cards in priority order
+    for cardName in priorityList {
+        if (cardName = "Cooldown") {
+            if (FindText(&X, &Y, 952-150000, 456-150000, 952+150000, 456+150000, 0, 0, Cooldown)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "Range") {
+            if (FindText(&X, &Y, 641-150000, 457-150000, 641+150000, 457+150000, 0, 0, Range)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "Slayer") {
+            if (FindText(&X, &Y, 950-150000, 457-150000, 950+150000, 457+150000, 0, 0, Slayer)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "Harvest") {
+            if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Harvest)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "Strong") {
+            if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Strong)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "PressIt") {
+            if (FindText(&X, &Y, 946-150000, 458-150000, 946+150000, 458+150000, 0, 0, PressIt)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "Damage") {
+            if (FindText(&X, &Y, 953-150000, 457-150000, 953+150000, 457+150000, 0, 0, Damage)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "Champion") {
+            if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Champion)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "Dodge") {
+            if (FindText(&X, &Y, 1254-150000, 457-150000, 1254+150000, 457+150000, 0, 0, Dodge)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "UncommonLoot") {
+            if (FindText(&X, &Y, 1235-150000, 457-150000, 1235+150000, 457+150000, 0, 0, UncommonLoot)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "CommonLoot") {
+            if (FindText(&X, &Y, 619-150000, 455-150000, 619+150000, 455+150000, 0, 0, CommonLoot)) {
+                BetterClick(X, Y)
+                break
+            }
+        } else if (cardName = "Speed") {
+            if (FindText(&X, &Y, 960-150000, 540-150000, 960+150000, 540+150000, 0, 0, Speed)) {
+                BetterClick(X, Y)
+                break
             }
         }
     }
