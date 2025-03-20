@@ -272,7 +272,7 @@ namekworld() {
             SmoothMouseMove(winWidth/2, winHeight/2)
             Sleep(200)
             
-            Loop 8 {
+            Loop 4 {
                 Send("{WheelDown}")
                 Sleep(150)
             }
@@ -375,7 +375,7 @@ shibuyaworld() {
         if (!Shibuya) {
             SmoothMouseMove(winWidth/2, winHeight/2)
             Sleep(200)
-            Loop 8 {
+            Loop 4 {
                 Send("{WheelDown}")
                 Sleep(150)
             }
@@ -440,7 +440,7 @@ PickNamekAgain() {
             SmoothMouseMove(winWidth/2, winHeight/2)
             Sleep(200)
             
-            Loop 8 {
+            Loop 4 {
                 Send("{WheelDown}")
                 Sleep(150)
             }
@@ -505,7 +505,7 @@ PickShibuyaAgain() {
             SmoothMouseMove(winWidth/2, winHeight/2)
             Sleep(200)
             
-            Loop 8 {
+            Loop 4 {
                 Send("{WheelDown}")
                 Sleep(150)
             }

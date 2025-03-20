@@ -2,9 +2,9 @@ Cooldown
 Range
 Slayer
 Harvest
-Strong
+Range
 PressIt
-Damage
+Cooldown
 Champion
-Dodge
+Range
 UncommonLoot

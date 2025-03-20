@@ -87,7 +87,9 @@ MainCards() {
 
 
 ResetStage() {
-    BetterClick(671, 483) ; clicks a random card so it can reset stage
+    BetterClick(671, 483) ; clicks a random card so it can reset stage\
+    Sleep(2000)
+    BetterClick(951, 568)
     Sleep(2000)
     BetterClick(970, 570) ; clicks cancel
     Sleep(2000)
@@ -98,6 +100,6 @@ ResetStage() {
     BetterClick(1204, 504) ; clicks the restart match button
     Sleep(1000)
     BetterClick(834, 569) 
-    Sleep(5000) ; Add delay to give game time to reset and show cards
+    Sleep(1000) ; Add delay to give game time to reset and show cards
 }
 
