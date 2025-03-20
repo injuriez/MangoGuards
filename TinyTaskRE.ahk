@@ -172,7 +172,8 @@ ShowAltCardPriority(*) {
     CardPriorityPicker := Gui("+AlwaysOnTop")
     CardPriorityPicker.SetFont("s8 w600", "Karla")
     CardPriorityPicker.Add("Text", "x10 y8 w200 h20", "Alt Card Priority Selection")
-    
+    Filepath := A_ScriptDir "\.\libs\Settings\MangoSettings\CardPriority.txt"
+
     cardOptions :=  ["Cooldown", "Range", "Slayer", "Harvest", "Strong", "PressIt", "Damage", "Champion", "UncommonLoot", "CommonLoot", "Speed"]
     
     yPos := 40

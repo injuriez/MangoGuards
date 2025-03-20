@@ -10,73 +10,69 @@ Lifeline:="|<>*24$105.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 MainCards() {
     Setting := FileOpen("../../../Settings/MangoSettings/StarterCard.txt", "r")
     StarterCard := Setting.ReadLine()
+    BetterClick(1591, 205) ; clicks the cancel button
     while (true) {
         if StarterCard == "Exterminator" {
             if (FindText(&X, &Y, 960-150000, 455-150000, 960+150000, 455+150000, 0, 0, Exterminate)) {
                 BetterClick(X, Y)
                 Sleep(2000)
-                SmoothMouseMove(1343, 562, 2)
-                SmoothMouseMove(957, 565, 2)
+          
                 BetterClick(957, 565) ; clicks the cancel button
                 break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
-                Sleep(2000)
+                Sleep(500)
             }
         } else if StarterCard == "Kings Burden" {
             if (FindText(&X, &Y, 604-150000, 456-150000, 604+150000, 456+150000, 0, 0, KingsBurden)) {
                 BetterClick(X, Y)
-                Sleep(2000)
-                SmoothMouseMove(1343, 562, 2)
-                SmoothMouseMove(957, 565, 2)
+                Sleep(500)
+              
                 BetterClick(957, 565) ; clicks the cancel button
                 break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
-                Sleep(2000)
+                Sleep(500)
             }
         } else if StarterCard == "Lifeline" {
             if (FindText(&X, &Y, 652-150000, 453-150000, 652+150000, 453+150000, 0, 0, Lifeline)) {
                 BetterClick(X, Y) 
-                Sleep(2000)
-                SmoothMouseMove(1343, 562, 2)
-                SmoothMouseMove(957, 565, 2)
+                Sleep(500)
+               
                 BetterClick(957, 565) ; clicks the cancel button
                 break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
-                Sleep(2000)
+                Sleep(500)
             }
         } else if StarterCard == "Money Surge" {
             if (FindText(&X, &Y, 1272-150000, 456-150000, 1272+150000, 456+150000, 0, 0, Money)) {
                 BetterClick(X, Y)
                 Sleep(2000)
-                SmoothMouseMove(1343, 562, 2)
-                SmoothMouseMove(957, 565, 2)
+            
                 BetterClick(957, 565) ; clicks the cancel button
                 break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
-                Sleep(2000)
+                Sleep(500)
             }
 
 
         } else if StarterCard == "no trait no problem" {
             if (FindText(&X, &Y, 887-150000, 453-150000, 887+150000, 453+150000, 0, 0, NoTrait)) {
                 BetterClick(X, Y) 
-                Sleep(2000)
-                SmoothMouseMove(1343, 562, 2)
-                SmoothMouseMove(957, 565, 2)
+                Sleep(500)
+           
                 BetterClick(957, 565) ; clicks the cancel button
                 break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
-                Sleep(2000)
+                Sleep(500)
             }
 
         }
