@@ -173,7 +173,7 @@ ShowAltCardPriority(*) {
     CardPriorityPicker.SetFont("s8 w600", "Karla")
     CardPriorityPicker.Add("Text", "x10 y8 w200 h20", "Alt Card Priority Selection")
     
-    cardOptions :=  ["Cooldown", "Range", "Slayer", "Harvest", "Strong", "PressIt", "Damage", "Champion", "Dodge", "UncommonLoot", "CommonLoot", "Speed"]
+    cardOptions :=  ["Cooldown", "Range", "Slayer", "Harvest", "Strong", "PressIt", "Damage", "Champion", "UncommonLoot", "CommonLoot", "Speed"]
     
     yPos := 40
     loop 10 {

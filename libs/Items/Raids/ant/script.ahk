@@ -112,11 +112,7 @@ AltCards() {
                 BetterClick(X, Y)
                 break
             }
-        } else if (cardName = "Dodge") {
-            if (FindText(&X, &Y, 1254-150000, 457-150000, 1254+150000, 457+150000, 0, 0, Dodge)) {
-                BetterClick(X, Y)
-                break
-            }
+        
         } else if (cardName = "UncommonLoot") {
             if (FindText(&X, &Y, 1235-150000, 457-150000, 1235+150000, 457+150000, 0, 0, UncommonLoot)) {
                 BetterClick(X, Y)
