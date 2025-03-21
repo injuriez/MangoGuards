@@ -222,6 +222,7 @@ namekworld() {
                 
                 if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
                     namekFound := true
+                   
                     
                     MouseGetPos(&mouseX, &mouseY)
                     BetterClick(mouseX, mouseY)
@@ -236,6 +237,7 @@ namekworld() {
                             Sleep(1000)
                             BetterClick(966, 553)
                             useButtonFound := true
+                          
                             break
                         }
                         Sleep(100)
@@ -244,9 +246,9 @@ namekworld() {
                     if (useButtonFound) {
                         loadingFound := false
                         Loop  {
-                            if (ok := FindText(&X, &Y, 173-150000, 917-150000, 173+150000, 917+150000, 0, 0, WinterVAR.Shibuya_Loading)) {
+                            if (ok := FindText(&X, &Y, 173-150000, 917-150000, 173+150000, 917+150000, 0, 0, WinterVAR.Namek_Loading)) {
                                 Sleep(2000)
-                                
+                              
                                 findvoting()
                                 Sleep(500)
                                 loadingFound := true
@@ -255,14 +257,19 @@ namekworld() {
                             Sleep(100)
                         }
                         
-                        if (!loadingFound)
+                        if (!loadingFound) {
                             namekFound := false
-                    } else
+                        
+                        }
+                    } else {
                         namekFound := false
+                     
+                    }
                 }
                 
-                if (!namekFound)
+                if (!namekFound) {
                     col++
+                }
             }
             
             if (!namekFound) {
@@ -285,7 +292,6 @@ namekworld() {
         }
     }
 }
-
 shibuyaworld() {
     baseX := 531
     baseY := 432
