@@ -4,8 +4,9 @@
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
 #Include libs/Legend/Bleach/AllStages.ahk
-
 #Include libs/PC_SETTINGS/Auto.ahk
+
+
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
 global CountdownText := "" 
@@ -18,10 +19,11 @@ global myGui := ""
 global antRaidOptions := ""
 global StarterCard := ""
 
-; Use these data objects to store both settings and UI references
+
 global WinterPortal_data := {
     World: "Namek",
-    worldSelect: "" ; Will store the ListBox reference
+    worldSelect: "" ; 
+    
 }
 
 global LovePortal_data := {
