@@ -165,7 +165,6 @@ PickPortalsAGAIN() {
 }
 
 findvoting() {
-    MsgBox("findvoting")
     loop {
         if (ok := FindText(&X, &Y, 925-150000, 109-150000, 925+150000, 109+150000, 0, 0, voteDectect)) {
             Sleep(5000)
@@ -282,7 +281,7 @@ namekworld() {
             SmoothMouseMove(winWidth/2, winHeight/2)
             Sleep(200)
             
-            Loop 4 {
+            Loop 5 {
                 Send("{WheelDown}")
                 Sleep(150)
             }
@@ -389,7 +388,7 @@ shibuyaworld() {
         if (!Shibuya) {
             SmoothMouseMove(winWidth/2, winHeight/2)
             Sleep(200)
-            Loop 4 {
+            Loop 5 {
                 Send("{WheelDown}")
                 Sleep(150)
             }
@@ -454,7 +453,7 @@ PickNamekAgain() {
             SmoothMouseMove(winWidth/2, winHeight/2)
             Sleep(200)
             
-            Loop 4 {
+            Loop 5 {
                 Send("{WheelDown}")
                 Sleep(150)
             }
