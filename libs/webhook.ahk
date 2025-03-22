@@ -35,7 +35,7 @@ SendWebhook() {
     attachment := AttachmentBuilder(pCroppedBitmap)
     myEmbed := EmbedBuilder()
         .setAuthor({ name: "MangoGuards", icon_url: "https://cdn.discordapp.com/attachments/1342045511175376962/1342714291089969202/mango.png?ex=67c28ca1&is=67c13b21&hm=d0cbfa9458dcb435d4d9256446f70a22bccbf61bf2ae700237dabaac8a0841b8&"})
-        .setTitle("Completed Portal")
+        .setTitle("Completed Map")
         .setColor(0xFFBF34)
         .setImage(attachment)
         .setFooter({ text: "MangoGuards" })
