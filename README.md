@@ -10,7 +10,7 @@
 
 
 
-![Logo](https://cdn.discordapp.com/attachments/1341949236819787817/1341987505192439848/New_Project_4.png?ex=67b95042&is=67b7fec2&hm=e49d3ac42ad6e47210584fe2db4b0bb734bb43151758ca6720ae3309fb193b63&)
+![Logo](https://i.ibb.co/tMNkSB81/New-Project-18.png)
 
 
 ## 🔗 Links
