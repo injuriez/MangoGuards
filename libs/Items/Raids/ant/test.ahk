@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0
 
-global X1 := 214
-global Y1 := 227
-global X2 := 1500
-global Y2 := 600
+; Coordinate variables
+global X1 := 500   ; Left coordinate - changing this affects WIDTH
+global Y1 := 50   ; Top coordinate - changing this affects HEIGHT
+global X2 := 1500  ; Right coordinate - changing this affects WIDTH
+global Y2 := 400   ; Bottom coordinate - changing this affects HEIGHT
+
+; Width = X2 - X1
+; Height = Y2 - Y1
 
 ; Calculate the width and height of the search area
 width := X2 - X1

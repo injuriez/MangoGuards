@@ -3,7 +3,7 @@
 #Include libs/Items/GreenEssence/script.ahk
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
-#Include libs/Legend/Bleach/AllStages.ahk
+
 #Include libs/PC_SETTINGS/Auto.ahk
 
 
@@ -34,7 +34,8 @@ global LovePortal_data := {
 }
 
 global Legends_data := {
-    World: "Bleach"
+    World: "Bleach",
+    Card: "Champions"
 }
 
 CreateGui() {
@@ -72,7 +73,7 @@ CreateLeftPanel(myGui) {
     ButtonAnimeVanguards := myGui.Add("Button", "x8 y64 w145 h23", "Anime Vanguards")
     ButtonMacroStats := myGui.Add("Button", "x8 y96 w145 h23", "Stats")
 
-    SettingsApply := myGui.Add("Button", "x8 y128 w145 h23 ", "Apply Settings")
+    SettingsApply := myGui.Add("Button", "x8 y128 w145 h23 ", "Apply Requirements")
     Settings := myGui.Add("Button", "x8 y160 w145 h23", "Settings")
 
 
@@ -104,8 +105,8 @@ CreateSettingsPanel(myGui) {
     myGui.Add("Text", "x168 y64 w225 h160 +0x8", "dsa")
 }
 CreateTabControl(myGui) {
-    global hometab, winterTab, loveTab
-    global WinterPortal_data, LovePortal_data, Legends_data, antTab, antRaidOptions, StarterCard
+    global hometab, winterTab, loveTab, legendTab
+    global WinterPortal_data, LovePortal_data, Legends_data, antTab, antRaidOptions, StarterCard, LegendCards
     
     hometab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +AltSubmit", ["Raids", "Portals", "Legend", "Items"])
 
@@ -158,9 +159,17 @@ CreateTabControl(myGui) {
 
     ; Legend Tab
     hometab.UseTab(3)
-    bleachBtn := myGui.Add("Button", "x178 y94 w100 h23", "Bleach Secret")
+    bleachBtn := myGui.Add("Button", "x178 y94 w100 h23", "Legend stage")
     bleachBtn.OnEvent("Click", SetBleachWorld)
-
+    legendTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Legend Settings"])
+    legendTab.UseTab(1)
+    myGui.Add("Text", "x180 y100 w100 h23 ", "Select Card")
+    LegendCards := myGui.Add("ListBox", "x180 y120 w100 h60 +0x200000", ["Champions", "Exploding", "Immunity", "Quake", "Revitalize", "Thrice"])
+    applyBTN3 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
+    
+    applyBTN3.OnEvent("Click", ApplyLegendSettings)
+    backBtn3 := myGui.Add("Button", "x180 y190 w100 h23", "Back")
+    backBtn3.OnEvent("Click", ShowPortalsTab)
     hometab.UseTab(4)
     GemBtn := myGui.Add("Button", "x178 y94 w100 h23", "GEM Farm")
     GreenEssenceBTN := myGui.Add("Button", "Disabled x178 y120 w100 h23", "Green Essence")
@@ -238,6 +247,7 @@ ShowAntTab(*) {
     global hometab, antTab
     hometab.Visible := false
     antTab.Visible := true
+    legendTab.Visible := false
     antTab.Value := 1
 }
 AntRaid(CardSelected) {
@@ -295,7 +305,6 @@ ShowWinterPortalTab(*) {
 
     WinterPortal_data.World := WinterPortal_data.worldSelect.Text
     
-    ; Call ApplyWinterPortalSettings to set initial values
     ApplyWinterPortalSettings()
 }
 
@@ -319,6 +328,7 @@ ShowPortalsTab(*) {
     loveTab.Visible := false
     hometab.Visible := true
     antTab.Visible := false
+    legendTab.Visible := false
     hometab.Value := 2  
 }
 
@@ -355,12 +365,24 @@ GemFarm(*) {
 
 SetBleachWorld(*) {
     global MacroSelected, myGui, Legends_data
+    legendTab.Visible := true
+    hometab.Visible := false
+    legendTab.Value := 1
     
     Legends_data.World := "Bleach"
     MacroSelected.Name := "Bleach"
     myGui.Title := "MangoGuards [Bleach]"
 }
-; Event Handlers
+ApplyLegendSettings(*) {
+    global Legends_data, LegendCards
+    Legends_data.Card := LegendCards.Text
+    LegendSettings := FileOpen(A_ScriptDir "\.\libs\Settings\LegendSettings\CardStarter.txt", "w")
+    LegendSettings.Write(Legends_data.Card)
+    LegendSettings.Close()
+    MsgBox("Legend settings saved")
+    
+
+}
 start(*) {
     global MacroSelected, WinterPortal_data, LovePortal_data, Legends_data
     GetDisplayInfo()
@@ -380,7 +402,21 @@ start(*) {
             } else if MacroSelected.Name == "ValentinePortal" {
                 LovePortalFile()
             } else if MacroSelected.Name == "Bleach" {
-                LegendStart()
+                sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
+                sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
+                SessionRename := "Legend Stage"
+                SessionTypeValue := "timer"
+                sessionName.Write(SessionRename)
+                sessionType.Write(SessionTypeValue)
+                sessionName.Close()
+                sessionType.Close()
+                Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+                
+                Sleep(3000)
+                WinActive("Roblox")
+               
+                Sleep(1000)
+                Run(A_ScriptDir "\.\libs\Legend\AllStages.ahk")
             } else if MacroSelected.Name == "Gems" {
                 sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
                 sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
@@ -434,6 +470,7 @@ LovePortalFile() {
 
 stop(*) {
     MacroSelected.Enabled := false
+
 }
 
 Home(*) {
@@ -450,33 +487,47 @@ stats(*) {
 
 SettingFUNC(*) {
     global SettingsGUI, Webhookbox
-
-    hometab.Visible := true
+    
     SettingsGUI := Gui("+AlwaysOnTop")
     SettingsGUI.SetFont("s8 w600", "Karla")
     SettingsGUI.Add("Text", "x10 y8", "Webhook")
-    Webhookbox := SettingsGUI.Add("Edit", "x10 y25 w200", "")
-    
-    SaveBtn := SettingsGUI.Add("Button", "x10 y60 w100 h30", "Save")
-    SaveBtn.OnEvent("Click", SaveSettings)
 
+
+    webhookText := ""
+    try {
+        WebhookUrl := FileOpen(A_ScriptDir "\libs\Settings\webhookURL.txt", "r")
+        if WebhookUrl {
+            webhookText := WebhookUrl.ReadLine()
+            WebhookUrl.Close()
+        }
+    } catch {
+        
+    }
+    
+ 
+    Webhookbox := SettingsGUI.Add("Edit", "x10 y25 w200 h20 -Wrap", webhookText)
+
+    SaveBtn := SettingsGUI.Add("Button", "x10 y60 w100 h30", "Save")
+    TestBtn := SettingsGUI.Add("Button", "x120 y60 w100 h30", "Test")
+    SaveBtn.OnEvent("Click", SaveSettings)
+    TestBtn.OnEvent("Click", TestWebhook)
 
     SettingsGUI.OnEvent("Close", CloseSettings)
     SettingsGUI.Title := "Settings"
     SettingsGUI.Show()
 }
-
+TestWebhook(*) {
+    Run(A_ScriptDir "\.\libs\webhook.ahk")
+}
 SaveSettings(*) {
     global Webhookbox
     regrex := "https://discord\.com/api/webhooks/\d{17,19}/[a-zA-Z0-9_-]+"
     if !RegExMatch(Webhookbox.Text, regrex) {
         MsgBox("Invalid webhook URL")
-        ; Add a red background to indicate error
 
         return
     }
 
-    ; Reset styling if valid
 
     
     TXTFILE := FileOpen(A_ScriptDir "\.\libs\settings\webhookURL.txt", "w")
@@ -505,7 +556,7 @@ Hotkey "F1", start
 Hotkey "F3", KILLNOW
 
 KILLNOW(*) {
-
+    
     sessionui := WinExist("Window")
     if (sessionui) {
         WinClose("Window")

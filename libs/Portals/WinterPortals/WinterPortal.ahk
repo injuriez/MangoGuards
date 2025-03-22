@@ -530,8 +530,13 @@ PickShibuyaAgain() {
 }
 
 WinterPortal()
-F2::ExitApp
-
+F2::StopApp()
+StopApp() {
+    if (ProcessExist("TinyTask.exe")) {
+        ProcessClose("TinyTask.exe")
+    }
+    ExitApp()
+}
 webhook() {
     Run(A_ScriptDir "\..\..\webhook.ahk")   
 }

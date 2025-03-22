@@ -66,6 +66,13 @@ BetterClick(x, y) {
     MouseClick("Left", -1, 0, , , , "R")
     Sleep(50)
 }
-
+StopApp() {
+    ; Finds TinyTask and closes it
+    win := WinGetProcessName("TinyTask")
+    if (win) {
+        WinClose("ahk_id " win)
+    }
+    ExitApp()
+}
 F1::CardPicker()
 F2::ExitApp()
