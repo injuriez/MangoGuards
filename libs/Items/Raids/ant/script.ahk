@@ -119,6 +119,10 @@ AltCards() {
     if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Speed)) {
         foundCards.Push({name: "Speed", x: X, y: Y})
     }
+    if (foundCards.Length == 0) {
+        status()
+        return
+    }
     
     ; Iterate through the priority list and click the first found card that matches
     for cardName in priorityList {
