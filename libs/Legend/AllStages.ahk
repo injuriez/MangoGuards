@@ -18,6 +18,7 @@ BetterClick(x, y) {
 }
 
 Position() {
+    global PositionShown
     if (!PositionShown) {
         MsgBox("Once you found your position press okay")
         PositionShown := true
