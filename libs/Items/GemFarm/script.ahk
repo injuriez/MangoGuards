@@ -85,7 +85,10 @@ upgradeAll() {
     return CheckRound12() 
 }
 webhook() {
-    Run(A_ScriptDir "\..\..\webhook.ahk")   
+    
+    webhookPath := A_ScriptDir . "\libs\webhook.ahk"
+    Run(webhookPath)
+    
 }
 CheckRound12() {
     if (ok:=FindText(&X, &Y, 1134-150000, 840-150000, 1134+150000, 840+150000, 0, 0, Failed)) {
