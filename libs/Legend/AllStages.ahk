@@ -38,7 +38,6 @@ StartTinyTask1() {
     Sleep(500)
     Loop {
         if (ok := FindText(&X, &Y, 669-150000, 586-150000, 669+150000, 586+150000, 0, 0, Cards.RewardsText)) {
-            RunWait(A_ScriptDir . "\..\webhook.ahk")
 
 
             Sleep(1000)
@@ -48,6 +47,8 @@ StartTinyTask1() {
             Sleep(500)
             BetterClick(1184, 840)
             Sleep(500)
+            RunWait(A_ScriptDir . "\..\webhook.ahk")
+            sleep(3000)
             LegendStart()
             Sleep(500)
 
