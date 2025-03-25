@@ -195,10 +195,19 @@ AntRaids()
 F2::QUITAPP()
 
 QUITAPP() {
-    EraseWins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "w")
-    ReadWins := EraseWins.ReadLine()
-    ReadWins.Write(0)
-    EraseWins.Close()
+    try {
+
+        EraseWins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "w")
+        EraseWins.Write(0)  
+        EraseWins.Close()
+        
+
+        EraseLosses := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "w")
+        EraseLosses.Write(0)
+        EraseLosses.Close()
+    } catch as e {
+        MsgBox("Error resetting stats: " e.Message)
+    }
     sessionui := WinExist("Window")
     DetectHiddenWindows(True)
     if WinExist("CardPickerModule.ahk - AutoHotkey") {
