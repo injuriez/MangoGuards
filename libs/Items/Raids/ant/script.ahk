@@ -196,7 +196,7 @@ status() {
     
 }
 FailedFunction() {
-     if (ok:=FindText(&X, &Y, 665-150000, 247-150000, 665+150000, 247+150000, 0, 0, FailedTEXT))
+     if (ok:=FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed))
             {
               
                 try {
