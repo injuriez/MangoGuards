@@ -27,7 +27,9 @@ global X2 := 1500
 global Y2 := 600
 global AltCardsPicked := 0
 AntRaids() {
+    global FoundCorrectCard
     MainCards()
+    FoundCorrectCard := false
 
     loop {
 
@@ -134,6 +136,7 @@ status() {
         {
           
             try {
+                
                 if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
                     loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "r")
                     currentLosses := Integer(loss.ReadLine())
@@ -151,6 +154,7 @@ status() {
 
               
         } else {
+            
 
             Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "r+")
             currentWins := Wins.ReadLine()
@@ -166,6 +170,7 @@ status() {
             TotalWins.Close()
 
         }
+        AltCardsPicked := 0
         Send("{F8 down}") 
         Sleep(100)
         Send("{F8 up}")
