@@ -139,58 +139,63 @@ AltCards() {
 }
 
 status() {
-    if (ok:=FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed)) {
+    loop {
+        if (ok:=FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed)) {
         
-        if (ok:=FindText(&X, &Y, 665-150000, 247-150000, 665+150000, 247+150000, 0, 0, FailedTEXT))
-        {
-          
-            try {
-                
-                if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
-                    loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "r")
-                    currentLosses := Integer(loss.ReadLine())
-                    loss.Close()
-                } else {
-                    currentLosses := 0
-                }
-     
-                loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "w")
-                loss.Write(currentLosses + 1)
-                loss.Close()
-            } catch as e {
-                MsgBox("Error updating loss stats: " e.Message)
-            }
-
+            if (ok:=FindText(&X, &Y, 665-150000, 247-150000, 665+150000, 247+150000, 0, 0, FailedTEXT))
+            {
               
+                try {
+                    
+                    if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
+                        loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "r")
+                        currentLosses := Integer(loss.ReadLine())
+                        loss.Close()
+                    } else {
+                        currentLosses := 0
+                    }
+         
+                    loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "w")
+                    loss.Write(currentLosses + 1)
+                    loss.Close()
+                } catch as e {
+                    MsgBox("Error updating loss stats: " e.Message)
+                }
+    
+                  
+            } else {
+                
+    
+                Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "r+")
+                currentWins := Wins.ReadLine()
+                Wins.Seek(0)
+                Wins.Write(currentWins + 1)
+                Wins.Close()
+    
+                ; total it for stats
+                TotalWins := FileOpen("../../../Settings/MangoSettings/session/stats/TotalWins.txt", "r+")
+                TotalCurrentWins := TotalWins.ReadLine()
+                TotalWins.Seek(0)
+                TotalWins.Write(TotalCurrentWins + 1)
+                TotalWins.Close()
+    
+            }
+            AltCardsPicked := 0
+            Send("{F8 down}") 
+            Sleep(100)
+            Send("{F8 up}")
+            Sleep(4000)
+            RunWait(A_ScriptDir . "\..\..\..\webhook.ahk")
+            Sleep(1000)
+            BetterClick(1167, 819) 
+            Sleep(5000)
+            AntRaids()
+            return
         } else {
-            
-
-            Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "r+")
-            currentWins := Wins.ReadLine()
-            Wins.Seek(0)
-            Wins.Write(currentWins + 1)
-            Wins.Close()
-
-            ; total it for stats
-            TotalWins := FileOpen("../../../Settings/MangoSettings/session/stats/TotalWins.txt", "r+")
-            TotalCurrentWins := TotalWins.ReadLine()
-            TotalWins.Seek(0)
-            TotalWins.Write(TotalCurrentWins + 1)
-            TotalWins.Close()
-
+            break
         }
-        AltCardsPicked := 0
-        Send("{F8 down}") 
-        Sleep(100)
-        Send("{F8 up}")
-        Sleep(4000)
-        RunWait(A_ScriptDir . "\..\..\..\webhook.ahk")
-        Sleep(1000)
-        BetterClick(1167, 819) 
-        Sleep(5000)
-        AntRaids()
-        return
-    } 
+    }
+    
 }
 AntRaids()
 F2::QUITAPP()
