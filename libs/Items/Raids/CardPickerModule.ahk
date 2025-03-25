@@ -36,7 +36,7 @@ MainCards() {
         }
         if StarterCard == "Exterminator" {
             if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Exterminate)) {
-                MsgBox("Found Exterminator")
+          
                 FoundCorrectCard := true
                 BetterClick(X, Y)
                 Sleep(1000)
