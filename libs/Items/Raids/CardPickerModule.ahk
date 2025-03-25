@@ -119,3 +119,5 @@ BetterClick(x, y) {
 }
 
 MainCards()
+
+F2::ExitApp
