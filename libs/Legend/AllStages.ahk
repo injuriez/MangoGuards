@@ -76,6 +76,7 @@ StartTinyTask1() {
 
             Sleep(500)
             break
+        
         } else if (ok := FindText(&X, &Y, 1142-150000, 448-150000, 1142+150000, 448+150000, 0, 0, Cards.gems)) {
 
             try {
