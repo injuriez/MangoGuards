@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include ../../../FindText.ahk
+#Include ../CardPickerModule.ahk
 FailedTEXT:="|<>*44$208.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zzzzzk00Dw001zkDw0003zzzzw7zzy00007zzzzzU01zw00Dznzw000zzzzzxzzzz0000zzzzzz00Dzs01zzzzs007zzzzzzzzzzU007zzzzzy01zzU0Dzzzzk00zzzzzzzzzzz000S00003s0DUT00w0z0D003k0000DU007y003s00007U0w0w07k1w0S00D00000y0003y00D00000D07k3s0S07U1s00s00001k0003w00w00000w0S07U1s0S07U07U0000700007s03k00003k3s0T07U1s0S00S00000Q0000Dk0D00000D0D00w0S07U1s01s00001k0000TU0w00000s1w03s1s0S07U07U0000700000yzzk00007zzU07zzU1s0Tzzy00000w00001zzz00000Tzy00Tzy07U1zzzs00003k00003zzw0Dzzzzzk00zzs0S07zzzU1zzzz03w007zzk0zzzzzz003zzU1s0Tzzy07zzzw0Dz00Tzz03zzzzzs007zy07U1zzzs0Tzzzk0zy00zzw0DzzzzzU00Tzs0S07zzzU1zzzz03zy03zzk0zzzzzw000zzU1s0Tzzy07zzzw0Dzs0Dzz03zzzzzk003zy07U1zzzs0Tzzzk0zzk0Tzw0003zzy0007zs0S07zzzU000Tz03zzU1zzk0007zzs000TzU1s0Tzzy0000zw0Dzy07zz0000Tzz01U0zy07U1zzzs0003zk0zzs0Tzw0000zzw0603zs0S07zzzU0007z03zzU1zzk0003zzU0w07zU1s0Tzzy0000Tw0Dzz07zz0000Dzy03k0Ty07U1zzzs0001zk0zzw0Tzw0001zzk0TU0zs0S07zzzU0007z03zzU1zzk0007zz01y03zU1s0Tzzy0000zw0Dzy07zz0000Tzs00007y07U1zzzs0003zk0zzs0Tzw0007zzU0000Ts0S07zzzU000zz03zzU1zzk0zzzzy00000zU1s0Tzzy07zzzw0Dzw0Dzz03zzzzk00003y07U1zzzs0Tzzzk0zzU0zzw0Dzzzz00000Ds0S07zzzU1zzzz03zw03zzk0zzzzs00000TU1s0Tzzy07zzzw0DzU0Tzz03zzzzU00001y07U1zzzs0Tzzzk0zs01zzw0Dzzzw000003s0S07zzzU0000z00000Dzzk0zzzzk0Tzs0DU1s0Tzzy00000w00001zzz03zzzy03zzk0S07U0001s00003k00007zzw0Dzzzs0TzzU1s0S00003U0000700000zzzk0zzzz01zzy03U1s0000C00000Q00007zzz03zzzw0Dzzw0C07U0000s00001k0000zzzw0Dzzzk0zzzk0s0S00003U000070000Dzzzk0zzzz07zzzU3U1s0000C00000w0001zzzzU7zzzy0Tzzy0T0Dk0001w00003s000Tzzzz0zzzzy3zzzw7y1zU000Ds0000Tk00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
 
  Failed:="|<>*86$159.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3zzzzzzzzzzzzzzzzzzzzzzzzzkDzzzzzU07zzzzzzzzzzzzzzzzy1zzzzzs00DzzzzzzzzzzzzzzzzkDzzzzz000zzzzzzzzzzzzzzzzy1zzzzzs003zzzzzzzzzzzzzzzzkDzzzzz000Dzzzzzzzzzzzzzzzy1zzzzzs001zzzzzzzzzzzzzzzzkDzzzzz0TU7zzzzzzzzzzzzzzzy1zzzzzs3y0zU7wDszXzUsS3UzUkDs0zzz0Tk7k0D0y3s7k21k03k01w03zzs3y0w00s7UT0w00A00Q00D00Dzz0Tk70030w1k7001U03001s01zzs3w0k00M30C1k00A00s00D00Tzz000C0M1UM0UC001U06001sDrzzs001U7UA1041U60A0xk20D0zzzz000Q1w1U000Q1w1UDw1w1s0Dzzs003U00C0003UTUA1zUDUD00Tzz000w003k000w3w1UDw3y1w01zzs003U00T0007UTUA1zUDUDk0Dzz000Q00Ds000w1w1UDw1w1zU0zzs3w1UDzz020DU20A1zk20DzU7zz0TUC0zDw0k1y001UDy001sT0zzs3y0k00zU70Tk00A1zs00C007zz0Tk7003y0s3z001UDz001k01zzw3z0w00TkD0Tw00A1zw00C00DzzUTs7k07z1w7zk21kDzk01s03zzy7zXz01zsTlzzUsS3zzUsTk1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
@@ -24,35 +25,18 @@ global X1 := 214
 global Y1 := 227
 global X2 := 1500
 global Y2 := 600
-BetterClick(x, y) {
-    MouseMove(x, y)
-    Sleep(10)
-    MouseMove(1, 0, , "R")
-    Sleep(20)
-    MouseClick("Left", -1, 0, , , , "R")
-    Sleep(50)
-}
+global AltCardsPicked := 0
 AntRaids() {
-
-
-    
-
-    
-    
-    status()
-    Run(A_ScriptDir . "\..\CardPickerModule.ahk")
-
-    Sleep(2000)
-    Send("{F8 down}")
-    Sleep(100)
-    Send("{F8 up}")
+    MainCards()
 
     loop {
 
-        Sleep(900)
-        status()
-        Sleep(500)
-        AltCards()
+        if (AltCardsPicked == 10) {
+            status()
+            return
+        } else {
+            AltCards()
+        }
       
     }
 
@@ -64,6 +48,7 @@ AntRaids() {
 
 
 AltCards() {
+    global AltCardsPicked
     priorityList := []
     try {
         priorityFile := FileOpen(A_ScriptDir "\..\..\..\Settings\MangoSettings\CardPriority.txt", "r")
@@ -133,6 +118,7 @@ AltCards() {
         for card in foundCards {
             if (card.name = cardName) {
                 BetterClick(card.x, card.y)
+                AltCardsPicked++
                 return
             }
         }

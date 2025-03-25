@@ -10,19 +10,39 @@ global X1 := 214
 global Y1 := 227
 global X2 := 1500
 global Y2 := 600
-
+Global FoundCorrectCard := false
 MainCards() {
+    global FoundCorrectCard
  
-    Setting := FileOpen("../../Settings/MangoSettings/StarterCard.txt", "r")
+    filePath := A_ScriptDir "\..\..\..\Settings\MangoSettings\StarterCard.txt"
+    if !FileExist(filePath) {
+        MsgBox("Error: File not found - " filePath)
+        return
+    }
+
+    ; Open the file and read the first line
+    Setting := FileOpen(filePath, "r")
+    if !IsObject(Setting) {
+        MsgBox("Error: Unable to open file - " filePath)
+        return
+    }
     StarterCard := Setting.ReadLine()
+    Setting.Close() ; Close the file after reading
+
     BetterClick(1591, 205) ; clicks the cancel button
     while (true) {
+        if FoundCorrectCard {
+            break
+        }
         if StarterCard == "Exterminator" {
             if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Exterminate)) {
+                MsgBox("Found Exterminator")
+                FoundCorrectCard := true
                 BetterClick(X, Y)
                 Sleep(1000)
-          
                 BetterClick(957, 565) ; clicks the cancel button
+
+                StartTinyTask()
                 break
             } else {
                 ResetStage()
@@ -31,11 +51,14 @@ MainCards() {
             }
         } else if StarterCard == "Kings Burden" {
             if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, KingsBurden)) {
+                FoundCorrectCard := true
                 BetterClick(X, Y)
                 Sleep(1000)
                 
+                
               
                 BetterClick(957, 565) ; clicks the cancel button
+                StartTinyTask()
                 break
             } else {
                 ResetStage()
@@ -44,11 +67,14 @@ MainCards() {
             }
         } else if StarterCard == "Lifeline" {
             if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Lifeline)) {
+                FoundCorrectCard := true
                 BetterClick(X, Y) 
                 Sleep(1000)
                
                
+               
                 BetterClick(957, 565) ; clicks the cancel button
+                StartTinyTask()
                 break
             } else {
                 ResetStage()
@@ -57,11 +83,14 @@ MainCards() {
             }
         } else if StarterCard == "Money Surge" {
             if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Money)) {
+                FoundCorrectCard := true
                 BetterClick(X, Y)
                 Sleep(1000)
+
               
             
                 BetterClick(957, 565) ; clicks the cancel button
+                StartTinyTask()
                 break
             } else {
                 ResetStage()
@@ -72,11 +101,12 @@ MainCards() {
 
         } else if StarterCard == "no trait no problem" {
             if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, NoTrait)) {
+                FoundCorrectCard := true
                 BetterClick(X, Y) 
                 Sleep(1000)
-              
-           
                 BetterClick(957, 565) ; clicks the cancel button
+
+                StartTinyTask()
                 break
             } else {
                 ResetStage()
@@ -85,11 +115,29 @@ MainCards() {
             }
 
         }
+
+
+
        
     }
 }
 
+StartTinyTask() {
+    if FoundCorrectCard == true {
+        Sleep(2000)
+        Send("{F8 down}")
+        Sleep(100)
+        Send("{F8 up}")
+        return
 
+    } else {
+        ResetStage()
+        Sleep(500)
+        MainCards()
+    }
+    
+
+}
 
 ResetStage() {
     BetterClick(671, 483) ; clicks a random card so it can reset stage\
@@ -118,6 +166,3 @@ BetterClick(x, y) {
     Sleep(50)
 }
 
-MainCards()
-
-F2::ExitApp
