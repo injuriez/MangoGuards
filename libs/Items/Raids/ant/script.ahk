@@ -36,11 +36,11 @@ AntRaids() {
 
         if (AltCardsPicked == 10) {
             UnitInfo() ; close unit info
-            status()
+            status() ; loops until the player wins or fails the raid
             return
         } else {
             UnitInfo() ; close unit info
-            status() ; checks if the player won or failed the raid
+            FailedFunction() ; checks if the player won or failed the raid
             AltCards() ; checks for alt cards
         }
       
@@ -121,7 +121,7 @@ AltCards() {
         foundCards.Push({name: "Speed", x: X, y: Y})
     }
     if (foundCards.Length == 0) {
-        status()
+        FailedFunction()
         return
     }
     
@@ -190,12 +190,62 @@ status() {
             BetterClick(1167, 819) 
             Sleep(5000)
             AntRaids()
-            return
-        } else {
             break
-        }
+        } 
     }
     
+}
+FailedFunction() {
+     if (ok:=FindText(&X, &Y, 665-150000, 247-150000, 665+150000, 247+150000, 0, 0, FailedTEXT))
+            {
+              
+                try {
+                    
+                    if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
+                        loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "r")
+                        currentLosses := Integer(loss.ReadLine())
+                        loss.Close()
+                    } else {
+                        currentLosses := 0
+                    }
+         
+                    loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "w")
+                    loss.Write(currentLosses + 1)
+                    loss.Close()
+                } catch as e {
+                    MsgBox("Error updating loss stats: " e.Message)
+                }
+    
+                  
+            } else {
+                
+    
+                Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "r+")
+                currentWins := Wins.ReadLine()
+                Wins.Seek(0)
+                Wins.Write(currentWins + 1)
+                Wins.Close()
+    
+                ; total it for stats
+                TotalWins := FileOpen("../../../Settings/MangoSettings/session/stats/TotalWins.txt", "r+")
+                TotalCurrentWins := TotalWins.ReadLine()
+                TotalWins.Seek(0)
+                TotalWins.Write(TotalCurrentWins + 1)
+                TotalWins.Close()
+    
+            }
+            AltCardsPicked := 0
+            Send("{F8 down}") 
+            Sleep(100)
+            Send("{F8 up}")
+            Sleep(4000)
+            RunWait(A_ScriptDir . "\..\..\..\webhook.ahk")
+            Sleep(1000)
+            BetterClick(1167, 819) 
+            Sleep(5000)
+            AntRaids()
+            return
+
 }
 AntRaids()
 F2::QUITAPP()
