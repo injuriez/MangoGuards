@@ -38,6 +38,7 @@ StartTinyTask1() {
     Sleep(500)
     Loop {
         if (ok := FindText(&X, &Y, 669-150000, 586-150000, 669+150000, 586+150000, 0, 0, Cards.RewardsText)) {
+
             try {
                 Run(A_ScriptDir . "\..\webhook.ahk")
                 if FileExist("../../Settings/MangoSettings/session/stats/losses.txt") {
@@ -57,6 +58,7 @@ StartTinyTask1() {
             
 
 
+
             Sleep(1000)
             Send("{F8 down}")
             Sleep(100)
@@ -67,6 +69,8 @@ StartTinyTask1() {
             Sleep(500)
      
             Sleep(500)
+            RunWait(A_ScriptDir . "\..\webhook.ahk")
+            sleep(3000)
             LegendStart()
             Sleep(500)
 
@@ -105,6 +109,7 @@ StartTinyTask1() {
                 MsgBox("Error updating win stats: " e.Message)
             }
 
+            
 
 
             Sleep(1000)

@@ -87,7 +87,6 @@ upgradeAll() {
 }
 webhook() {
 
-    
     webhookPath := A_ScriptDir . "\libs\webhook.ahk"
     Run(webhookPath)
     
