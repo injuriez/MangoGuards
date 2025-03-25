@@ -54,7 +54,7 @@ UnitInfo() {
         {
           BetterClick(957, 584)
         }
-
+    return
 }
 
 
@@ -196,56 +196,40 @@ status() {
     
 }
 FailedFunction() {
-     if (ok:=FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed))
-            {
-              
-                try {
-                    
-                    if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
-                        loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "r")
-                        currentLosses := Integer(loss.ReadLine())
-                        loss.Close()
-                    } else {
-                        currentLosses := 0
-                    }
-         
-                    loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "w")
-                    loss.Write(currentLosses + 1)
-                    loss.Close()
-                } catch as e {
-                    MsgBox("Error updating loss stats: " e.Message)
-                }
-    
-                  
+    if (ok := FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed)) {
+        try {
+            ; Update loss stats
+            if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
+                loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "r")
+                currentLosses := Integer(loss.ReadLine())
+                loss.Close()
             } else {
-                
-    
-                Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "r+")
-                currentWins := Wins.ReadLine()
-                Wins.Seek(0)
-                Wins.Write(currentWins + 1)
-                Wins.Close()
-    
-                ; total it for stats
-                TotalWins := FileOpen("../../../Settings/MangoSettings/session/stats/TotalWins.txt", "r+")
-                TotalCurrentWins := TotalWins.ReadLine()
-                TotalWins.Seek(0)
-                TotalWins.Write(TotalCurrentWins + 1)
-                TotalWins.Close()
-    
+                currentLosses := 0
             }
+
+            loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "w")
+            loss.Write(currentLosses + 1)
+            loss.Close()
+
+            ; Reset AltCardsPicked and notify via webhook
             AltCardsPicked := 0
-            Send("{F8 down}") 
+            Send("{F8 down}")
             Sleep(100)
             Send("{F8 up}")
             Sleep(4000)
             RunWait(A_ScriptDir . "\..\..\..\webhook.ahk")
             Sleep(1000)
-            BetterClick(1167, 819) 
+            BetterClick(1167, 819) ; Handle any UI cleanup
             Sleep(5000)
-            AntRaids()
-            return
+            AltCardsPicked := 0
 
+            ; Restart the raid
+            AntRaids()
+        } catch as e {
+            MsgBox("Error updating loss stats: " e.Message)
+        }
+    }
+    return
 }
 AntRaids()
 F2::QUITAPP()
