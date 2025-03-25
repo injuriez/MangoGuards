@@ -132,15 +132,13 @@ CheckForUpdates() {
 }
 
 CompareVersions(v1, v2) {
-
     v1Parts := StrSplit(v1, ".")
     v2Parts := StrSplit(v2, ".")
     
     ; Compare each part
-    Loop Min(v1Parts.Length, v2Parts.Length) {
-    
-        v1Num := RegExReplace(v1Parts[A_Index], "[^\d]", "")
-        v2Num := RegExReplace(v2Parts[A_Index], "[^\d]", "")
+    Loop Max(v1Parts.Length, v2Parts.Length) {
+        v1Num := A_Index <= v1Parts.Length ? RegExReplace(v1Parts[A_Index], "[^\d]", "") : 0
+        v2Num := A_Index <= v2Parts.Length ? RegExReplace(v2Parts[A_Index], "[^\d]", "") : 0
         
         ; Now compare as numbers
         if (v1Num > v2Num) {
@@ -148,13 +146,6 @@ CompareVersions(v1, v2) {
         } else if (v1Num < v2Num) {
             return -1 ; v2 is newer
         }
-    }
-    
-    ; If all compared parts are equal, compare lengths
-    if (v1Parts.Length > v2Parts.Length) {
-        return 1
-    } else if (v1Parts.Length < v2Parts.Length) {
-        return -1
     }
     
     ; Versions are equal
