@@ -115,10 +115,12 @@ Unit1(x, y) {
     Sleep(100)
     loop {
         if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, UnitPlaced)) {
-        
             break
         } else {
-            Unit1(x, y)
+            ; Retry clicking if the condition is not met
+            SendInput("{1}")
+            BetterClick1(x, y)
+            Sleep(100)
         }
     }
 }
@@ -132,23 +134,31 @@ Unit2(x, y) {
         if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, UnitPlaced)) {
             break
         } else {
-            Unit2(x, y)
+            ; Retry clicking if the condition is not met
+            SendInput("{2}")
+            BetterClick1(x, y)
+            Sleep(100)
         }
     }
 }
+
 Unit3(x, y) {
     SendInput("{3}")
     BetterClick1(x, y)
- 
+
     Sleep(100)
     loop {
         if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, UnitPlaced)) {
             break
         } else {
-            Unit3(x, y)
+            ; Retry clicking if the condition is not met
+            SendInput("{3}")
+            BetterClick1(x, y)
+            Sleep(100)
         }
     }
 }
+
 Unit4(x, y) {
     SendInput("{4}")
     BetterClick1(x, y)
@@ -158,7 +168,10 @@ Unit4(x, y) {
         if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, UnitPlaced)) {
             break
         } else {
-            Unit4(x, y)
+            ; Retry clicking if the condition is not met
+            SendInput("{4}")
+            BetterClick1(x, y)
+            Sleep(100)
         }
     }
 }
