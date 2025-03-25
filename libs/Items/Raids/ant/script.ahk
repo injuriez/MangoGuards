@@ -140,63 +140,53 @@ AltCards() {
 
 status() {
     loop {
-        if (ok:=FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed)) {
-        
-            if (ok:=FindText(&X, &Y, 665-150000, 247-150000, 665+150000, 247+150000, 0, 0, FailedTEXT))
-            {
-              
+        if (FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed)) { ; Finds Rewards text
+            if (FindText(&X, &Y, 665-150000, 247-150000, 665+150000, 247+150000, 0, 0, FailedTEXT)) { ; failed text
                 try {
-                    
-                    if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
-                        loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "r")
-                        currentLosses := Integer(loss.ReadLine())
-                        loss.Close()
-                    } else {
-                        currentLosses := 0
-                    }
-         
-                    loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "w")
+                    lossFilePath := "../../../Settings/MangoSettings/session/stats/losses.txt"
+                    currentLosses := FileExist(lossFilePath) ? Integer(FileOpen(lossFilePath, "r").ReadLine()) : 0
+                    loss := FileOpen(lossFilePath, "w")
                     loss.Write(currentLosses + 1)
                     loss.Close()
                 } catch as e {
                     MsgBox("Error updating loss stats: " e.Message)
                 }
-    
-                  
-            } else {
-                
-    
-                Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "r+")
-                currentWins := Wins.ReadLine()
-                Wins.Seek(0)
-                Wins.Write(currentWins + 1)
-                Wins.Close()
-    
-                ; total it for stats
-                TotalWins := FileOpen("../../../Settings/MangoSettings/session/stats/TotalWins.txt", "r+")
-                TotalCurrentWins := TotalWins.ReadLine()
-                TotalWins.Seek(0)
-                TotalWins.Write(TotalCurrentWins + 1)
-                TotalWins.Close()
-    
+            } else { ; else if failed text isnt found then it must be a win
+                try {
+                    winsFilePath := "../../../Settings/MangoSettings/session/stats/wins.txt"
+                    Wins := FileOpen(winsFilePath, "r+")
+                    currentWins := Integer(Wins.ReadLine())
+                    Wins.Seek(0)
+                    Wins.Write(currentWins + 1)
+                    Wins.Close()
+
+                    totalWinsFilePath := "../../../Settings/MangoSettings/session/stats/TotalWins.txt"
+                    TotalWins := FileOpen(totalWinsFilePath, "r+")
+                    TotalCurrentWins := Integer(TotalWins.ReadLine())
+                    TotalWins.Seek(0)
+                    TotalWins.Write(TotalCurrentWins + 1)
+                    TotalWins.Close()
+                } catch as e {
+                    MsgBox("Error updating win stats: " e.Message)
+                }
             }
+
             AltCardsPicked := 0
-            Send("{F8 down}") 
+            Send("{F8 down}")
             Sleep(100)
             Send("{F8 up}")
             Sleep(4000)
             RunWait(A_ScriptDir . "\..\..\..\webhook.ahk")
             Sleep(1000)
-            BetterClick(1167, 819) 
+            BetterClick(1167, 819)
             Sleep(5000)
             AntRaids()
             break
-        } 
+        }
     }
-    
 }
 FailedFunction() {
-    if (ok := FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed)) {
+    if (ok := FindText(&X, &Y, 665-150000, 247-150000, 665+150000, 247+150000, 0, 0, FailedTEXT)) {
         try {
             ; Update loss stats
             if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
