@@ -1,10 +1,10 @@
-Cooldown
-Cooldown
+PressIt
 Cooldown
 Range
-Range
-Slayer
-Slayer
-Damage
-Damage
 UncommonLoot
+CommonLoot
+Slayer
+Range
+Damage
+Range
+CommonLoot

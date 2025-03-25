@@ -40,6 +40,7 @@ GemStart() {
     ; Wait for vote and place units
     loop {
         if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, Vote)) {
+            webhook()
             BetterClick1(881, 177) ; Clicks yes
             unitManager()
             break
@@ -85,7 +86,11 @@ upgradeAll() {
     return CheckRound12() 
 }
 webhook() {
-    Run(A_ScriptDir "\..\..\webhook.ahk")   
+
+    
+    webhookPath := A_ScriptDir . "\libs\webhook.ahk"
+    Run(webhookPath)
+    
 }
 CheckRound12() {
     if (ok:=FindText(&X, &Y, 1134-150000, 840-150000, 1134+150000, 840+150000, 0, 0, Failed)) {

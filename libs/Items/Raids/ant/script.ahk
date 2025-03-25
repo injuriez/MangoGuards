@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0
 
 #Include ../../../FindText.ahk
-#MaxThreads 255
+FailedTEXT:="|<>*44$208.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zzzzzk00Dw001zkDw0003zzzzw7zzy00007zzzzzU01zw00Dznzw000zzzzzxzzzz0000zzzzzz00Dzs01zzzzs007zzzzzzzzzzU007zzzzzy01zzU0Dzzzzk00zzzzzzzzzzz000S00003s0DUT00w0z0D003k0000DU007y003s00007U0w0w07k1w0S00D00000y0003y00D00000D07k3s0S07U1s00s00001k0003w00w00000w0S07U1s0S07U07U0000700007s03k00003k3s0T07U1s0S00S00000Q0000Dk0D00000D0D00w0S07U1s01s00001k0000TU0w00000s1w03s1s0S07U07U0000700000yzzk00007zzU07zzU1s0Tzzy00000w00001zzz00000Tzy00Tzy07U1zzzs00003k00003zzw0Dzzzzzk00zzs0S07zzzU1zzzz03w007zzk0zzzzzz003zzU1s0Tzzy07zzzw0Dz00Tzz03zzzzzs007zy07U1zzzs0Tzzzk0zy00zzw0DzzzzzU00Tzs0S07zzzU1zzzz03zy03zzk0zzzzzw000zzU1s0Tzzy07zzzw0Dzs0Dzz03zzzzzk003zy07U1zzzs0Tzzzk0zzk0Tzw0003zzy0007zs0S07zzzU000Tz03zzU1zzk0007zzs000TzU1s0Tzzy0000zw0Dzy07zz0000Tzz01U0zy07U1zzzs0003zk0zzs0Tzw0000zzw0603zs0S07zzzU0007z03zzU1zzk0003zzU0w07zU1s0Tzzy0000Tw0Dzz07zz0000Dzy03k0Ty07U1zzzs0001zk0zzw0Tzw0001zzk0TU0zs0S07zzzU0007z03zzU1zzk0007zz01y03zU1s0Tzzy0000zw0Dzy07zz0000Tzs00007y07U1zzzs0003zk0zzs0Tzw0007zzU0000Ts0S07zzzU000zz03zzU1zzk0zzzzy00000zU1s0Tzzy07zzzw0Dzw0Dzz03zzzzk00003y07U1zzzs0Tzzzk0zzU0zzw0Dzzzz00000Ds0S07zzzU1zzzz03zw03zzk0zzzzs00000TU1s0Tzzy07zzzw0DzU0Tzz03zzzzU00001y07U1zzzs0Tzzzk0zs01zzw0Dzzzw000003s0S07zzzU0000z00000Dzzk0zzzzk0Tzs0DU1s0Tzzy00000w00001zzz03zzzy03zzk0S07U0001s00003k00007zzw0Dzzzs0TzzU1s0S00003U0000700000zzzk0zzzz01zzy03U1s0000C00000Q00007zzz03zzzw0Dzzw0C07U0000s00001k0000zzzw0Dzzzk0zzzk0s0S00003U000070000Dzzzk0zzzz07zzzU3U1s0000C00000w0001zzzzU7zzzy0Tzzy0T0Dk0001w00003s000Tzzzz0zzzzy3zzzw7y1zU000Ds0000Tk00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
 
+ Failed:="|<>*86$159.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3zzzzzzzzzzzzzzzzzzzzzzzzzkDzzzzzU07zzzzzzzzzzzzzzzzy1zzzzzs00DzzzzzzzzzzzzzzzzkDzzzzz000zzzzzzzzzzzzzzzzy1zzzzzs003zzzzzzzzzzzzzzzzkDzzzzz000Dzzzzzzzzzzzzzzzy1zzzzzs001zzzzzzzzzzzzzzzzkDzzzzz0TU7zzzzzzzzzzzzzzzy1zzzzzs3y0zU7wDszXzUsS3UzUkDs0zzz0Tk7k0D0y3s7k21k03k01w03zzs3y0w00s7UT0w00A00Q00D00Dzz0Tk70030w1k7001U03001s01zzs3w0k00M30C1k00A00s00D00Tzz000C0M1UM0UC001U06001sDrzzs001U7UA1041U60A0xk20D0zzzz000Q1w1U000Q1w1UDw1w1s0Dzzs003U00C0003UTUA1zUDUD00Tzz000w003k000w3w1UDw3y1w01zzs003U00T0007UTUA1zUDUDk0Dzz000Q00Ds000w1w1UDw1w1zU0zzs3w1UDzz020DU20A1zk20DzU7zz0TUC0zDw0k1y001UDy001sT0zzs3y0k00zU70Tk00A1zs00C007zz0Tk7003y0s3z001UDz001k01zzw3z0w00TkD0Tw00A1zw00C00DzzUTs7k07z1w7zk21kDzk01s03zzy7zXz01zsTlzzUsS3zzUsTk1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 Cooldown1:="|<>*24$146.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwzzzzzzVzz3zzzzzzzzzzzzzs1zzzzzsTzkzzzzzzzzzwDzzs07zzzzy7zwDzzzzzzzzz3zzw01zzzzzVzz3zzzzzzzzzkzzy00TzzzzsTzkzzzzzzzzzwDzzUSDzzzzy7zwDzzzzzzzzz3zzkTzw1zUDVz03s3swS647zkzzw7zy0Dk1sTU0w0Q73VU0zwDzz3zz01s0C7k0C03VUsM07z3zzkzzU0A01Vs0300M84600zkzzwDzsC31kMS30kQ6213UMDwDzz3zy7kky67VsADVk00sD3z3zzkTzVwADVVsS33sQ00C7kzkzzw3zsT33sMS7Uky7U07VwDwDzzUS63UkQ63UEA71s41sT3z3zzw01U0A01UA0300T1Uy7kzkzzz00Q07U0s300s0DkMDVwDwDzzw0DU3w0T0s0D07wD7sT3z3zzzkDy3zkTsTV7w7zXlz7kzszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
 Harvest:="|<>*29$45.jDzzzzzstzzzzzn7Dzzzzy8t00QUkU0801U2I008780En710w876Mt07XUUkjA5yS674"
 Range:="|<>*31$83.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs0Dzzzzzzzzzzzk0DzzzzzzzzzzzU0Dzzzzzzzzzzz00Dzzzzzzzzzzy3kTzzzzzzzzzzwDkw4A8Dw4TUDzsTVk0M0Dk0S0Dzky300k0D00s0DzUs401U0A01U0Dz00MA30kMA31kTy00kw63kkw63Uzw01VsADVVsA03zs033kMT33kM0Dzky610ky600kTzzVw401VwC01U0zz3sA033sQ03U0zy7sQ067kw07U1zyDlyASDVzMDU7zzzzzzzzzzkzzzzzzzzzzzzX1zzzzzzzzzzzy03zzzzzzzzzzzw0Dzzzzzzzzzzzw0zzzzzzzzzzzzzjzzzs"
@@ -18,6 +19,7 @@ UncommonLoot:="|<>*30$139.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 slayer2 := "|<>*17$103.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzszVzzzzzzzzzzzzzzU7kzzzzzzzzzzsTzzU0sTzzzzzzzzzwDzzU0QDzzzzzzzzzy7zzk0S7zzzzzzzzzz3zzsCT3zzzzzzzzzzVzzw7zVz12Dsw1sETkzzy1zkz003sA0Q0DsTzzU3sT00UwA0607wDzzk0QD00EQ40107y7zzy0C7UkA623UUzz3zzzk33kw6231kEzzVzzzz1VsS3U1U0MTzkzzzDUkwD1s1k0QDzsTzz1kMC10w0sDy7zwDzzU0Q100T0w373zy7zzk0C0k0DUT01Vzz3zzw0DUQ07sTk0kzzVzzzUTsTX7sDw0wTzszzzzzzzzzwDzzzzzzzzzzzzzzzy7zzzzzzzzzzzzzzzy3zzzzzzzzzzzzzzzz3zzzzzzzzzzzzzzzzVzzzzzzzzzzzzzzzztzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
 CommonLoot:="|<>*36$113.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU7zzzzzzzzzzzzzzzzw03zzzzzzzzzzzzzzzzk07zzzzzzzzzzzzzzzz00Dzzzzzzzzzzzzzzzy1szzzzzzzzzzzzzzzzsDzy0y473kUsTk7kUzzkTzs0w003U00T07U0zzVzzU0s003000Q0700zz3zy00k006000k0600zy7zw71Uk8A611UsA71zwDzsT31UsMA733sMD3zsDzky671kksC67kky7zkDzVwAC3VVkQADVVwDzkD31kMQ733UsMC33sTzk0600ksC671kk067kzzU0C03VkQAC3Vk0QDVzzk0y0D3UsMQ73k1sT3zzs3z0y7XkkwS7s7sy7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
 Speed:="|<>*25$35.lzzzzt1zzzzkTzzzzYS31Uk8A6H9US9UYHAiGNwyF1UkMA37TksQg"
+
 global X1 := 214
 global Y1 := 227
 global X2 := 1500
@@ -31,19 +33,22 @@ BetterClick(x, y) {
     Sleep(50)
 }
 AntRaids() {
+
+
     
 
     
+    
+    status()
+    Run(A_ScriptDir . "\..\CardPickerModule.ahk")
 
-
-    RunWait(A_ScriptDir . "\..\CardPickerModule.ahk")
     Sleep(2000)
-    ; Starts TinyTask
     Send("{F8 down}")
     Sleep(100)
     Send("{F8 up}")
-    ; While TinyTask is running, the script will search for the alt cards
+
     loop {
+
         Sleep(900)
         status()
         Sleep(500)
@@ -75,8 +80,7 @@ AltCards() {
     }
     
     foundCards := []
-    
-    ; Check each card to see if it is on screen and store its coordinates
+
     if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Cooldown)) {
         foundCards.Push({name: "Cooldown", x: X, y: Y})
     } else if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Cooldown1)) {
@@ -124,7 +128,7 @@ AltCards() {
         return
     }
     
-    ; Iterate through the priority list and click the first found card that matches
+
     for cardName in priorityList {
         for card in foundCards {
             if (card.name = cardName) {
@@ -135,34 +139,79 @@ AltCards() {
     }
     
 }
+
 status() {
-    Failed:="|<>*86$159.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3zzzzzzzzzzzzzzzzzzzzzzzzzkDzzzzzU07zzzzzzzzzzzzzzzzy1zzzzzs00DzzzzzzzzzzzzzzzzkDzzzzz000zzzzzzzzzzzzzzzzy1zzzzzs003zzzzzzzzzzzzzzzzkDzzzzz000Dzzzzzzzzzzzzzzzy1zzzzzs001zzzzzzzzzzzzzzzzkDzzzzz0TU7zzzzzzzzzzzzzzzy1zzzzzs3y0zU7wDszXzUsS3UzUkDs0zzz0Tk7k0D0y3s7k21k03k01w03zzs3y0w00s7UT0w00A00Q00D00Dzz0Tk70030w1k7001U03001s01zzs3w0k00M30C1k00A00s00D00Tzz000C0M1UM0UC001U06001sDrzzs001U7UA1041U60A0xk20D0zzzz000Q1w1U000Q1w1UDw1w1s0Dzzs003U00C0003UTUA1zUDUD00Tzz000w003k000w3w1UDw3y1w01zzs003U00T0007UTUA1zUDUDk0Dzz000Q00Ds000w1w1UDw1w1zU0zzs3w1UDzz020DU20A1zk20DzU7zz0TUC0zDw0k1y001UDy001sT0zzs3y0k00zU70Tk00A1zs00C007zz0Tk7003y0s3z001UDz001k01zzw3z0w00TkD0Tw00A1zw00C00DzzUTs7k07z1w7zk21kDzk01s03zzy7zXz01zsTlzzUsS3zzUsTk1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
     if (ok:=FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed)) {
         
-        RunWait(A_ScriptDir . "\..\..\..\webhook.ahk")
-        
+        if (ok:=FindText(&X, &Y, 665-150000, 247-150000, 665+150000, 247+150000, 0, 0, FailedTEXT))
+        {
+          
+            try {
+                if FileExist("../../../Settings/MangoSettings/session/stats/losses.txt") {
+                    loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "r")
+                    currentLosses := Integer(loss.ReadLine())
+                    loss.Close()
+                } else {
+                    currentLosses := 0
+                }
+     
+                loss := FileOpen("../../../Settings/MangoSettings/session/stats/losses.txt", "w")
+                loss.Write(currentLosses + 1)
+                loss.Close()
+            } catch as e {
+                MsgBox("Error updating loss stats: " e.Message)
+            }
+
+              
+        } else {
+
+            Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "r+")
+            currentWins := Wins.ReadLine()
+            Wins.Seek(0)
+            Wins.Write(currentWins + 1)
+            Wins.Close()
+
+            ; total it for stats
+            TotalWins := FileOpen("../../../Settings/MangoSettings/session/stats/TotalWins.txt", "r+")
+            TotalCurrentWins := TotalWins.ReadLine()
+            TotalWins.Seek(0)
+            TotalWins.Write(TotalCurrentWins + 1)
+            TotalWins.Close()
+
+        }
         Send("{F8 down}") 
         Sleep(100)
         Send("{F8 up}")
+        Sleep(4000)
+        RunWait(A_ScriptDir . "\..\..\..\webhook.ahk")
+        Sleep(1000)
         BetterClick(1167, 819) 
         Sleep(5000)
         AntRaids()
         return
     } 
-    
-
 }
 AntRaids()
 F2::QUITAPP()
 
 QUITAPP() {
+    EraseWins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "w")
+    ReadWins := EraseWins.ReadLine()
+    ReadWins.Write(0)
+    EraseWins.Close()
     sessionui := WinExist("Window")
-    
+    DetectHiddenWindows(True)
+    if WinExist("CardPickerModule.ahk - AutoHotkey") {
+        WinClose()
+    }
+    DetectHiddenWindows(False)
+
     if ProcessExist("TinyTask.exe") {
         ProcessClose("TinyTask.exe")
     }
     if (sessionui) {
        WinClose("Window")
     }
+    
     ExitApp
 }

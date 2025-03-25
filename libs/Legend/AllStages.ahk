@@ -38,7 +38,23 @@ StartTinyTask1() {
     Sleep(500)
     Loop {
         if (ok := FindText(&X, &Y, 669-150000, 586-150000, 669+150000, 586+150000, 0, 0, Cards.RewardsText)) {
-            RunWait(A_ScriptDir . "\..\webhook.ahk")
+            try {
+                Run(A_ScriptDir . "\..\webhook.ahk")
+                if FileExist("../../Settings/MangoSettings/session/stats/losses.txt") {
+                    loss := FileOpen("../../Settings/MangoSettings/session/stats/losses.txt", "r")
+                    currentLosses := Integer(loss.ReadLine())
+                    loss.Close()
+                } else {
+                    currentLosses := 0
+                }
+     
+                loss := FileOpen("../../Settings/MangoSettings/session/stats/losses.txt", "w")
+                loss.Write(currentLosses + 1)
+                loss.Close()
+            } catch as e {
+                MsgBox("Error updating loss stats: " e.Message)
+            }
+            
 
 
             Sleep(1000)
@@ -46,7 +62,10 @@ StartTinyTask1() {
             Sleep(100)
             Send("{F8 up}")
             Sleep(500)
+
             BetterClick(1184, 840)
+            Sleep(500)
+     
             Sleep(500)
             LegendStart()
             Sleep(500)
@@ -54,6 +73,39 @@ StartTinyTask1() {
             Sleep(500)
             break
         } else if (ok := FindText(&X, &Y, 1142-150000, 448-150000, 1142+150000, 448+150000, 0, 0, Cards.gems)) {
+
+            try {
+                Run(A_ScriptDir . "\..\webhook.ahk")
+                if FileExist("../Settings/MangoSettings/session/stats/wins.txt") {
+                    Wins := FileOpen("../Settings/MangoSettings/session/stats/wins.txt", "r")
+                    currentWins := Integer(Wins.ReadLine())
+                    Wins.Close()
+                } else {
+                    currentWins := 0
+                }
+                
+          
+                Wins := FileOpen("../Settings/MangoSettings/session/stats/wins.txt", "w")
+                Wins.Write(currentWins + 1)
+                Wins.Close()
+                
+
+                if FileExist("../Settings/MangoSettings/session/stats/TotalWins.txt") {
+                    TotalWins := FileOpen("../Settings/MangoSettings/session/stats/TotalWins.txt", "r")
+                    TotalCurrentWins := Integer(TotalWins.ReadLine())
+                    TotalWins.Close()
+                } else {
+                    TotalCurrentWins := 0
+                }
+                
+                TotalWins := FileOpen("../Settings/MangoSettings/session/stats/TotalWins.txt", "w")
+                TotalWins.Write(TotalCurrentWins + 1)
+                TotalWins.Close()
+            } catch as e {
+                MsgBox("Error updating win stats: " e.Message)
+            }
+
+
 
             Sleep(1000)
             Send("{F8 down}")
@@ -249,13 +301,28 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30)
 LegendStart()
 F2::QUITAPP()
 QUITAPP() {
-    sessionui := WinExist("Window")
-    
+    try {
+
+        EraseWins := FileOpen("../Settings/MangoSettings/session/stats/wins.txt", "w")
+        EraseWins.Write(0)  
+        EraseWins.Close()
+        
+
+        EraseLosses := FileOpen("../Settings/MangoSettings/session/stats/losses.txt", "w")
+        EraseLosses.Write(0)
+        EraseLosses.Close()
+    } catch as e {
+        MsgBox("Error resetting stats: " e.Message)
+    }
+
     if ProcessExist("TinyTask.exe") {
         ProcessClose("TinyTask.exe")
     }
+    
+    sessionui := WinExist("Window")
     if (sessionui) {
        WinClose("Window")
     }
+    
     ExitApp
 }
