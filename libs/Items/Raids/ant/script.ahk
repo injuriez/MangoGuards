@@ -35,6 +35,7 @@ AntRaids() {
             status()
             return
         } else {
+            status()
             AltCards()
         }
       
