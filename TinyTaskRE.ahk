@@ -1,5 +1,5 @@
 #Requires Autohotkey v2
-#Include libs/Items/GemFarm/script.ahk
+
 #Include libs/Items/GreenEssence/script.ahk
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
@@ -575,7 +575,7 @@ start(*) {
                 BetterClick(985, 517) ; focuses back on roblox
                 Sleep(1000)
 
-                GemStart()
+                Run(A_ScriptDir "\.\libs\Items\GemFarm\script.ahk")
             } else if MacroSelected.Name == "Green Essence" {
                 ; GreenEssenceFarm()
                 MsgBox("Green Essence Farm not implemented")
