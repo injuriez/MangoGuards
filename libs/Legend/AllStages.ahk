@@ -41,15 +41,15 @@ StartTinyTask1() {
 
             try {
                 Run(A_ScriptDir . "\..\webhook.ahk")
-                if FileExist("../../Settings/MangoSettings/session/stats/losses.txt") {
-                    loss := FileOpen("../../Settings/MangoSettings/session/stats/losses.txt", "r")
+                if FileExist("../Settings/MangoSettings/session/stats/losses.txt") {
+                    loss := FileOpen("../Settings/MangoSettings/session/stats/losses.txt", "r")
                     currentLosses := Integer(loss.ReadLine())
                     loss.Close()
                 } else {
                     currentLosses := 0
                 }
      
-                loss := FileOpen("../../Settings/MangoSettings/session/stats/losses.txt", "w")
+                loss := FileOpen("../Settings/MangoSettings/session/stats/losses.txt", "w")
                 loss.Write(currentLosses + 1)
                 loss.Close()
             } catch as e {
