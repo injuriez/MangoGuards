@@ -42,7 +42,7 @@ SendWebhook() {
         .setTimeStamp()
 
     ; Assign a value to UserIDSent
-    UserIDSent := "991558850056573031"
+    UserIDSent := ""
 
     ; Send the webhook
     webhook.send({

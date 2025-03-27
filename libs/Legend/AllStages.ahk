@@ -80,7 +80,6 @@ StartTinyTask1() {
         } else if (ok := FindText(&X, &Y, 1142-150000, 448-150000, 1142+150000, 448+150000, 0, 0, Cards.gems)) {
 
             try {
-                Run(A_ScriptDir . "\..\webhook.ahk")
                 if FileExist("../Settings/MangoSettings/session/stats/wins.txt") {
                     Wins := FileOpen("../Settings/MangoSettings/session/stats/wins.txt", "r")
                     currentWins := Integer(Wins.ReadLine())
