@@ -153,6 +153,7 @@ status() {
         Send("{F8 up}")
         TallyStatus("Failed")
         webhook()
+        Sleep(2000)
 
      
 
@@ -167,6 +168,7 @@ status() {
         Send("{F8 up}")
         TallyStatus("Victory")
         webhook()
+        Sleep(2000)
         BetterClick(957, 565) 
         Sleep(5000)
         AntRaids()
