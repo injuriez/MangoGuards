@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0
 
 global X1 := 214
-global Y1 := 227
-global X2 := 1500
+global Y1 := 5
+global X2 := 1600
 global Y2 := 600
-
+ ;Width = X2 - X1
+;Height = Y2 - Y1
 ; Calculate the width and height of the search area
 width := X2 - X1
 height := Y2 - Y1

@@ -18,6 +18,7 @@ UncommonLoot:="|<>*30$139.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 slayer2 := "|<>*17$103.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzszVzzzzzzzzzzzzzzU7kzzzzzzzzzzsTzzU0sTzzzzzzzzzwDzzU0QDzzzzzzzzzy7zzk0S7zzzzzzzzzz3zzsCT3zzzzzzzzzzVzzw7zVz12Dsw1sETkzzy1zkz003sA0Q0DsTzzU3sT00UwA0607wDzzk0QD00EQ40107y7zzy0C7UkA623UUzz3zzzk33kw6231kEzzVzzzz1VsS3U1U0MTzkzzzDUkwD1s1k0QDzsTzz1kMC10w0sDy7zwDzzU0Q100T0w373zy7zzk0C0k0DUT01Vzz3zzw0DUQ07sTk0kzzVzzzUTsTX7sDw0wTzszzzzzzzzzwDzzzzzzzzzzzzzzzy7zzzzzzzzzzzzzzzy3zzzzzzzzzzzzzzzz3zzzzzzzzzzzzzzzzVzzzzzzzzzzzzzzzztzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
 CommonLoot:="|<>*36$113.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU7zzzzzzzzzzzzzzzzw03zzzzzzzzzzzzzzzzk07zzzzzzzzzzzzzzzz00Dzzzzzzzzzzzzzzzy1szzzzzzzzzzzzzzzzsDzy0y473kUsTk7kUzzkTzs0w003U00T07U0zzVzzU0s003000Q0700zz3zy00k006000k0600zy7zw71Uk8A611UsA71zwDzsT31UsMA733sMD3zsDzky671kksC67kky7zkDzVwAC3VVkQADVVwDzkD31kMQ733UsMC33sTzk0600ksC671kk067kzzU0C03VkQAC3Vk0QDVzzk0y0D3UsMQ73k1sT3zzs3z0y7XkkwS7s7sy7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
 Speed:="|<>*25$35.lzzzzt1zzzzkTzzzzYS31Uk8A6H9US9UYHAiGNwyF1UkMA37TksQg"
+
 global X1 := 214
 global Y1 := 227
 global X2 := 1500
@@ -35,8 +36,8 @@ AntRaids() {
 
     
 
-
-    RunWait(A_ScriptDir . "\..\CardPickerModule.ahk")
+    
+    Run(A_ScriptDir . "\..\CardPickerModule.ahk")
     Sleep(2000)
     ; Starts TinyTask
     Send("{F8 down}")
@@ -56,7 +57,10 @@ AntRaids() {
 }
 
 
-
+webhook() {
+ 
+    Run(A_ScriptDir . "\..\..\..\Webhook.ahk")
+}
 
 AltCards() {
     priorityList := []
@@ -136,16 +140,39 @@ AltCards() {
     
 }
 status() {
+
+    global X1 := 214
+    global Y1 := 5
+    global X2 := 1600
+    global Y2 := 600
     Failed:="|<>*86$159.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3zzzzzzzzzzzzzzzzzzzzzzzzzkDzzzzzU07zzzzzzzzzzzzzzzzy1zzzzzs00DzzzzzzzzzzzzzzzzkDzzzzz000zzzzzzzzzzzzzzzzy1zzzzzs003zzzzzzzzzzzzzzzzkDzzzzz000Dzzzzzzzzzzzzzzzy1zzzzzs001zzzzzzzzzzzzzzzzkDzzzzz0TU7zzzzzzzzzzzzzzzy1zzzzzs3y0zU7wDszXzUsS3UzUkDs0zzz0Tk7k0D0y3s7k21k03k01w03zzs3y0w00s7UT0w00A00Q00D00Dzz0Tk70030w1k7001U03001s01zzs3w0k00M30C1k00A00s00D00Tzz000C0M1UM0UC001U06001sDrzzs001U7UA1041U60A0xk20D0zzzz000Q1w1U000Q1w1UDw1w1s0Dzzs003U00C0003UTUA1zUDUD00Tzz000w003k000w3w1UDw3y1w01zzs003U00T0007UTUA1zUDUDk0Dzz000Q00Ds000w1w1UDw1w1zU0zzs3w1UDzz020DU20A1zk20DzU7zz0TUC0zDw0k1y001UDy001sT0zzs3y0k00zU70Tk00A1zs00C007zz0Tk7003y0s3z001UDz001k01zzw3z0w00TkD0Tw00A1zw00C00DzzUTs7k07z1w7zk21kDzk01s03zzy7zXz01zsTlzzUsS3zzUsTk1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
-    if (ok:=FindText(&X, &Y, 669-150000, 588-150000, 669+150000, 588+150000, 0, 0, Failed)) {
+    if  ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../../Images/status/failed.png", 50) {
+   
         Send("{F8 down}") 
         Sleep(100)
         Send("{F8 up}")
+        TallyStatus("Failed")
+        webhook()
+
+     
+
         BetterClick(1167, 819) 
         Sleep(5000)
         AntRaids()
         return
+    } else if (ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../../Images/status/victory.png", 50)) {
+        
+        Send("{F8 down}") 
+        Sleep(100)
+        Send("{F8 up}")
+        TallyStatus("Victory")
+        webhook()
+        BetterClick(957, 565) 
+        Sleep(5000)
+        AntRaids()
+        return
     } 
+    return
     
 
 }
@@ -153,9 +180,72 @@ AntRaids()
 F2::QUITAPP()
 
 QUITAPP() {
+    
     sessionui := WinExist("Window")
     if (sessionui) {
        WinClose("Window")
     }
     ExitApp
 }
+
+ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
+    try {
+        ; Store the previous CoordMode and set to Screen
+        prevCoordMode := A_CoordModePixel
+        CoordMode "Pixel", "Screen"
+
+
+        ; Perform the image search with specified tolerance
+        result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
+
+        ; Restore previous CoordMode if needed
+        if (prevCoordMode != "Screen")
+            CoordMode "Pixel", prevCoordMode
+
+        ; Return and log results
+        if (result) {
+            return true
+        } else {
+            return false
+        }
+    } catch as e {
+        MsgBox("Error in ImageSearchWrapper: " e.Message)
+        return false
+    }
+}
+
+TallyStatus(status) {
+    if status == "Failed" {
+        try {
+            lossFilePath := "../../../Settings/MangoSettings/session/stats/losses.txt"
+            currentLosses := FileExist(lossFilePath) ? Integer(FileOpen(lossFilePath, "r").ReadLine()) : 0
+            loss := FileOpen(lossFilePath, "w")
+            loss.Write(currentLosses + 1)
+            loss.Close()
+        } catch as e {
+            MsgBox("Error updating loss stats: " e.Message)
+        }
+
+    } else if status == "Victory" {
+        
+        try {
+            winsFilePath := "../../../Settings/MangoSettings/session/stats/wins.txt"
+            Wins := FileOpen(winsFilePath, "r+")
+            currentWins := Integer(Wins.ReadLine())
+            Wins.Seek(0)
+            Wins.Write(currentWins + 1)
+            Wins.Close()
+
+            totalWinsFilePath := "../../../Settings/MangoSettings/session/stats/TotalWins.txt"
+            TotalWins := FileOpen(totalWinsFilePath, "r+")
+            TotalCurrentWins := Integer(TotalWins.ReadLine())
+            TotalWins.Seek(0)
+            TotalWins.Write(TotalCurrentWins + 1)
+            TotalWins.Close()
+        } catch as e {
+            MsgBox("Error updating win stats: " e.Message)
+        }
+    }
+    return
+} 
+

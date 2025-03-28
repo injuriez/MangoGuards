@@ -540,6 +540,16 @@ start(*) {
         } else {
             MacroSelected.Enabled := true
             if MacroSelected.Name == "WinterPortal" {
+                sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
+                sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
+                SessionRename := "Winter Portal"
+                SessionTypeValue := "timer"
+                sessionName.Write(SessionRename)
+                sessionType.Write(SessionTypeValue)
+                sessionName.Close()
+                sessionType.Close()
+                Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+                Sleep(3000)
                 Run(A_ScriptDir "\.\libs\Portals\WinterPortals\WinterPortal.ahk")
             } else if MacroSelected.Name == "ValentinePortal" {
                 LovePortalFile()
