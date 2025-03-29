@@ -43,6 +43,7 @@ AntRaids() {
     Send("{F8 down}")
     Sleep(100)
     Send("{F8 up}")
+    Sleep(500)
     ; While TinyTask is running, the script will search for the alt cards
     loop {
         Sleep(900)
@@ -163,15 +164,20 @@ status() {
         return
     } else if (ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../../Images/status/victory.png", 50)) {
         
+        
         Send("{F8 down}") 
         Sleep(100)
         Send("{F8 up}")
-        TallyStatus("Victory")
+        TallyStatus("Failed")
         webhook()
         Sleep(2000)
-        BetterClick(957, 565) 
+
+     
+
+        BetterClick(1167, 819) 
         Sleep(5000)
         AntRaids()
+    
         return
     } 
     return
