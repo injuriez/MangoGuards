@@ -1,10 +1,10 @@
-PressIt
-Cooldown
-Range
+CommonLoot
 UncommonLoot
-CommonLoot
-Slayer
 Range
+Cooldown
 Damage
-Range
-CommonLoot
+Slayer
+Damage
+Champion
+Strong
+PressIt

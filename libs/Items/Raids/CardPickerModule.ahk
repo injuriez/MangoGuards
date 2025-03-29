@@ -23,7 +23,7 @@ MainCards() {
                 Sleep(1000)
           
                 BetterClick(957, 565) ; clicks the cancel button
-                ExitApp
+                break
               
             } else {
                 ResetStage()
@@ -37,7 +37,7 @@ MainCards() {
                 
               
                 BetterClick(957, 565) ; clicks the cancel button
-                ExitApp
+                break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
@@ -50,7 +50,7 @@ MainCards() {
                
                
                 BetterClick(957, 565) ; clicks the cancel button
-                ExitApp
+                break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
@@ -63,7 +63,7 @@ MainCards() {
               
             
                 BetterClick(957, 565) ; clicks the cancel button
-                ExitApp
+                break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
@@ -78,7 +78,7 @@ MainCards() {
               
            
                 BetterClick(957, 565) ; clicks the cancel button
-                ExitApp
+                break
             } else {
                 ResetStage()
                 ; Added delay after ResetStage returns
