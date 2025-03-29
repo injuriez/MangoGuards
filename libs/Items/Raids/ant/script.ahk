@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include ../../../FindText.ahk
+#Include ../CardPickerModule.ahk
 #MaxThreads 255
 
 Cooldown1:="|<>*24$146.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwzzzzzzVzz3zzzzzzzzzzzzzs1zzzzzsTzkzzzzzzzzzwDzzs07zzzzy7zwDzzzzzzzzz3zzw01zzzzzVzz3zzzzzzzzzkzzy00TzzzzsTzkzzzzzzzzzwDzzUSDzzzzy7zwDzzzzzzzzz3zzkTzw1zUDVz03s3swS647zkzzw7zy0Dk1sTU0w0Q73VU0zwDzz3zz01s0C7k0C03VUsM07z3zzkzzU0A01Vs0300M84600zkzzwDzsC31kMS30kQ6213UMDwDzz3zy7kky67VsADVk00sD3z3zzkTzVwADVVsS33sQ00C7kzkzzw3zsT33sMS7Uky7U07VwDwDzzUS63UkQ63UEA71s41sT3z3zzw01U0A01UA0300T1Uy7kzkzzz00Q07U0s300s0DkMDVwDwDzzw0DU3w0T0s0D07wD7sT3z3zzzkDy3zkTsTV7w7zXlz7kzszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
@@ -23,21 +24,14 @@ global X1 := 214
 global Y1 := 227
 global X2 := 1500
 global Y2 := 600
-BetterClick(x, y) {
-    MouseMove(x, y)
-    Sleep(10)
-    MouseMove(1, 0, , "R")
-    Sleep(20)
-    MouseClick("Left", -1, 0, , , , "R")
-    Sleep(50)
-}
+
 AntRaids() {
     
 
     
 
     
-    RunWait(A_ScriptDir . "\..\CardPickerModule.ahk")
+    MainCards()
     Sleep(2000)
     ; Starts TinyTask
     Send("{F8 down}")

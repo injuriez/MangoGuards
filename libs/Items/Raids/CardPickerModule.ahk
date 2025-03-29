@@ -16,8 +16,9 @@ MainCards() {
     if (CardPicked) {
         return
     }
-    Setting := FileOpen("../../Settings/MangoSettings/StarterCard.txt", "r")
+    Setting := FileOpen(A_ScriptDir "\..\..\..\Settings\MangoSettings\StarterCard.txt", "r")
     StarterCard := Setting.ReadLine()
+    MsgBox("Checking directory for starter card: " . A_ScriptDir . "\..\..\..\Settings\MangoSettings\StarterCard.txt")
     BetterClick(1591, 205) ; clicks the cancel button
     while (true) {
     
@@ -131,5 +132,4 @@ BetterClick(x, y) {
 
 
 
-MainCards()
-F2::ExitApp()
+
