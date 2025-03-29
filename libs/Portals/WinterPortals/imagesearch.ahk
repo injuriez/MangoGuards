@@ -6,7 +6,7 @@ global Y1 := 5
 global X2 := 1600
 global Y2 := 600
 
-    if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../Images/status/victory.png", 50) {
+    if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../Images/status/Rewards.png", 50) {
         AdjustedX := FoundX + 100 ; Adjust this value as needed
         AdjustedY := FoundY + 50 ; Adjust this value as needed
         MouseMove(AdjustedX, AdjustedY)

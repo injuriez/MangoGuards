@@ -37,12 +37,13 @@ WinORloserChecker() {
     Loop {
       
         Sleep(500)
-        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\Images\status\victory.png", 50) {
+        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\Images\status\portal.png", 50) {
             Sleep(1000)
             Send("{F8 down}")
             Sleep(100)
             Send("{F8 up}")
             Sleep(500)
+            CollectRewards()
             try {
                 if FileExist("../../Settings/MangoSettings/session/stats/wins.txt") {
                     Wins := FileOpen("../../Settings/MangoSettings/session/stats/wins.txt", "r")
@@ -73,7 +74,7 @@ WinORloserChecker() {
                 MsgBox("Error updating win stats: " e.Message)
             }
             Sleep(500)
-            CollectRewards()
+            
             break
         } else {
             Sleep(500)
