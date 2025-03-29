@@ -37,7 +37,7 @@ AntRaids() {
     
 
     
-    Run(A_ScriptDir . "\..\CardPickerModule.ahk")
+    RunWait(A_ScriptDir . "\..\CardPickerModule.ahk")
     Sleep(2000)
     ; Starts TinyTask
     Send("{F8 down}")

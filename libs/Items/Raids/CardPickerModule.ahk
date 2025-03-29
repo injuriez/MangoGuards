@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 #Include ../../FindText.ahk
-
+#SingleInstance Force
 NoTrait:="|<>*27$102.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy7zzsTsTzzz001zzzy7nzsDsTzzy001zzzy7Vzs7sTzzz001zzzy7Vzs3sTzzzz3zzzzzzVzs3sTzzzz3zzzzzzVzs1sT0Tzz3sES2660Ds0sS0Dzz3s0Q06407s0sQ07zz3s0M06407sEMM03zz3s0k06607sM8MC3zz3sDkM67VzsQ0MT3zz3sTkw67VzsQ0MT3zz3sTkw67VzsS0MT3zz3sTkw67VzsT0MC3zz3sTk867VzsTUM03zz3sTk067UDsTUQ07zz3sTs067UDsTkS0Dzz3sTw067kDsTsTUTzz3sTz2C7sDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 KingsBurden := "|<>*14$75.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzvVzzzzzzzzzVyADzzzzwTzzwDUVzzzzzVzzzVs4DzzzzwDzzwC1zzzzzzXzzzVUTzzzzzwTzzw87VV1zUXXUDzU1wA07s0AM0zw0TVU0S01m07zU7wA01U0Dktzw0TVUMA61y3zzU1wA7VVsDk1zw07VVwAD1z07zVUQADVVsDw0zwC1VVwA01zw3zVsAADVk0DkkTwD0VVwC01y07zVw4ADVs0Dk0zyDlVlwDv1z0DzzzzzzzzsDzzzzzzzzzy63zzzzzzzzzzk0Tzzzzzzzzzy07zzzzzzzzzzs1zzzzzzzzzzzszzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 Exterminate:="|<>*30$170.zzzzzzzzzzzzzyzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsTzzzzzzzzzzzzk03zzyTzzzzzzzy7zzzzznzzzzzzw00zzz3zzzzzzzzVzzzzzsTzzzzzz00DzzkzzzzzzzzsTzzzzy7zzzzzzk03zzwDzzzzzzzzzzzzzzVzzzzzzwDzzzz3zzzzzzzzzzzzzzsTzzzzzz3zwTX07k7V1231sMETs8M0y0y47zkTz3k00s0s0E00C603w040707U1zw07kM00A0604001VU0S0101U0s0Tz00w030200U3000MM0300M0E060Dzk0DU1wDUs8DkM4661UkM7Vw71Uzzw07w0z3sC27w63VVUwAD1sT3sMTzz3zzUTky01Vz3UsMMT33kS7ky67zzkzzk3wDU0sTksC667kkw7VwDVVzzw7zs0T3sDy7wC3VVVwA21sT1kMTzz00A03k61XVz3UsMMT300S0k067zzk031UQ1k0MTkwC667ks07UC03Vzzw00kwDUS067wD3VVVwD01w3k1sTzzU0CTby7k3lzXlwQQT7wMzkz1z7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
@@ -10,19 +10,24 @@ global X1 := 214
 global Y1 := 227
 global X2 := 1500
 global Y2 := 600
-
+global CardPicked := false
 MainCards() {
- 
+    global CardPicked
+    if (CardPicked) {
+        return
+    }
     Setting := FileOpen("../../Settings/MangoSettings/StarterCard.txt", "r")
     StarterCard := Setting.ReadLine()
     BetterClick(1591, 205) ; clicks the cancel button
     while (true) {
+    
         if StarterCard == "Exterminator" {
             if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Exterminate)) {
                 BetterClick(X, Y)
                 Sleep(1000)
           
                 BetterClick(957, 565) ; clicks the cancel button
+                CardPicked := true
                 break
               
             } else {
@@ -37,6 +42,7 @@ MainCards() {
                 
               
                 BetterClick(957, 565) ; clicks the cancel button
+                CardPicked := true
                 break
             } else {
                 ResetStage()
@@ -50,6 +56,7 @@ MainCards() {
                
                
                 BetterClick(957, 565) ; clicks the cancel button
+                CardPicked := true
                 break
             } else {
                 ResetStage()
@@ -63,6 +70,7 @@ MainCards() {
               
             
                 BetterClick(957, 565) ; clicks the cancel button
+                CardPicked := true
                 break
             } else {
                 ResetStage()
@@ -78,6 +86,7 @@ MainCards() {
               
            
                 BetterClick(957, 565) ; clicks the cancel button
+                CardPicked := true
                 break
             } else {
                 ResetStage()
