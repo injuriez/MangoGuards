@@ -10,12 +10,10 @@ global X1 := 214
 global Y1 := 227
 global X2 := 1500
 global Y2 := 600
-global CardPicked := false
+
 MainCards() {
-    global CardPicked
-    if (CardPicked) {
-        return
-    }
+
+
     Setting := FileOpen(A_ScriptDir "\..\..\..\Settings\MangoSettings\StarterCard.txt", "r")
     StarterCard := Setting.ReadLine()
     BetterClick(1591, 205) ; clicks the cancel button
@@ -27,7 +25,7 @@ MainCards() {
                 Sleep(1000)
           
                 BetterClick(957, 565) ; clicks the cancel button
-                CardPicked := true
+             
                 break
               
             } else {
@@ -42,7 +40,7 @@ MainCards() {
                 
               
                 BetterClick(957, 565) ; clicks the cancel button
-                CardPicked := true
+        
                 break
             } else {
                 ResetStage()
@@ -56,7 +54,7 @@ MainCards() {
                
                
                 BetterClick(957, 565) ; clicks the cancel button
-                CardPicked := true
+   
                 break
             } else {
                 ResetStage()
@@ -70,7 +68,7 @@ MainCards() {
               
             
                 BetterClick(957, 565) ; clicks the cancel button
-                CardPicked := true
+       
                 break
             } else {
                 ResetStage()
@@ -86,7 +84,7 @@ MainCards() {
               
            
                 BetterClick(957, 565) ; clicks the cancel button
-                CardPicked := true
+          
                 break
             } else {
                 ResetStage()
