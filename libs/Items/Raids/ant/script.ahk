@@ -178,9 +178,9 @@ status() {
     
 
 }
-AntRaids()
-F2::QUITAPP()
 
+F2::QUITAPP()
+AntRaids()
 QUITAPP() {
     
     sessionui := WinExist("Window")
@@ -217,37 +217,52 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30)
 }
 
 TallyStatus(status) {
-    if status == "Failed" {
-        try {
-            lossFilePath := "../../../Settings/MangoSettings/session/stats/losses.txt"
-            currentLosses := FileExist(lossFilePath) ? Integer(FileOpen(lossFilePath, "r").ReadLine()) : 0
-            loss := FileOpen(lossFilePath, "w")
-            loss.Write(currentLosses + 1)
-            loss.Close()
-        } catch as e {
-            MsgBox("Error updating loss stats: " e.Message)
-        }
 
-    } else if status == "Victory" {
-        
-        try {
-            winsFilePath := "../../../Settings/MangoSettings/session/stats/wins.txt"
-            Wins := FileOpen(winsFilePath, "r+")
-            currentWins := Integer(Wins.ReadLine())
-            Wins.Seek(0)
-            Wins.Write(currentWins + 1)
-            Wins.Close()
+    winsFilePath := A_ScriptDir . "\..\..\..\Settings\MangoSettings\session\stats\wins.txt"
+    totalWinsFilePath := A_ScriptDir . "\..\..\..\Settings\MangoSettings\session\stats\TotalWins.txt"
+    lossesFilePath := A_ScriptDir . "\..\..\..\Settings\MangoSettings\session\stats\losses.txt"
 
-            totalWinsFilePath := "../../../Settings/MangoSettings/session/stats/TotalWins.txt"
-            TotalWins := FileOpen(totalWinsFilePath, "r+")
-            TotalCurrentWins := Integer(TotalWins.ReadLine())
-            TotalWins.Seek(0)
-            TotalWins.Write(TotalCurrentWins + 1)
-            TotalWins.Close()
-        } catch as e {
-            MsgBox("Error updating win stats: " e.Message)
+    try {
+        if status == "Failed" {
+            ; Handle losses
+            currentLosses := 0
+            if FileExist(lossesFilePath) {
+                lossFile := FileOpen(lossesFilePath, "r")
+                if !lossFile.AtEOF
+                    currentLosses := Integer(lossFile.ReadLine())
+                lossFile.Close()
+            }
+            lossFile := FileOpen(lossesFilePath, "w")
+            lossFile.Write(currentLosses + 1)
+            lossFile.Close()
+        } else if status == "Victory" {
+            ; Handle wins
+            currentWins := 0
+            if FileExist(winsFilePath) {
+                winsFile := FileOpen(winsFilePath, "r")
+                if !winsFile.AtEOF
+                    currentWins := Integer(winsFile.ReadLine())
+                winsFile.Close()
+            }
+            winsFile := FileOpen(winsFilePath, "w")
+            winsFile.Write(currentWins + 1)
+            winsFile.Close()
+
+            ; Handle total wins
+            totalCurrentWins := 0
+            if FileExist(totalWinsFilePath) {
+                totalWinsFile := FileOpen(totalWinsFilePath, "r")
+                if !totalWinsFile.AtEOF
+                    totalCurrentWins := Integer(totalWinsFile.ReadLine())
+                totalWinsFile.Close()
+            }
+            totalWinsFile := FileOpen(totalWinsFilePath, "w")
+            totalWinsFile.Write(totalCurrentWins + 1)
+            totalWinsFile.Close()
         }
+    } catch as e {
+        MsgBox("Error updating " status " stats: " e.Message)
     }
     return
-} 
+}
 
