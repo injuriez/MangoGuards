@@ -162,7 +162,7 @@ status() {
         Send("{F8 down}") 
         Sleep(100)
         Send("{F8 up}")
-        TallyStatus("Failed")
+        TallyStatus("Victory")
         webhook()
         Sleep(2000)
 

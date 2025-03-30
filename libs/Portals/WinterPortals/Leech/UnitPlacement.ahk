@@ -118,7 +118,8 @@ GemStart() {
     loop {
         if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, Vote)) {
    
-            BetterClick1(881, 177) ; Clicks yes
+            BetterClick1(881, 173) ; Clicks yes
+            Sleep(5000)
             unitManager1()
             break
         } else {
