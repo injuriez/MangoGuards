@@ -111,7 +111,6 @@ GemStart() {
     if loss {
         loss.Write(0)
         loss.Close()
-        MsgBox("Losses reset to 0.")
     } else {
         MsgBox("Error opening file for writing: ")
         return
