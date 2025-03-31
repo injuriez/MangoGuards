@@ -1,6 +1,5 @@
 #Requires Autohotkey v2
 
-#Include libs/Items/GreenEssence/script.ahk
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
 
@@ -196,6 +195,18 @@ CreateHeader(myGui) {
 CreateSettingsPanel(myGui) {
     myGui.Add("Text", "x168 y64 w225 h160 +0x8", "dsa")
 }
+
+Help(mango) {
+    if mango == "WinterPortal" {
+        Run(A_ScriptDir "\.\libs\HelpUI\WinterPortal.ahk")
+    } else if mango == "LovePortal" {
+        Run(A_ScriptDir "\.\libs\HelpUI\LovePortal.ahk")
+    } else if mango == "Legend" {
+        Run(A_ScriptDir "\.\libs\HelpUI\Legend.ahk")
+    } else if mango == "AntRaid" {
+        Run(A_ScriptDir "\.\libs\HelpUI\AntIsland.ahk")
+    } 
+}
 CreateTabControl(myGui) {
     global hometab, winterTab, loveTab, legendTab, StatsTab, TimeTotalValue, TotalRunsValue, TotalWinsValue
     global WinterPortal_data, LovePortal_data, Legends_data, antTab, antRaidOptions, StarterCard, LegendCards
@@ -219,7 +230,7 @@ CreateTabControl(myGui) {
     AltCardPriority.OnEvent("Click", ShowAltCardPriority)
 
     applyBTN3.OnEvent("Click", ApplyAntRaidSettings)
-    backBtn2.OnEvent("Click", ShowPortalsTab)
+    backBtn2.OnEvent("Click", (*) => Help("AntRaid"))
     StatsTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Stats"])
     StatsTab.SetFont("c0xFFFFFF")
     StatsTab.UseTab(1)
@@ -272,7 +283,9 @@ CreateTabControl(myGui) {
     loveTab.SetFont("c0xFFFFFF")
     loveTab.UseTab(1)
     LovePortal_data.hostingSwitch := myGui.Add("CheckBox", "x186 y94 w80 h23", "Hosting")
+    LovePortal_data.hostingSwitch.SetFont("c0xFFFFFF")
     possss := myGui.Add("Text", "x270 y74 w100 h23", "Position")
+
     possss.SetFont("c0xFFFFFF")
     LovePortal_data.positionSelect := myGui.Add("ListBox", "x270 y94 w100 h40", ["Start", "Middle", "End"])
     backBtn2 := myGui.Add("Button", "x180 y190 w100 h23", "Help")
@@ -294,7 +307,7 @@ CreateTabControl(myGui) {
     
     applyBTN3.OnEvent("Click", ApplyLegendSettings)
     backBtn3 := myGui.Add("Button", "x180 y190 w100 h23", "Help")
-    backBtn3.OnEvent("Click", ShowPortalsTab)
+    backBtn3.OnEvent("Click", (*) => Help("Legend"))
     hometab.UseTab(4)
     GemBtn := myGui.Add("Button", "x178 y94 w100 h23", "GEM Farm")
     GemBtn.OnEvent("Click", GemFarm)

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0
 look() {
 
-global X1 := 214
-global Y1 := 5
-global X2 := 1600
-global Y2 := 600
 
-    if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../Images/status/Rewards.png", 50) {
-        AdjustedX := FoundX + 100 ; Adjust this value as needed
-        AdjustedY := FoundY + 50 ; Adjust this value as needed
-        MouseMove(AdjustedX, AdjustedY)
+global X1 := 1200 ; left of the box
+global Y1 := 1000 ; top of the box
+global X2 := 1700  ; right of the box
+global Y2 := 700 ; bottom of the box
+
+    if ImageSearchWrapper(&FoundX, &FoundY, 1200, 200, 1700, 500, A_ScriptDir . "/../../../Images/LovePortalPOS/Namek/middle.png", 125) {
+        MouseMove(FoundX, FoundY)
         Sleep(500)
         Random()
         Sleep(500)

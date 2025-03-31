@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0
 
-global X1 := 214
-global Y1 := 5
-global X2 := 1600
-global Y2 := 600
+global X1 := 5 ; left of the box
+global Y1 := 150 ; top of the box
+global X2 := 500  ; right of the box
+global Y2 := 800 ; bottom of the box
+
  ;Width = X2 - X1
 ;Height = Y2 - Y1
 ; Calculate the width and height of the search area
@@ -48,3 +49,4 @@ RemoveRectangle()
         overlayGui.Destroy()
     }
 }
+F2::Reload

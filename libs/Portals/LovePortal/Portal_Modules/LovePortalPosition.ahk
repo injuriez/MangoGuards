@@ -6,6 +6,7 @@
 #Include ../UnitPlacement/Start/Spirit/script.ahk
 #Include ../UnitPlacement/End/Namek/script.ahk
 #Include ../UnitPlacement/Middle/Spirits/script.ahk
+
 speedwagonoffsetx := 0
 speedwagonoffsety := 0
 PlacementError := "|<>*144$87.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzUzzzzzzzzzzzzzs7zzzzzzzzzzzzz0zzzzzzzzzzzzzs7zzzzzzzzzzzzz0zzzzzzzzzzzzzs7zzzzzzzzzzzzz0zzzzzzzzzzzzzs7zzzzzzzyDz30z0zw63z0Dy0Dk03s7y00TU0z00y00D0zU03s03k03k00s7s00S00Q00S0070z003k03UA1k30M7k70Q0ks3kC0w30y1w3UTz0y1kDkM7kDUQ3zs00C1y30y1w3UTz003kDUM7kDUQ3zs00S0s30y0s3UDD0zzk00M3s00S00s3zy007U7003k03U07k01w0w00T00Q00S00TU7k03w03k03k87y0z0ETk0z00S1zzs7y77zUTy07kDzzzzzzzzzzzzy1zzzzzzzzzzzzzkDzzzzzzzzzzzzy1zzzzzzzzzzzzzkDzzzzzzzzzzzzy1zzzzzzzzzzzzzsTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
@@ -193,19 +194,18 @@ SpeedWagonSpectate() {
 
     if (selectedworld == "Namek") {
         if (selectedPosition == "Start") {
-
-            if (ok := FindText(&X, &Y, 1715-150000, 1040-150000, 1715+150000, 1040+150000, 0, 0, positions.Namek.Start.FindText)) {
+            if (ImageSearchWrapper(&FoundX, &FoundY, 5, 150, 500, 800, A_ScriptDir . "/../../../Images/LovePortalPOS/Namek/Start.png", 100)) {
          
-                UnitPlacementNamekStart1()
-            } else if (ok := FindText(&X, &Y, 1679-150000, 1040-150000, 1679+150000, 1040+150000, 0, 0, positions.Namek.Start.Second.Text)) {
                 UnitPlacementNamekStart1()
             } else {
                 respawn()
+
             }
+            
         }
         else if (selectedPosition == "Middle") {
 
-            if (ok := FindText(&X, &Y, 1425-150000, 372-150000, 1425+150000, 372+150000, 0, 0, positions.Namek.Middle.FindText)) {
+            if (ImageSearchWrapper(&FoundX, &FoundY, 1200, 200, 1700, 500, A_ScriptDir . "/../../../Images/LovePortalPOS/Namek/middle.png", 125)) {
           
                 UnitPlacementNamekMiddle1()
             } else if (ok := FindText(&X, &Y, 1425-150000, 372-150000, 1425+150000, 372+150000, 0, 0, positions.Namek.Middle.Second.Text)) {
@@ -265,42 +265,21 @@ SpeedWagonSpectate() {
     }
     else if (selectedworld == "Spirit") {
 
-        if (selectedPosition == "Start") {
+      
+        if (selectedPosition == "Start") { 
             ; Look for Spirit Start position - use the actual pattern from positions
-            if (ok := FindText(&X, &Y, 1514-150000, 639-150000, 1514+150000, 639+150000, 0, 0, positions.Spirit.Start.FindText)) {
-          
+            if (ImageSearchWrapper(&FoundX, &FoundY, 214, 5, 1600, 600, A_ScriptDir . "/../../../Images/LovePortalPOS/Spirit/Start.png", 109)) {
                 UnitPlacementSpiritStart1()
-            } 
-            else if (ok := FindText(&X, &Y, 1505-150000, 646-150000, 1505+150000, 646+150000, 0, 0, positions.Spirit.Start.Second.Text)) {
-             
-                UnitPlacementSpiritStart1()
-            } 
-            else if (ok := FindText(&X, &Y, 1506-150000, 607-150000, 1506+150000, 607+150000, 0, 0, positions.Spirit.Start.Third.Text)) {
-     
-                UnitPlacementSpiritStart1()
-            } 
-            else {
-                respawn()
+            } else {
+            respawn()
             }
         }
         else if (selectedPosition == "Middle") {
             ; Look for Spirit Middle position
-            if (ok := FindText(&X, &Y, 1402-150000, 134-150000, 1402+150000, 134+150000, 0, 0, positions.Spirit.Middle.FindText)) {
-         
-                UnitPlacementSpiritMiddle1()
-            } 
-            else {
-                respawn()
-            }
-        }
-        else if (selectedPosition == "End") {
-            ; Look for Spirit End position
-            if (ok := FindText(&X, &Y, 1402-150000, 134-150000, 1402+150000, 134+150000, 0, 0, positions.Spirit.End.FindText)) {
-                MsgBox("Found Spirit End position")
-                UnitPlacementSpiritEnd1()
-            } 
-            else {
-                respawn()
+            if (ImageSearchWrapper(&FoundX, &FoundY, 1400, 500, 1700, 700, A_ScriptDir . "/../../../Images/LovePortalPOS/Spirit/middle.png", 85)) {
+                UnitPlacementSpiritStart1()
+            } else {
+            respawn()
             }
         }
     }
@@ -432,3 +411,29 @@ UnitPlacementSpiritEnd1() {
 
 }
 
+
+ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
+    try {
+        ; Store the previous CoordMode and set to Screen
+        prevCoordMode := A_CoordModePixel
+        CoordMode "Pixel", "Screen"
+
+
+        ; Perform the image search with specified tolerance
+        result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
+
+        ; Restore previous CoordMode if needed
+        if (prevCoordMode != "Screen")
+            CoordMode "Pixel", prevCoordMode
+
+        ; Return and log results
+        if (result) {
+            return true
+        } else {
+            return false
+        }
+    } catch as e {
+        MsgBox("Error in ImageSearchWrapper: " e.Message)
+        return false
+    }
+}

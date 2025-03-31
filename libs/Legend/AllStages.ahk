@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0
-
+#Include ../../libs/TinyTaskWrapper/tinytask.ahk
 #Include ../FindText.ahk
 class Cards {
     static voting := "|<>*93$71.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzbzwzzzzzzzzy7zkzzy7zzzzs7zUzzw7zzzzsDy3zzsDzzzzkTw7zzkTzzzzkTkTbzUzzTzzUzUs1w0DU7zzUy3U1k0C07zz1w601U0M07zz1kM01U0U0Dzy3UkA3UL0sDzy23Uw7Uy3kTzw471wD1w00zzw0S3sS3s03zzs0w7Uw7kTzzzs3s01sDUzzzzk7s03k3U0TzzkTk0Dk700zzzUzk0zUD01zzzXzs7zkzU7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
@@ -31,11 +31,22 @@ StartTinyTask1() {
 
     ; Starts tiny task
 
-  
-    Send("{F8 down}") ; start tinytask
-    Sleep(100)
-    Send("{F8 up}")
-    Sleep(500)
+    if (IsTinyTaskPlaying()) {
+        Send("{F8 down}") ; stops tinytask
+        Sleep(100)
+        Send("{F8 up}")
+        Sleep(500)
+        Send("{F8 down}") ; start tinytask
+        Sleep(100)
+        Send("{F8 up}")
+        Sleep(500)
+    } else {
+        Send("{F8 down}") ; start tinytask
+        Sleep(100)
+        Send("{F8 up}")
+        Sleep(500)
+    }
+    
     Loop {
         if (ok := FindText(&X, &Y, 669-150000, 586-150000, 669+150000, 586+150000, 0, 0, Cards.RewardsText)) {
 
@@ -64,6 +75,12 @@ StartTinyTask1() {
             Sleep(100)
             Send("{F8 up}")
             Sleep(500)
+            if (IsTinyTaskPlaying()) { ; if tinytask start running again it will turn it off
+                Send("{F8 down}") ; stops tinytask
+                Sleep(100)
+                Send("{F8 up}")
+                Sleep(500)
+            }
 
             BetterClick(1184, 840)
             Sleep(500)
@@ -117,6 +134,12 @@ StartTinyTask1() {
             Sleep(100)
             Send("{F8 up}")
             Sleep(500)
+            if (IsTinyTaskPlaying()) { ; if tinytask start running again it will turn it off
+                Send("{F8 down}") ; stops tinytask
+                Sleep(100)
+                Send("{F8 up}")
+                Sleep(500)
+            }
             BetterClick(960, 600)
             sleep(500)
             BetterClick(960, 600)

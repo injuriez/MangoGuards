@@ -3,8 +3,7 @@
 #Include ../../Modules.ahk
 #Include ../../FindText.ahk
 #Include Leech/UnitPlacement.ahk
-
-
+#Include ../../TinyTaskWrapper/tinytask.ahk
 Rewards:="|<>*86$162.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy7zzzzzzzzzzzzzzzzzzzzzzzzzw3zzzzzz00Dzzzzzzzzzzzzzzzzw3zzzzzy003zzzzzzzzzzzzzzzzw3zzzzzy001zzzzzzzzzzzzzzzzw3zzzzzy000zzzzzzzzzzzzzzzzw3zzzzzy000Tzzzzzzzzzzzzzzzw3zzzzzy000Tzzzzzzzzzzzzzzzw3zzzzzy0z0Dzzzzzzzzzzzzzzzw3zzzzzy0zUDs1z3yDszsC7UsDsA3y0Dzzy0zUDU0S1w7kDU43U07U03s07zzy0zUD00C1s7kD003007003k03zzy0zUC0061s3UC003006003k03zzy0z0A0060k3UQ00300C003k07zzy000Q0k30k10Q00300A003kTjzzy000M1s30E10M1U30DQ0U3kDzzzy000s3s30000s3s30Ts3s3k0Tzzy000s003U000s7s30Ts3s3k07zzy001s007U001s7s30Ts7w3s03zzy000s007k001s7s30Ts3s3w03zzy000s00Tk001s3s30Ts3s3z01zzy0z0M3zzk0U3s0U30Tw0U3zs1zzy0z0Q1yTs1U3w0030Tw003ky1zzy0zUA00Ds1k7w0030Ty003U01zzy0zUC007w1k7y0030Ty003U03zzz0zkD007w3k7z0030Tz003U03zzz0zkDU0Dy3sDzU43UTzU03k07zzzVzszk0Ty7wTzsC7UzzsC7w0TzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 FailedText:="|<>*44$208.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zzzzzk00Dw001zkDw0003zzzzw7zzy00007zzzzzU01zw00Dznzw000zzzzzxzzzz0000zzzzzz00Dzs01zzzzs007zzzzzzzzzzU007zzzzzy01zzU0Dzzzzk00zzzzzzzzzzz000S00003s0DUT00w0z0D003k0000DU007y003s00007U0w0w07k1w0S00D00000y0003y00D00000D07k3s0S07U1s00s00001k0003w00w00000w0S07U1s0S07U07U0000700007s03k00003k3s0T07U1s0S00S00000Q0000Dk0D00000D0D00w0S07U1s01s00001k0000TU0w00000s1w03s1s0S07U07U0000700000yzzk00007zzU07zzU1s0Tzzy00000w00001zzz00000Tzy00Tzy07U1zzzs00003k00003zzw0Dzzzzzk00zzs0S07zzzU1zzzz03w007zzk0zzzzzz003zzU1s0Tzzy07zzzw0Dz00Tzz03zzzzzs007zy07U1zzzs0Tzzzk0zy00zzw0DzzzzzU00Tzs0S07zzzU1zzzz03zy03zzk0zzzzzw000zzU1s0Tzzy07zzzw0Dzs0Dzz03zzzzzk003zy07U1zzzs0Tzzzk0zzk0Tzw0003zzy0007zs0S07zzzU000Tz03zzU1zzk0007zzs000TzU1s0Tzzy0000zw0Dzy07zz0000Tzz01U0zy07U1zzzs0003zk0zzs0Tzw0000zzw0603zs0S07zzzU0007z03zzU1zzk0003zzU0w07zU1s0Tzzy0000Tw0Dzz07zz0000Dzy03k0Ty07U1zzzs0001zk0zzw0Tzw0001zzk0TU0zs0S07zzzU0007z03zzU1zzk0007zz01y03zU1s0Tzzy0000zw0Dzy07zz0000Tzs00007y07U1zzzs0003zk0zzs0Tzw0007zzU0000Ts0S07zzzU000zz03zzU1zzk0zzzzy00000zU1s0Tzzy07zzzw0Dzw0Dzz03zzzzk00003y07U1zzzs0Tzzzk0zzU0zzw0Dzzzz00000Ds0S07zzzU1zzzz03zw03zzk0zzzzs00000TU1s0Tzzy07zzzw0DzU0Tzz03zzzzU00001y07U1zzzs0Tzzzk0zs01zzw0Dzzzw000003s0S07zzzU0000z00000Dzzk0zzzzk0Tzs0DU1s0Tzzy00000w00001zzz03zzzy03zzk0S07U0001s00003k00007zzw0Dzzzs0TzzU1s0S00003U0000700000zzzk0zzzz01zzy03U1s0000C00000Q00007zzz03zzzw0Dzzw0C07U0000s00001k0000zzzw0Dzzzk0zzzk0s0S00003U000070000Dzzzk0zzzz07zzzU3U1s0000C00000w0001zzzzU7zzzy0Tzzy0T0Dk0001w00003s000Tzzzz0zzzzy3zzzw7y1zU000Ds0000Tk00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
 class WinterVAR {
@@ -19,9 +18,22 @@ PlayerPosition() {
 }
 
 StartTinyTask() {
-    Send("{F8 down}")
-    Sleep(100)
-    Send("{F8 up}")
+    if (IsTinyTaskPlaying()) {
+        Send("{F8 down}")
+        Sleep(100)
+        Send("{F8 up}")
+        Sleep(500)
+        Send("{F8 down}")
+        Sleep(100)
+        Send("{F8 up}")
+        Sleep(500)
+        return
+    } else {
+        Send("{F8 down}")
+        Sleep(100)
+        Send("{F8 up}")
+    }
+    
     Sleep(1000)
     WinORloserChecker()
 }

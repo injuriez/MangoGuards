@@ -14,9 +14,7 @@ global Y2 := 600
         Random()
         Sleep(500)
         return
-    } else {
-        MsgBox("Quake image not found")
-    }
+    } 
 }
 ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
     try {

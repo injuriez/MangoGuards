@@ -2,6 +2,7 @@
 
 #Include ../../../FindText.ahk
 #Include ../CardPickerModule.ahk
+#Include ../../../TinyTaskWrapper/tinytask.ahk
 #MaxThreads 255
 
 Cooldown1:="|<>*24$146.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwzzzzzzVzz3zzzzzzzzzzzzzs1zzzzzsTzkzzzzzzzzzwDzzs07zzzzy7zwDzzzzzzzzz3zzw01zzzzzVzz3zzzzzzzzzkzzy00TzzzzsTzkzzzzzzzzzwDzzUSDzzzzy7zwDzzzzzzzzz3zzkTzw1zUDVz03s3swS647zkzzw7zy0Dk1sTU0w0Q73VU0zwDzz3zz01s0C7k0C03VUsM07z3zzkzzU0A01Vs0300M84600zkzzwDzsC31kMS30kQ6213UMDwDzz3zy7kky67VsADVk00sD3z3zzkTzVwADVVsS33sQ00C7kzkzzw3zsT33sMS7Uky7U07VwDwDzzUS63UkQ63UEA71s41sT3z3zzw01U0A01UA0300T1Uy7kzkzzz00Q07U0s300s0DkMDVwDwDzzw0DU3w0T0s0D07wD7sT3z3zzzkDy3zkTsTV7w7zXlz7kzszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
@@ -34,10 +35,21 @@ AntRaids() {
     MainCards()
     Sleep(2000)
     ; Starts TinyTask
-    Send("{F8 down}")
-    Sleep(100)
-    Send("{F8 up}")
-    Sleep(500)
+    if (IsTinyTaskPlaying()) { 
+        Send("{F8 down}") ; if tinytask is still playing it will turn it off and on
+        Sleep(100)
+        Send("{F8 up}")
+        Sleep(500)
+        Send("{F8 down}")
+        Sleep(100)
+        Send("{F8 up}")
+        Sleep(500)
+    } else {
+        Send("{F8 down}") ; if tinytask is not playing it will start it
+        Sleep(100)
+        Send("{F8 up}")
+        Sleep(500)
+    }
     ; While TinyTask is running, the script will search for the alt cards
     loop {
         Sleep(900)
