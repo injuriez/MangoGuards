@@ -184,4 +184,4 @@ InitiateWebhook() {
         MsgBox("Invalid webhook URL format")
     }
 }
-F1::InitiateWebhook()
+InitiateWebhook()
