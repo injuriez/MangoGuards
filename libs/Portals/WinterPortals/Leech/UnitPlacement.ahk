@@ -121,6 +121,7 @@ GemStart() {
     }
     loop {
         if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\Images\status\Vote.png", 50) {
+            WinActivate("Roblox")
             Sleep(1000)
             BetterClick1(881, 173) ; Clicks yes
             Sleep(5000)
