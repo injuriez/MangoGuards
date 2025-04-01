@@ -35,21 +35,11 @@ AntRaids() {
     MainCards()
     Sleep(2000)
     ; Starts TinyTask
-    if (IsTinyTaskPlaying()) { 
-        Send("{F8 down}") ; if tinytask is still playing it will turn it off and on
-        Sleep(100)
-        Send("{F8 up}")
-        Sleep(500)
-        Send("{F8 down}")
-        Sleep(100)
-        Send("{F8 up}")
-        Sleep(500)
-    } else {
-        Send("{F8 down}") ; if tinytask is not playing it will start it
-        Sleep(100)
-        Send("{F8 up}")
-        Sleep(500)
-    }
+    Send("{F8 down}") ; if tinytask is still playing it will turn it off and on
+    Sleep(100)
+    Send("{F8 up}")
+    Sleep(500)
+    
     ; While TinyTask is running, the script will search for the alt cards
     loop {
         Sleep(900)

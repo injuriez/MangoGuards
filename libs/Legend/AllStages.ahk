@@ -75,12 +75,6 @@ StartTinyTask1() {
             Sleep(100)
             Send("{F8 up}")
             Sleep(500)
-            if (IsTinyTaskPlaying()) { ; if tinytask start running again it will turn it off
-                Send("{F8 down}") ; stops tinytask
-                Sleep(100)
-                Send("{F8 up}")
-                Sleep(500)
-            }
 
             BetterClick(1184, 840)
             Sleep(500)
