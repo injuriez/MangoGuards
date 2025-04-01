@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 #Include AHKv2-Gdip-master\Gdip_All.ahk
 #Include Discord-Webhook-master\lib\WEBHOOK.ahk
-
+#SingleInstance Force
 SendWebhook() {
     pToken := Gdip_Startup()
     if !pToken {
