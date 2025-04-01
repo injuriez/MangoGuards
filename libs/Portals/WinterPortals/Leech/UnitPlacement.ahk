@@ -107,6 +107,10 @@ checkstatus() {
 }
 
 GemStart() {
+    global X1 := 214
+    global Y1 := 5
+    global X2 := 1600
+    global Y2 := 600
     loss := FileOpen("../../Settings/MangoSettings/session/stats/losses.txt", "w")
     if loss {
         loss.Write(0)
@@ -116,8 +120,8 @@ GemStart() {
         return
     }
     loop {
-        if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, Vote)) {
-   
+        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\Images\status\Vote.png", 50) {
+            Sleep(1000)
             BetterClick1(881, 173) ; Clicks yes
             Sleep(5000)
             unitManager1()

@@ -562,6 +562,8 @@ start(*) {
                 sessionName.Close()
                 sessionType.Close()
                 Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+                BetterClick(985, 517) ; focuses back on roblox
+                BetterClick(985, 517) ; focuses back on roblox
                 Sleep(3000)
                 Run(A_ScriptDir "\.\libs\Portals\WinterPortals\WinterPortal.ahk")
             } else if MacroSelected.Name == "ValentinePortal" {
