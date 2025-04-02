@@ -260,7 +260,7 @@ CheckAbility() {
 }
 
 CheckAll() {
-    MsgBox("Checking all abilities...")
+
     BetterClick1(1391, 289)
     Sleep(500) ; Give UI time to update
     CheckAbility()
