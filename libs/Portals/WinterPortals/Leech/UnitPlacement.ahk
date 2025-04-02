@@ -188,6 +188,7 @@ Unit1(x, y) {
         } else {
             ; Retry clicking if the condition is not met
             SendInput("{1}")
+            checkstatus()
             BetterClick1(x, y)
             Sleep(100)
         }
@@ -205,6 +206,7 @@ Unit2(x, y) {
         } else {
             ; Retry clicking if the condition is not met
             SendInput("{2}")
+            checkstatus()
             BetterClick1(x, y)
             Sleep(100)
         }
@@ -222,6 +224,7 @@ Unit3(x, y) {
         } else {
             ; Retry clicking if the condition is not met
             SendInput("{3}")
+            checkstatus()
             BetterClick1(x, y)
             Sleep(100)
         }
@@ -240,6 +243,7 @@ Unit4(x, y) {
         } else {
             ; Retry clicking if the condition is not met
             SendInput("{4}")
+            checkstatus()
             BetterClick1(x, y)
             Sleep(100)
         }
