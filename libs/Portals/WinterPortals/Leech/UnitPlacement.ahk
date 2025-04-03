@@ -428,3 +428,6 @@ webhook() {
 }
 
 GemStart()
+
+
+F2::ExitApp

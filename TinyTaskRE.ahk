@@ -118,7 +118,6 @@ CheckForUpdates() {
         if (whr.Status = 200) {
             latestVersion := Trim(whr.ResponseText)
             
-            FileAppend("Check: Current=" currentVersion ", Latest=" latestVersion "`n", A_ScriptDir "\update_log.txt")
             
             if (CompareVersions(latestVersion, currentVersion) > 0) {
                 return "UPDATE"
@@ -126,12 +125,10 @@ CheckForUpdates() {
                 return "UPTODATE"
             }
         } else {
-            FileAppend("Update check HTTP error: " whr.Status "`n", A_ScriptDir "\update_log.txt")
             return "ERROR"
         }
     } catch as e {
         ; Handle any errors
-        FileAppend("Update check error: " e.Message "`n", A_ScriptDir "\update_log.txt")
         return "ERROR"
     }
 }

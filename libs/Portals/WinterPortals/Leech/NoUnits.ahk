@@ -295,3 +295,5 @@ GemStart() {
 }
 
 GemStart()
+
+F2::ExitApp
