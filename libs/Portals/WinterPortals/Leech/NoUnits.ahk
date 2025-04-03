@@ -211,6 +211,11 @@ checkstatus() {
             return true ; Exit with success
         }
 
+        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
+          
+            Leech1()
+            return true
+        }
 
         ; If no conditions are met, exit the loop
         return false ; Exit with failure

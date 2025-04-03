@@ -220,17 +220,9 @@ PickPortalsAGAIN() {
     
     if (World == "Namek") {
         
-        if LeechValue == "true" {
-            GemStart()
-        } else {
-            PickNamekAgain()
-        }
+        PickNamekAgain()
     } else if (World == "Shibuya") {
-        if LeechValue == "true" {
-            unitManager1()
-        } else {
-            PickShibuyaAgain()
-        }
+        PickShibuyaAgain()
     } 
 }
 
