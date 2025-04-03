@@ -46,6 +46,19 @@ BetterMouseMove(targetX, targetY, speed := 2) {
 
 Leech1() {
     loop {
+        if (checkstatus()) {
+
+            continue
+        }
+        
+        ; Also check for vote screen directly
+        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
+            WinActivate("Roblox")
+            Sleep(1000)
+            BetterClick(881, 173) ; Clicks yes
+            Sleep(5000)
+        }
+        
         found := false
         portals := [
             {x: 722, y: 500},
@@ -119,11 +132,16 @@ Leech1() {
         ; If no portal was found, wait a bit before trying again
         if (!found) {
             Sleep(2000)
-            ; Optionally scroll or perform other actions to refresh the portal list
+            ; Check for the vote/ready UI again after waiting
+            if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
+                WinActivate("Roblox")
+                Sleep(1000)
+                BetterClick(881, 173) ; Clicks yes
+                Sleep(5000)
+            }
         }
     }
 }
-
 checkstatus() {
     global X1 := 214
     global Y1 := 5
