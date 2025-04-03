@@ -105,9 +105,18 @@ PortalImageSearch() { ; Keeps searching for the portals to pop up then starts an
 
     loop {
         if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Rewards.png", 50) {
+            Sleep(500)
             SelectPortals()
+            Sleep(500)
+            break
+        } else {
+            MouseGetPos(&X, &Y)
+            randomX := Random(0, 1920)
+            randomY := Random(0, 1080)
+            BetterMouseMove(randomX, randomY)
+            
         }
-    }
+    } 
 
 }
 
