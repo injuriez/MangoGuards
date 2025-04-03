@@ -2,7 +2,7 @@
 #Include ../../AllText.ahk
 #Include ../../Modules.ahk
 #Include ../../FindText.ahk
-#Include Leech/UnitPlacement.ahk
+
 Tier10 := "|<>*75$27.zzzzzzzzzzzwTzsy0zy3U3zUM0Ts201y0EQDk27Vy0Ew7y27kzkEy7y27kzkEw7y27VzkEQDy201zkM0Ty3U3zsy1zU"
 FailedText:="|<>*44$208.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zzzzzk00Dw001zkDw0003zzzzw7zzy00007zzzzzU01zw00Dznzw000zzzzzxzzzz0000zzzzzz00Dzs01zzzzs007zzzzzzzzzzU007zzzzzy01zzU0Dzzzzk00zzzzzzzzzzz000S00003s0DUT00w0z0D003k0000DU007y003s00007U0w0w07k1w0S00D00000y0003y00D00000D07k3s0S07U1s00s00001k0003w00w00000w0S07U1s0S07U07U0000700007s03k00003k3s0T07U1s0S00S00000Q0000Dk0D00000D0D00w0S07U1s01s00001k0000TU0w00000s1w03s1s0S07U07U0000700000yzzk00007zzU07zzU1s0Tzzy00000w00001zzz00000Tzy00Tzy07U1zzzs00003k00003zzw0Dzzzzzk00zzs0S07zzzU1zzzz03w007zzk0zzzzzz003zzU1s0Tzzy07zzzw0Dz00Tzz03zzzzzs007zy07U1zzzs0Tzzzk0zy00zzw0DzzzzzU00Tzs0S07zzzU1zzzz03zy03zzk0zzzzzw000zzU1s0Tzzy07zzzw0Dzs0Dzz03zzzzzk003zy07U1zzzs0Tzzzk0zzk0Tzw0003zzy0007zs0S07zzzU000Tz03zzU1zzk0007zzs000TzU1s0Tzzy0000zw0Dzy07zz0000Tzz01U0zy07U1zzzs0003zk0zzs0Tzw0000zzw0603zs0S07zzzU0007z03zzU1zzk0003zzU0w07zU1s0Tzzy0000Tw0Dzz07zz0000Dzy03k0Ty07U1zzzs0001zk0zzw0Tzw0001zzk0TU0zs0S07zzzU0007z03zzU1zzk0007zz01y03zU1s0Tzzy0000zw0Dzy07zz0000Tzs00007y07U1zzzs0003zk0zzs0Tzw0007zzU0000Ts0S07zzzU000zz03zzU1zzk0zzzzy00000zU1s0Tzzy07zzzw0Dzw0Dzz03zzzzk00003y07U1zzzs0Tzzzk0zzU0zzw0Dzzzz00000Ds0S07zzzU1zzzz03zw03zzk0zzzzs00000TU1s0Tzzy07zzzw0DzU0Tzz03zzzzU00001y07U1zzzs0Tzzzk0zs01zzw0Dzzzw000003s0S07zzzU0000z00000Dzzk0zzzzk0Tzs0DU1s0Tzzy00000w00001zzz03zzzy03zzk0S07U0001s00003k00007zzw0Dzzzs0TzzU1s0S00003U0000700000zzzk0zzzz01zzy03U1s0000C00000Q00007zzz03zzzw0Dzzw0C07U0000s00001k0000zzzw0Dzzzk0zzzk0s0S00003U000070000Dzzzk0zzzz07zzzU3U1s0000C00000w0001zzzzU7zzzy0Tzzy0T0Dk0001w00003s000Tzzzz0zzzzy3zzzw7y1zU000Ds0000Tk00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
 class WinterVAR {
@@ -244,24 +244,15 @@ findvoting() {
 }
 
 WinterPortal() {
-    leech := FileOpen("../../Settings/MangoSettings/WinterPortal/leech.txt", "r")
-    LeechValue := leech.ReadLine()
+
     Setting := FileOpen("../../Settings/MangoSettings/map.txt", "r")
     World := Setting.ReadLine()
     
     if (World == "Namek")
-        if LeechValue == "true" {
-            GemStart()
-        } else {
-            namekworld()
-        }
+        namekworld()
         
     else if (World == "Shibuya")
-        if LeechValue == "true" {
-            GemStart()
-        } else {
-            shibuyaworld()
-        }
+        shibuyaworld()
         
 }
 
@@ -649,4 +640,30 @@ StopApp() {
 }
 webhook() {
     Run(A_ScriptDir "\..\..\webhook.ahk")   
+}
+ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
+    try {
+        ; Store the previous CoordMode and set to Screen
+        prevCoordMode := A_CoordModePixel
+        CoordMode "Pixel", "Screen"
+
+
+        ; Perform the image search with specified tolerance
+        result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
+
+        ; Restore previous CoordMode if needed
+        if (prevCoordMode != "Screen")
+            CoordMode "Pixel", prevCoordMode
+
+        ; Return and log results
+        if (result) {
+            return true
+        } else {
+            return false
+        }
+    } catch as e {
+        MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
+
+        return false
+    }
 }

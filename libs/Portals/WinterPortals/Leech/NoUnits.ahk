@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 #Include ../../../FindText.ahk
-#Include ../../../Modules.ahk
 Failed:="|<>*47$216.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001zzzzy000TU003z0zk000DzzzzkTzzs000007zzzzzU01zs00Dznzw000zzzzzxzzzz00000Dzzzzzk03zw00Tzzzy001zzzzzzzzzzk0000Tzzzzzk07zy00zzzzz003zzzzzzzzzzw0000T00003s0DUT00w0z0D003s0000TU007y0000S00001s0D0D00w0T07U03k0000DU000zU000w00001s0T0DU1s0S07U03U000070000Tk000w00000s0S07U1s0S07U07U0000700007s000w00000s0y07k1s0S07U07U0000700003w000w00000s0w03k1s0S07U07U0000700001y000w00000s0w03s1s0S07U07U0000700000y0zzw00001zzs01zzs0S07zzzU0000D00000Tzzzw00001zzs01zzs0S07zzzU0000D00000Dzzzw0Dzzzzzk00zzs0S07zzzU1zzzz03w007zzzw0Dzzzzzk00zzs0S07zzzU1zzzz03zk07zzzw0DzzzzzU00Tzs0S07zzzU1zzzz03zs03zzzw0DzzzzzU00Tzs0S07zzzU1zzzz03zy03zzzw0Dzzzzz000Dzs0S07zzzU1zzzz03zy03zzzw0Dzzzzz000Dzs0S07zzzU1zzzz03zz01zzzw0003zzy0007zs0S07zzzU000Tz03zzU1zzzw0001zzy0007zs0S07zzzU000Dz03zzU1zzzw0001zzw0603zs0S07zzzU000Dz03zzU1zzzw0001zzw0603zs0S07zzzU0007z03zzk1zzzw0000zzs0D01zs0S07zzzU0007z03zzk1zzzw0000zzs0D01zs0S07zzzU0007z03zzk1zzzw0001zzk0TU0zs0S07zzzU000Dz03zzk1zzzw0001zzk0TU0zs0S07zzzU000Dz03zzU1zzzw0001zzk0000Ts0S07zzzU000Dz03zzU1zzzw0007zzU0000Ts0S07zzzU000zz03zzU1zzzw0DzzzzU0000Ts0S07zzzU1zzzz03zz03zzzw0Dzzzz00000Ds0S07zzzU1zzzz03zy03zzzw0Dzzzz00000Ds0S07zzzU1zzzz03zw03zzzw0Dzzzy000007s0S07zzzU1zzzz03zs07zzzw0Dzzzy000007s0S07zzzU1zzzz03zU07zzzw0Dzzzw000003s0S07zzzU0000z00000Dzzzw0Dzzzw07zz03s0S07zzzU0000D00000Tzzzw0Dzzzs0Dzz01s0S00007U0000D00000Tzzzw0Dzzzs0TzzU1s0S00003U0000700000zzzzw0Dzzzk0TzzU0s0S00003U0000700001zzzzw0Dzzzk0zzzk0s0S00003U0000700003zzzzw0Dzzzk0zzzk0s0S00003U000070000Dzzzzw0Dzzzk1zzzs0s0S00003U0000DU000Tzzzzy0Tzzzs1zzzs1w0z00007k0000DU001zzzzzz0zzzzy3zzzw7y1zU000Ds0000Tk00TzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 shibuya:="<>*96$68.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyDbyNzzzzzzz0szWDzzzzzzU6DtXzzzzzzsnXzszzzzzzyDs7a1ttbXWTUy0MUCC0sk7w3U681XWA81zUMlWAMsV6ATz6C8XWCA177tlXW8kX3Usly0MsW0M0sC0TU6C8UD0D7k7w7baN7sbly9zzzzzzzzszzzzzzzzzzyDzzzzzzzzzz7zzzzzzzzzztzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy"
 spider:="<>*88$59.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwzztzbzzzzUTzlzDzzzy0TzbwDzzzwNzzzsTzzzszzyTEzzzzkz8wM1kQXzUC0sU20M7zUA0l0A0kDzkMlWAMlXzzslX4MU37zslX68lUSDzk30AE33QTzU60sk60Mzzkw3nlD1nzzzszzzzzzzzzlzzzzzzzzzXzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzz"
@@ -17,10 +16,12 @@ darkerYes:="|<>*85$102.000000000000000000000000000000000000000000000000000000000
 darkerCancel:="|<>*104$132.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000Dk00000Dw0000000000000Tw00000zzU000000000000ww00003zzs000000000000sC0000Dk1w000000000000kC0000T00S000000000000kC0000w00C000000000000kC0000s00C000000000000kC0001k00C7zwzTU0Ts1zskC0003k1UCTzzzzs1zy7zykC0003U7wRzzzzzy7wzDkzkC0003UTzzs47UUTDU7y07kC00070SDzU07007S03w03kC00070s3b007003w01s01kC00070s0C007003s01k01kC00070k0C007001s01k20kC00070s0Q0U70A1k33UD0kC00070s0Q3s70S1kDrUT0kC00070s7w3s70z0kDzU00kC00zz0Tzw3s70z0kDzU00kDzzzzUTzw3s70z0kDzU01kDzzzzU7wQ1k70z0k7bUTzkDzzzzk00A0070z0k03UDzk3zzzzk00C0070z0s01k03k1zzzzs00D0070z0w01k01s1zzzzw00D0070z0w01s01s1zzzzz00Tk070z0z03w01w1zzzzzk1zsA7VzVzkDz03y1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 darkerCreate:="|<>*87$181.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007zk000000000000000000000000000Dzz0000000000000Dk000000000000zzzs000000000000zy000000000000zzzz000000000000zzU00000000001zw3zk00000000000Tzs00000000001zk0Dw00000000000Tzw00000000001zU01z00000000000DUT00000000001z000DU00000000007UDU0000000000z0003k00000000003k7k0000000000y0001ztzU7zs03yTls3y0TzU000000z0000zzzwTzz07zzzw1zlzzw000000T0000zzzzTzzkDzzzy0zxzzz000000T00y0TzzzzzzwDzzzz0Tzzzzk00000DU1zsTzzTzw3zDzzzzU7zzkDw000007U1zzzkA0zk0Tzs3UQ007z01z000007k1zzzk40TU03zk0UC001y00Dk00003s1zDzs007U00zk003000y003w00001s0y1zw007U00Dk001U00S000y00000w0y0DS003U007k000k00C000T00000S0T00D001U001s000M0060007k0000D0DU07U01k0s0s000A00303U3s00007U7k03k1ts0y0Q0007k17U3s1w00003k3s0zs1zs0z0A0T03w1zU3w0y00001s1y1zw0zw0TU60Tk1y0zk1y0T00000y0Trzy0Ty00030Ds0z0Ts000DU0000T0Dzzz0Dz0001U7y0TUDw0007k0000DU3zzzU7zU001k3y0Dk7y0007s00Tzzk0zzDk3zk001s0z07s3z0007zzzzzzw07y3s1zs0zzy0D03w0zU3zzzzzzzzy00E0w0zy0Tzz0001y0Ts1zzzzzzzzzU000S0Tz03sDU000z00w0DUzzzzzzzs00070Dzk007s000TU0D000Tzzzzzzy0003U7zs001y000Dk07U007zzzzzzzU003k3zy000z0007w03s003zzzzzzzw003s1zzU00Ts003z01y001zzzzzzzz003w1zzs00Ty083zk0zU01zzzzzzzzw0Dz1zzz00TzkS3zy0zw01zzzzzzzzzzzzzzzzy7zzzzzzzzzzsTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk"
 yesagain:="<>*109$97.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000y0DU000000000001zUDw000000000001zsDz000000000001ywDjk00000000001wD7Vs00000000000w3rUS00000000000Q1zUD00000000000D0Tk7zs3zk0000007UDk7zz7zy0000001s3s3zzrzzk000000y0s3y3zw7s000000D0M3s0Tk0S0000003k41s07k070000001w01s01s07U000000S01s00M03k0000007U0w00A3nk0000003s0w1s60zs0000000w0y1w3U1y0000000D0T001k0D000TzzzzUTU00w03zzzzzzzzkDk00z01zzzzzzzzs7s7zzs0zzzzzzzzw3w1zz7kTzzzzzzzy1z0070EDzzzzzzzz0zU03U07zzzzzzzzUTs01k03zzzzzzzzkDy00w03zzzzzzzzw7zk0z07zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+Failed:="|<>*118$101.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003zU00000000000000zzw00001U00000003k1y0000Ts0000000600C0001ts0000000M00C00030k0000000k00C00061U0000001U00C000A300000003000A000M600000006000MDz1kDXxzDU7kA1y0NzzjUTzzzzUTsM3y0rU3s01kM73Vksk6A1w03k01U04330lUAQ3k03U020087C1X0Tk700300400E6M360z0A00600800U7k6A000s1U400k03UD0MM001U7UD0zU7zUC0kk0070T0S1z0Tv0M3VU00C000w360l70E63000Q003s6A1U600Q6000s006kAM30600kA001k00xUTk60A01UM3w1UDzn0TUA0A060k7s3U7Va070M0Q0A1UAs3003g060k0M0k30Mk7003Q0A1U0s1U60lkD006M0M300k70C1VUT00Qs0s601UA0A73Vr01kw3kQ060s0Tw3z7zzUzzzk0A1U0Dk3s3zw0Tsz00s30000000y0000001UA0000000000000070M00000000000000A1k00000000000000M3000000000000000kC000000000000001kM000000000000001zk000000000000001z0000000000000000M0000000000000000004"
+UnitPlaced := "|<>*87$115.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzszzzyDy7zzzzzzzzzzzsDzzy3z3zzzzzzzzzzzw7zzz1zUzzzzzzzzzzzy3zzzUzkTzzzzzzzzzzz1zzzkTsDzzzzzzzzzzzUzzzsDw7zzzzzzzzzzzkTtzw7y323zUVkES13w0DU7y3z1U0TU0M0C01s07U1z1zUk07U0A0600s03U0TUzkM03U060700Q01U07kTsA00k830n00A00kC3sDwC3kMD1UzUw63kMD1w7w71sADUkTky31sA00y1y3Uw63kMDsD1Uw600zUy1kA31kA7w70kS31zzk41s03U063y00M01Uzzw00w01s031zU0C00s07z00y01y01Uzk07U0Q03zk0z01zU0kTw03s0D01zw1zUnzzkQTzVXy6Ds1zzzzkTzzsDzzzzzzzzzzzzzsDzssDzzzzzzzzzzzzzw7zs07zzzzzzzzzzzzzy3zw07zzzzzzzzzzzzzz1zz07zzzzzzzzzzzzzzlzzsDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk"
 
-; leech := FileOpen("../../Settings/MangoSettings/WinterPortal/leech.txt", "r")
-; LeechValue := leech.ReadLine()
-BetterClick1(x, y) {
+Vote:= "<>*92$71.zzzzzzzzzzzzzzzzzzzzzzzzzbzwzzzzzzzzy7zkzzy7zzzzs7zUzzw7zzzzsDy3zzsDzzzzkTw7zzkTzzzzkTkTbzUzzTzzUzUs1w0DU7zzUy3U1k0C07zz1w601U0M07zz1kM01U0U0Dzy3UkA3UL0sDzy23Uw7Uy3kTzw471wD1w00zzw0S3sS3s03zzs0w7Uw7kTzzzs3s01sDUzzzzk7s03k3U0TzzkTk0Dk700zzzUzk0zUD01zzzXzs7zkzU7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+AutoAbility:="|<>*132$58.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzntwU0sTzzyDbm020TzzsSTDXk1zzz1twyD7Xzzw3bnswyDzzWCTDXXwzzy0NwyDDXzzk1XXswSDzz024DXkVzzsyA1yDU7zznwsDsz1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
+BetterClick(x, y) {
     MouseMove(x, y)
     Sleep(10)
     MouseMove(1, 0, , "R")
@@ -29,10 +30,10 @@ BetterClick1(x, y) {
     Sleep(50)
 }
 
-SmoothMouseMove1(targetX, targetY, speed := 2) {
+BetterMouseMove(targetX, targetY, speed := 2) {
     MouseGetPos(&startX, &startY)
-    count := 10  ; Reduced number of steps for efficiency
-   
+    count := 25  ; number of steps
+    
     Loop count {
         progress := A_Index / count
         currentX := startX + (targetX - startX) * progress
@@ -41,14 +42,88 @@ SmoothMouseMove1(targetX, targetY, speed := 2) {
         Sleep(speed)
     }
 }
-Failed:="|<>*118$101.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003zU00000000000000zzw00001U00000003k1y0000Ts0000000600C0001ts0000000M00C00030k0000000k00C00061U0000001U00C000A300000003000A000M600000006000MDz1kDXxzDU7kA1y0NzzjUTzzzzUTsM3y0rU3s01kM73Vksk6A1w03k01U04330lUAQ3k03U020087C1X0Tk700300400E6M360z0A00600800U7k6A000s1U400k03UD0MM001U7UD0zU7zUC0kk0070T0S1z0Tv0M3VU00C000w360l70E63000Q003s6A1U600Q6000s006kAM30600kA001k00xUTk60A01UM3w1UDzn0TUA0A060k7s3U7Va070M0Q0A1UAs3003g060k0M0k30Mk7003Q0A1U0s1U60lkD006M0M300k70C1VUT00Qs0s601UA0A73Vr01kw3kQ060s0Tw3z7zzUzzzk0A1U0Dk3s3zw0Tsz00s30000000y0000001UA0000000000000070M00000000000000A1k00000000000000M3000000000000000kC000000000000001kM000000000000001zk000000000000001z0000000000000000M0000000000000000004"
-UnitPlaced := "|<>*87$115.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzszzzyDy7zzzzzzzzzzzsDzzy3z3zzzzzzzzzzzw7zzz1zUzzzzzzzzzzzy3zzzUzkTzzzzzzzzzzz1zzzkTsDzzzzzzzzzzzUzzzsDw7zzzzzzzzzzzkTtzw7y323zUVkES13w0DU7y3z1U0TU0M0C01s07U1z1zUk07U0A0600s03U0TUzkM03U060700Q01U07kTsA00k830n00A00kC3sDwC3kMD1UzUw63kMD1w7w71sADUkTky31sA00y1y3Uw63kMDsD1Uw600zUy1kA31kA7w70kS31zzk41s03U063y00M01Uzzw00w01s031zU0C00s07z00y01y01Uzk07U0Q03zk0z01zU0kTw03s0D01zw1zUnzzkQTzVXy6Ds1zzzzkTzzsDzzzzzzzzzzzzzsDzssDzzzzzzzzzzzzzw7zs07zzzzzzzzzzzzzy3zw07zzzzzzzzzzzzzz1zz07zzzzzzzzzzzzzzlzzsDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk"
-Vote:= "<>*92$71.zzzzzzzzzzzzzzzzzzzzzzzzzbzwzzzzzzzzy7zkzzy7zzzzs7zUzzw7zzzzsDy3zzsDzzzzkTw7zzkTzzzzkTkTbzUzzTzzUzUs1w0DU7zzUy3U1k0C07zz1w601U0M07zz1kM01U0U0Dzy3UkA3UL0sDzy23Uw7Uy3kTzw471wD1w00zzw0S3sS3s03zzs0w7Uw7kTzzzs3s01sDUzzzzk7s03k3U0TzzkTk0Dk700zzzUzk0zUD01zzzXzs7zkzU7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
-AutoAbility:="|<>*132$58.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzntwU0sTzzyDbm020TzzsSTDXk1zzz1twyD7Xzzw3bnswyDzzWCTDXXwzzy0NwyDDXzzk1XXswSDzz024DXkVzzsyA1yDU7zznwsDsz1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
-; developer notes
-; Monarch is the top priority unit if the team has it [Will be placed down first]
-; MoneyUnits are the units that will be placed down after Monarch [Will be placed down second]
-; If the team has no Monarch, the 3/3 units will be placed down first
+
+
+Leech1() {
+    loop {
+        found := false
+        portals := [
+            {x: 722, y: 500},
+            {x: 960, y: 500},
+            {x: 1194, y: 499}
+        ]
+        
+        ; Check all portals for Namek
+        for portal in portals {
+            BetterMouseMove(portal.x, portal.y)
+            Sleep(500)
+            
+            if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
+                BetterClick(portal.x, portal.y + 120)
+                Sleep(2000)
+                LeechButtons()
+                found := true
+                break
+            }
+            
+            if (A_Index < portals.Length) {
+                BetterClick(portal.x, portal.y)
+                Sleep(2000)
+            }
+        }
+        
+        if (found)
+            continue
+            
+        ; Check all portals for Shibuya
+        for portal in portals {
+            BetterMouseMove(portal.x, portal.y)
+            Sleep(500)
+            
+            if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
+                BetterClick(portal.x, portal.y + 120)
+                Sleep(2000)
+                LeechButtons()
+                found := true
+                break
+            }
+            
+            if (A_Index < portals.Length) {
+                BetterClick(portal.x, portal.y)
+                Sleep(2000)
+            }
+        }
+        
+        if (found)
+            continue
+            
+        ; Check all portals for Spider
+        for portal in portals {
+            BetterMouseMove(portal.x, portal.y)
+            Sleep(500)
+            
+            if (FindText(&X, &Y, 1061-150000, 618-150000, 1061+150000, 618+150000, 0, 0, spider)) {
+                BetterClick(portal.x, portal.y + 120)
+                Sleep(2000)
+                LeechButtons()
+                found := true
+                break
+            }
+            
+            if (A_Index < portals.Length) {
+                BetterClick(portal.x, portal.y)
+                Sleep(2000)
+            }
+        }
+        
+        ; If no portal was found, wait a bit before trying again
+        if (!found) {
+            Sleep(2000)
+            ; Optionally scroll or perform other actions to refresh the portal list
+        }
+    }
+}
+
 checkstatus() {
     global X1 := 214
     global Y1 := 5
@@ -90,7 +165,7 @@ checkstatus() {
                 MsgBox("Error updating win stats: " e.Message)
             }
             Sleep(500)
-            Leech1()
+            GemStart()
             return true ; Exit with success
         }
 
@@ -114,7 +189,7 @@ checkstatus() {
                 MsgBox("Error updating loss stats: " e.Message)
             }
             Sleep(2000)
-            Leech1()
+            GemStart()
             return true ; Exit with success
         }
 
@@ -124,180 +199,38 @@ checkstatus() {
     }
 }
 
-GemStart() {
-    global X1 := 214
-    global Y1 := 5
-    global X2 := 1600
-    global Y2 := 600
 
-    loop {
-        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
-            WinActivate("Roblox")
-            Sleep(1000)
-            BetterClick1(881, 173) ; Clicks yes
-            Sleep(5000)
-            unitManager1()
-            break
-        } else {
-            GemStart()
-        }
-    }
-}
+ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
+    try {
+        ; Store the previous CoordMode and set to Screen
+        prevCoordMode := A_CoordModePixel
+        CoordMode "Pixel", "Screen"
 
 
-unitManager1() {
-    Unit1(864, 595)
-    Sleep(500)
-    Unit2(602, 374)
-    Sleep(500)
-    Unit3(1271, 657)  
-    Sleep(500)
-    Unit4(1218,422)  
-    Sleep(500)
-    
-    ; Use a counter and sleep between checks rather than an infinite loop
-    loop {
-        if (checkstatus()) {
-            break
-        }
-        if (upgradeAll()) 
-            break
+        ; Perform the image search with specified tolerance
+        result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
 
-        Sleep(5000)  
-    }
-}
-upgradeAll() {
-    ; open the unitmanager ui
+        ; Restore previous CoordMode if needed
+        if (prevCoordMode != "Screen")
+            CoordMode "Pixel", prevCoordMode
 
-
-    Sleep(1000)
-    BetterClick1(1365, 416)
-    Sleep(500)
-    BetterClick1(1575, 412)
-    Sleep(500)
-    BetterClick1(1774, 408)
-    Sleep(1000)
-    BetterClick1(1572, 744)
-    Sleep(500)
-    SmoothMouseMove1(1167, 819)
-    CheckAll()
-
-    return checkstatus()
-
-}
-
-
-
-Unit1(x, y) {
-    SendInput("{1}")
-    BetterClick1(x, y)
-
-    Sleep(100)
-    loop {
-        if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, UnitPlaced)) {
-            break
-        } else {
-            ; Retry clicking if the condition is not met
-            SendInput("{1}")
-            checkstatus()
-            BetterClick1(x, y)
-            Sleep(100)
-        }
-    }
-}
-
-Unit2(x, y) {
-    SendInput("{2}")
-    BetterClick1(x, y)
-
-    Sleep(100)
-    loop {
-        if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, UnitPlaced)) {
-            break
-        } else {
-            ; Retry clicking if the condition is not met
-            SendInput("{2}")
-            checkstatus()
-            BetterClick1(x, y)
-            Sleep(100)
-        }
-    }
-}
-
-Unit3(x, y) {
-    SendInput("{3}")
-    BetterClick1(x, y)
-
-    Sleep(100)
-    loop {
-        if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, UnitPlaced)) {
-            break
-        } else {
-            ; Retry clicking if the condition is not met
-            SendInput("{3}")
-            checkstatus()
-            BetterClick1(x, y)
-            Sleep(100)
-        }
-    }
-}
-
-Unit4(x, y) {
-    SendInput("{4}")
-    BetterClick1(x, y)
-
-    Sleep(100)
-    loop {
-        if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, UnitPlaced)) {
-            SendInput("{f}")
-            break
-        } else {
-            ; Retry clicking if the condition is not met
-            SendInput("{4}")
-            checkstatus()
-            BetterClick1(x, y)
-            Sleep(100)
-        }
-    }
-}
-
-CheckAbility() {
-    
-    loop {
-        if (ok := FindText(&X, &Y, 671-150000, 345-150000, 671+150000, 345+150000, 0, 0, AutoAbility)) {
-            BetterClick1(679, 377)
-            Sleep(1000)
+        ; Return and log results
+        if (result) {
             return true
         } else {
             return false
         }
+    } catch as e {
+        MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
+
+        return false
     }
 }
 
-CheckAll() {
-
-    BetterClick1(1391, 289)
-    Sleep(500) ; Give UI time to update
-    CheckAbility()
-    Sleep(900)
-    
-    BetterClick1(1596, 289)
-    Sleep(500) ; Give UI time to update
-    CheckAbility()
-    Sleep(900)
-    
-    BetterClick1(1806, 286)
-    Sleep(500) ; Give UI time to update
-    CheckAbility()
-    Sleep(900)
-    
-    BetterClick1(1578, 618)
-    Sleep(500) ; Give UI time to update
-    CheckAbility()
-    Sleep(900)
-
-    return
+webhook() {
+    Run(A_ScriptDir "\..\..\..\webhook.ahk")   
 }
+
 LeechButtons() {
     loop {
         if (ok := FindText(&X, &Y, 841-150000, 568-150000, 841+150000, 568+150000, 0, 0, yes)) {
@@ -335,96 +268,30 @@ LeechCancel() {
             BetterClick(X, Y)
             Sleep(1000)
             Sleep(1000)
-            GemStart()
+            checkstatus()
             break
         } 
     }
 }
 
-Leech1() {
+GemStart() {
+    global X1 := 214
+    global Y1 := 5
+    global X2 := 1600
+    global Y2 := 600
+
     loop {
-        portals := [
-            {x: 722, y: 500},
-            {x: 960, y: 500},
-            {x: 1194, y: 499}
-        ]
-    
-        CheckWorldType(worldType) {
-            for portal in portals {
-                BetterMouseMove(portal.x, portal.y)
-                Sleep(500)
-                
-                switch worldType {
-                    case "Namek":
-                        if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
-                            BetterClick(portal.x, portal.y + 120)
-                            Sleep(2000)
-                            LeechButtons()
-                            return true
-                        }
-                    case "Shibuya":
-                        if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
-                            BetterClick(portal.x, portal.y + 120)
-                            Sleep(2000)
-                            LeechButtons()
-                            return true
-                        }
-                    case "Spider":
-                        if (FindText(&X, &Y, 1061-150000, 618-150000, 1061+150000, 618+150000, 0, 0, spider)) {
-                            BetterClick(portal.x, portal.y + 120)
-                            Sleep(2000)
-                            LeechButtons()
-                            return true
-                        }
-                }
-                
-                if (A_Index < portals.Length) {
-                    BetterClick(portal.x, portal.y)
-                    Sleep(2000)
-                }
-            }
-            return false
-        }
-    
-        if (!CheckWorldType("Namek")) {
-            if (!CheckWorldType("Shibuya")) {
-                CheckWorldType("Spider")
-            }
-        }
-        
-    }
-
-
-}
-ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
-    try {
-        ; Store the previous CoordMode and set to Screen
-        prevCoordMode := A_CoordModePixel
-        CoordMode "Pixel", "Screen"
-
-
-        ; Perform the image search with specified tolerance
-        result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
-
-        ; Restore previous CoordMode if needed
-        if (prevCoordMode != "Screen")
-            CoordMode "Pixel", prevCoordMode
-
-        ; Return and log results
-        if (result) {
-            return true
+        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
+            WinActivate("Roblox")
+            Sleep(1000)
+            BetterClick(881, 173) ; Clicks yes
+            Sleep(5000)
+            Leech1()
+            break
         } else {
-            return false
+            GemStart()
         }
-    } catch as e {
-        MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
-
-        return false
     }
-}
-
-webhook() {
-    Run(A_ScriptDir "\..\..\..\webhook.ahk")   
 }
 
 GemStart()

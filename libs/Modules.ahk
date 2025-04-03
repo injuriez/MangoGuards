@@ -59,3 +59,4 @@ SmoothMouseMove(targetX, targetY, speed := 2) {
         Sleep(speed)
     }
 }
+

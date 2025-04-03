@@ -23,6 +23,8 @@ global WinterPortal_data := {
     World: "Namek",
     worldSelect: "",
     Leeching: false
+ 
+
     
 }
 
@@ -88,7 +90,7 @@ CreateGui() {
 
 CheckForUpdates() {
     try {
-        ; Read current version from local file
+
         versionFilePath := A_ScriptDir "\version.txt"
         
         if (!FileExist(versionFilePath)) {
@@ -96,31 +98,35 @@ CheckForUpdates() {
         }
         
         currentVersion := FileRead(versionFilePath)
-        currentVersion := Trim(currentVersion)  
+        currentVersion := Trim(currentVersion)
         
-
         repoOwner := "injuriez"
         repoName := "MangoGuards"
         
-     
+  
         whr := ComObject("WinHttp.WinHttpRequest.5.1")
-        
+
         url := "https://raw.githubusercontent.com/" repoOwner "/" repoName "/main/version.txt"
         whr.Open("GET", url, false)
         whr.SetRequestHeader("User-Agent", "MangoGuards Update Checker")
+        
+
+        url := url "?nocache=" A_TickCount
+        whr.Open("GET", url, false)
         whr.Send()
         
-  
         if (whr.Status = 200) {
             latestVersion := Trim(whr.ResponseText)
-    
+            
+            FileAppend("Check: Current=" currentVersion ", Latest=" latestVersion "`n", A_ScriptDir "\update_log.txt")
+            
             if (CompareVersions(latestVersion, currentVersion) > 0) {
                 return "UPDATE"
             } else {
                 return "UPTODATE"
             }
         } else {
-           
+            FileAppend("Update check HTTP error: " whr.Status "`n", A_ScriptDir "\update_log.txt")
             return "ERROR"
         }
     } catch as e {
@@ -134,22 +140,24 @@ CompareVersions(v1, v2) {
     v1Parts := StrSplit(v1, ".")
     v2Parts := StrSplit(v2, ".")
     
-    ; Compare each part
-    Loop Max(v1Parts.Length, v2Parts.Length) {
-        v1Num := A_Index <= v1Parts.Length ? RegExReplace(v1Parts[A_Index], "[^\d]", "") : 0
-        v2Num := A_Index <= v2Parts.Length ? RegExReplace(v2Parts[A_Index], "[^\d]", "") : 0
+    maxParts := Max(v1Parts.Length, v2Parts.Length)
+    Loop maxParts {
+        v1Num := (A_Index <= v1Parts.Length) ? Integer(v1Parts[A_Index]) : 0
+        v2Num := (A_Index <= v2Parts.Length) ? Integer(v2Parts[A_Index]) : 0
+
         
-        ; Now compare as numbers
+
         if (v1Num > v2Num) {
-            return 1  ; v1 is newer
+            return 1  
         } else if (v1Num < v2Num) {
-            return -1 ; v2 is newer
+            return -1 
         }
     }
     
-    ; Versions are equal
     return 0
 }
+
+
 CreateLeftPanel(myGui) {
     global CountdownText
 
@@ -272,6 +280,7 @@ CreateTabControl(myGui) {
     LeechHeader := myGui.Add("Text", "x186 y130 w100 h23", "Leech")
     LeechHeader.SetFont("c0xFFFFFF")
     WinterPortal_data.Leeching := myGui.Add("CheckBox", "x186 y144 w100 h23", "")
+
 
     backBtn1 := myGui.Add("Button", "x180 y190 w100 h23", "Help")
     ApplyBtn1 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
@@ -565,7 +574,17 @@ start(*) {
                 BetterClick(985, 517) ; focuses back on roblox
                 BetterClick(985, 517) ; focuses back on roblox
                 Sleep(3000)
-                Run(A_ScriptDir "\.\libs\Portals\WinterPortals\WinterPortal.ahk")
+                if (WinterPortal_data.Leeching) {
+                    prompt := MsgBox("Leeching Mode is enabled. would you like to place units?", "Leech Mode", "YesNo")
+                    if prompt == "Yes" {
+                        Run(A_ScriptDir "\.\libs\Portals\WinterPortals\Leech\UnitPlacement.ahk")
+                    } else {
+                        Run(A_ScriptDir "\.\libs\Portals\WinterPortals\Leech\NoUnits.ahk")
+                    }
+                } else {
+                    Run(A_ScriptDir "\.\libs\Portals\WinterPortals\WinterPortal.ahk")
+                }
+
             } else if MacroSelected.Name == "ValentinePortal" {
                 LovePortalFile()
             } else if MacroSelected.Name == "Bleach" {
