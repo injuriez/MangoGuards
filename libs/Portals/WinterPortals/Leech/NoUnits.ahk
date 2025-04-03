@@ -44,104 +44,174 @@ BetterMouseMove(targetX, targetY, speed := 2) {
 }
 
 
-Leech1() {
-    loop {
-        if (checkstatus()) {
 
-            continue
+
+
+
+ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
+    try {
+        ; Store the previous CoordMode and set to Screen
+        prevCoordMode := A_CoordModePixel
+        CoordMode "Pixel", "Screen"
+
+
+        ; Perform the image search with specified tolerance
+        result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
+
+        ; Restore previous CoordMode if needed
+        if (prevCoordMode != "Screen")
+            CoordMode "Pixel", prevCoordMode
+
+        ; Return and log results
+        if (result) {
+            return true
+        } else {
+            return false
         }
-        
-        ; Also check for vote screen directly
+    } catch as e {
+        MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
+
+        return false
+    }
+}
+
+webhook() {
+    Run(A_ScriptDir "\..\..\..\webhook.ahk")   
+}
+
+
+
+GemStart() { ; First Function to run when the match starts
+    global X1 := 214
+    global Y1 := 5
+    global X2 := 1600
+    global Y2 := 600
+
+    loop {
         if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
             WinActivate("Roblox")
             Sleep(1000)
             BetterClick(881, 173) ; Clicks yes
             Sleep(5000)
+            PortalImageSearch()
+            break
+        } else {
+            GemStart()
         }
-        
-        found := false
+    }
+}
+
+PortalImageSearch() { ; Keeps searching for the portals to pop up then starts another function to pick
+
+    loop {
+        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Rewards.png", 50) {
+            SelectPortals()
+        }
+    }
+
+}
+
+
+
+SelectPortals() {
+    loop {
         portals := [
             {x: 722, y: 500},
             {x: 960, y: 500},
             {x: 1194, y: 499}
         ]
-        
-        ; Check all portals for Namek
-        for portal in portals {
-            BetterMouseMove(portal.x, portal.y)
-            Sleep(500)
-            
-            if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
-                BetterClick(portal.x, portal.y + 120)
-                Sleep(2000)
-                LeechButtons()
-                found := true
-                break
+    
+        CheckWorldType(worldType) {
+            for portal in portals {
+                BetterMouseMove(portal.x, portal.y)
+                Sleep(500)
+                
+                switch worldType {
+                    case "Namek":
+                        if (FindText(&X, &Y, 1292-150000, 617-150000, 1292+150000, 617+150000, 0, 0, Namek)) {
+                            BetterClick(portal.x, portal.y + 120)
+                            Sleep(2000)
+                            LeechButtons()
+                            return true
+                        }
+                    case "Shibuya":
+                        if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
+                            BetterClick(portal.x, portal.y + 120)
+                            Sleep(2000)
+                            LeechButtons()
+                            return true
+                        }
+                    case "Spider":
+                        if (FindText(&X, &Y, 1061-150000, 618-150000, 1061+150000, 618+150000, 0, 0, spider)) {
+                            BetterClick(portal.x, portal.y + 120)
+                            Sleep(2000)
+                            LeechButtons()
+                            return true
+                        }
+                }
+                
+                if (A_Index < portals.Length) {
+                    BetterClick(portal.x, portal.y)
+                    Sleep(2000)
+                }
             }
-            
-            if (A_Index < portals.Length) {
-                BetterClick(portal.x, portal.y)
-                Sleep(2000)
+            return false
+        }
+    
+        if (!CheckWorldType("Namek")) {
+            if (!CheckWorldType("Shibuya")) {
+                CheckWorldType("Spider")
             }
         }
         
-        if (found)
-            continue
-            
-        ; Check all portals for Shibuya
-        for portal in portals {
-            BetterMouseMove(portal.x, portal.y)
+    }
+
+
+}
+
+LeechButtons() { ; when you pick a portal a ui saying are you sure will pop up
+    loop {
+        if (ok := FindText(&X, &Y, 841-150000, 568-150000, 841+150000, 568+150000, 0, 0, yes)) {
+            BetterClick(X, Y)
             Sleep(500)
-            
-            if (FindText(&X, &Y, 1062-150000, 581-150000, 1062+150000, 581+150000, 0, 0, shibuya)) {
-                BetterClick(portal.x, portal.y + 120)
+            LeechCancel()
+            Sleep(1000)
+            break
+        } else {
+            if (ok := FindText(&X, &Y, 853-150000, 556-150000, 853+150000, 556+150000, 0, 0, darkerYes)) {
+                BetterClick(X, Y)
                 Sleep(2000)
-                LeechButtons()
-                found := true
-                break
-            }
-            
-            if (A_Index < portals.Length) {
-                BetterClick(portal.x, portal.y)
-                Sleep(2000)
-            }
-        }
-        
-        if (found)
-            continue
-            
-        ; Check all portals for Spider
-        for portal in portals {
-            BetterMouseMove(portal.x, portal.y)
-            Sleep(500)
-            
-            if (FindText(&X, &Y, 1061-150000, 618-150000, 1061+150000, 618+150000, 0, 0, spider)) {
-                BetterClick(portal.x, portal.y + 120)
-                Sleep(2000)
-                LeechButtons()
-                found := true
-                break
-            }
-            
-            if (A_Index < portals.Length) {
-                BetterClick(portal.x, portal.y)
-                Sleep(2000)
-            }
-        }
-        
-        ; If no portal was found, wait a bit before trying again
-        if (!found) {
-            Sleep(2000)
-            ; Check for the vote/ready UI again after waiting
-            if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
-                WinActivate("Roblox")
+                LeechCancel()
                 Sleep(1000)
-                BetterClick(881, 173) ; Clicks yes
-                Sleep(5000)
+                break
             }
         }
     }
 }
+
+LeechCancel() { ; after the sure ui pops up there will be a cancel ui
+    loop {
+        if (ok := FindText(&X, &Y, 961-150000, 569-150000, 961+150000, 569+150000, 0, 0, cancel)) { ; detects cancel after picking portal
+            ; collects the rewards
+            BetterClick(X, Y - 20)
+            Sleep(2000)
+            Sleep(500)
+            BetterClick(X, Y)
+            Sleep(500)
+            BetterClick(X, Y)
+            Sleep(500)
+            BetterClick(X, Y)
+            Sleep(500)
+            webhook() ; WEBHOOK HERE
+            BetterClick(X, Y)
+            Sleep(1000)
+            Sleep(1000)
+            checkstatus()
+            break
+        } 
+    }
+}
+
 checkstatus() {
     global X1 := 214
     global Y1 := 5
@@ -211,112 +281,12 @@ checkstatus() {
             return true ; Exit with success
         }
 
-        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
-          
-            Leech1()
-            return true
-        }
+
 
         ; If no conditions are met, exit the loop
         return false ; Exit with failure
     }
 }
-
-
-ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
-    try {
-        ; Store the previous CoordMode and set to Screen
-        prevCoordMode := A_CoordModePixel
-        CoordMode "Pixel", "Screen"
-
-
-        ; Perform the image search with specified tolerance
-        result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
-
-        ; Restore previous CoordMode if needed
-        if (prevCoordMode != "Screen")
-            CoordMode "Pixel", prevCoordMode
-
-        ; Return and log results
-        if (result) {
-            return true
-        } else {
-            return false
-        }
-    } catch as e {
-        MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
-
-        return false
-    }
-}
-
-webhook() {
-    Run(A_ScriptDir "\..\..\..\webhook.ahk")   
-}
-
-LeechButtons() {
-    loop {
-        if (ok := FindText(&X, &Y, 841-150000, 568-150000, 841+150000, 568+150000, 0, 0, yes)) {
-            BetterClick(X, Y)
-            Sleep(500)
-            LeechCancel()
-            Sleep(1000)
-            break
-        } else {
-            if (ok := FindText(&X, &Y, 853-150000, 556-150000, 853+150000, 556+150000, 0, 0, darkerYes)) {
-                BetterClick(X, Y)
-                Sleep(2000)
-                LeechCancel()
-                Sleep(1000)
-                break
-            }
-        }
-    }
-}
-
-LeechCancel() {
-    loop {
-        if (ok := FindText(&X, &Y, 961-150000, 569-150000, 961+150000, 569+150000, 0, 0, cancel)) { ; detects cancel after picking portal
-            ; collects the rewards
-            BetterClick(X, Y - 20)
-            Sleep(2000)
-            Sleep(500)
-            BetterClick(X, Y)
-            Sleep(500)
-            BetterClick(X, Y)
-            Sleep(500)
-            BetterClick(X, Y)
-            Sleep(500)
-            webhook() ; WEBHOOK HERE
-            BetterClick(X, Y)
-            Sleep(1000)
-            Sleep(1000)
-            checkstatus()
-            break
-        } 
-    }
-}
-
-GemStart() {
-    global X1 := 214
-    global Y1 := 5
-    global X2 := 1600
-    global Y2 := 600
-
-    loop {
-        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
-            WinActivate("Roblox")
-            Sleep(1000)
-            BetterClick(881, 173) ; Clicks yes
-            Sleep(5000)
-            Leech1()
-            break
-        } else {
-            GemStart()
-        }
-    }
-}
-
 GemStart()
 
 F2::ExitApp
