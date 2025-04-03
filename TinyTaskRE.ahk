@@ -571,7 +571,8 @@ start(*) {
                 BetterClick(985, 517) ; focuses back on roblox
                 BetterClick(985, 517) ; focuses back on roblox
                 Sleep(3000)
-                if (WinterPortal_data.Leeching) {
+
+                if (WinterPortal_data.Leeching.Value) {
                     prompt := MsgBox("Leeching Mode is enabled. would you like to place units?", "Leech Mode", "YesNo")
                     if prompt == "Yes" {
                         Run(A_ScriptDir "\.\libs\Portals\WinterPortals\Leech\UnitPlacement.ahk")
