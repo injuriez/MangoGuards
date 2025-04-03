@@ -1,4 +1,0 @@
-Check: Current=1.0.0, Latest=2.5.2
-Check: Current=2.5.2, Latest=2.5.2
-Check: Current=2.5.2, Latest=2.5.2
-Check: Current=2.5.2, Latest=2.5.2
