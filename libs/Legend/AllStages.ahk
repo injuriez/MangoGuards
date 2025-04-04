@@ -37,7 +37,7 @@ StartTinyTask1() {
     Sleep(500)
     
     Loop {
-        if (ok := FindText(&X, &Y, 669-150000, 586-150000, 669+150000, 586+150000, 0, 0, Cards.RewardsText)) {
+        if (ImageSearchWrapper(&FoundX, &FoundY, 214, 5, 1600, 900, A_ScriptDir . "\LegendCards\Rewards.png", 100)) {
 
             try {
                 Run(A_ScriptDir . "\..\webhook.ahk")
@@ -77,7 +77,7 @@ StartTinyTask1() {
             Sleep(500)
             break
         
-        } else if (ok := FindText(&X, &Y, 1142-150000, 448-150000, 1142+150000, 448+150000, 0, 0, Cards.gems)) {
+        } else if ImageSearchWrapper(&FoundX, &FoundY, 214, 5, 1600, 900, A_ScriptDir . "\LegendCards\Gems.png", 50) {
 
             try {
                 if FileExist("../Settings/MangoSettings/session/stats/wins.txt") {

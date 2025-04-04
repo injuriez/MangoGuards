@@ -30,14 +30,14 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 50)
 
 yes() {
     
-global X1 := 214
-global Y1 := 5
-global X2 := 1600
-global Y2 := 600
+    global X1 := 214
+    global Y1 := 5
+    global X2 := 1600
+    global Y2 := 900
 
-
-    if (ImageSearchWrapper(&FoundX, &FoundY, 0, 0, 1000, 800, A_ScriptDir . "\LegendCards\barn.png", 50)) {
+    if (ImageSearchWrapper(&FoundX, &FoundY, 214, 5, 1600, 900, A_ScriptDir . "\LegendCards\Rewards.png", 100)) {
         MsgBox("Heroes image found at " FoundX ", " FoundY)
+        MouseMove(FoundX, FoundY)
     } else {
         MsgBox("Heroes image not found")
     }

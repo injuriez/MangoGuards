@@ -2,12 +2,12 @@
 look() {
 
 
-global X1 := 1200 ; left of the box
-global Y1 := 1000 ; top of the box
-global X2 := 1700  ; right of the box
-global Y2 := 700 ; bottom of the box
+    global X1 := 214
+    global Y1 := 5
+    global X2 := 1600
+    global Y2 := 600
 
-    if ImageSearchWrapper(&FoundX, &FoundY, 1200, 200, 1700, 500, A_ScriptDir . "/../../../Images/LovePortalPOS/Namek/middle.png", 125) {
+    if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../../Images/LovePortalPOS/Namek/middle.png", 125) {
         MouseMove(FoundX, FoundY)
         Sleep(500)
         Random()
