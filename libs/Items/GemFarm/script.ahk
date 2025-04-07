@@ -30,8 +30,37 @@ AutoAbility:="|<>*132$58.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 ; Monarch is the top priority unit if the team has it [Will be placed down first]
 ; MoneyUnits are the units that will be placed down after Monarch [Will be placed down second]
 ; If the team has no Monarch, the 3/3 units will be placed down first
+ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
+    try {
+        ; Store the previous CoordMode and set to Screen
+        prevCoordMode := A_CoordModePixel
+        CoordMode "Pixel", "Screen"
 
+
+        ; Perform the image search with specified tolerance
+        result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
+
+        ; Restore previous CoordMode if needed
+        if (prevCoordMode != "Screen")
+            CoordMode "Pixel", prevCoordMode
+
+        ; Return and log results
+        if (result) {
+            return true
+        } else {
+            return false
+        }
+    } catch as e {
+        MsgBox("Error in ImageSearchWrapper: " e.Message)
+        return false
+    }
+}
 GemStart() {
+  
+    global X1 := 214
+    global Y1 := 5
+    global X2 := 1600
+    global Y2 := 600
  
 
 
@@ -39,7 +68,7 @@ GemStart() {
 
     ; Wait for vote and place units
     loop {
-        if (ok := FindText(&X, &Y, 918-150000, 105-150000, 918+150000, 105+150000, 0, 0, Vote)) {
+        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\Images\status\Vote.png", 50) {
    
             BetterClick1(881, 177) ; Clicks yes
             unitManager()
@@ -222,3 +251,4 @@ QUITAPP() {
     ExitApp
 }
 
+GemStart()
