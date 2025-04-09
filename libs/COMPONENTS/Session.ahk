@@ -1,7 +1,7 @@
 #Requires Autohotkey v2
 
 ; Global variables
-global myGui := "", timerText := "", totalSeconds := 0, sessionSeconds := 0, Logs := "", countdownSeconds := 0
+global myGui := "", timerText := "", totalSeconds := 0, sessionSeconds := 0, Logs := "", countdownSeconds := 0, ratio
 global timeFilePath := A_ScriptDir . "\..\Settings\MangoSettings\session\stats\TotalTimeUsage.txt"
 global lastSavedSeconds := 0  
 global wins := 0
@@ -50,7 +50,31 @@ CloseGuiHandler(*) {
 }
 
 CreateSessionUI(modeText := "WINTER PORTAL [HOST]", type := "timer", logText := "") {
-    global Logs, myGui, sessionSeconds, Wins, Losses
+    global Logs, myGui, sessionSeconds, Wins, Losses, ratio, Logss
+
+    ; Check if SessionUI.txt exists and read its value
+    sessionUIFilePath := A_ScriptDir . "\..\Settings\ShowSessionUI.txt"
+    sessionUIEnabled := false  ; Default to false if the file doesn't exist or is invalid
+
+    if FileExist(sessionUIFilePath) {
+        try {
+            sessionUIFile := FileOpen(sessionUIFilePath, "r")
+            sessionUIValue := Trim(sessionUIFile.ReadLine())
+            sessionUIFile.Close()
+
+            if (sessionUIValue = "true") {
+                sessionUIEnabled := true
+            }
+        } catch {
+            sessionUIEnabled := false
+        }
+    }
+
+    ; If SessionUI.txt is false, do not create the UI
+    if !sessionUIEnabled {
+        MsgBox("Session UI is disabled. Exiting...")
+        return
+    }
 
     sessionSeconds := 0
 
@@ -74,18 +98,23 @@ CreateSessionUI(modeText := "WINTER PORTAL [HOST]", type := "timer", logText := 
     } else {
         myGui.Add("Picture", "x16 y8 w63 h62", imagePath)
     }
-    myGui.Add("Text", "x88 y8 w186 h23 +0x200", modeText)
+    myGui.SetFont("s13")
+    myGui.Add("Text", "x88 y15 w158 h30", modeText)
+
 
     if (type = "timer") {
         global timerText
+        myGui.SetFont("s9")
+    
         initialTimeDisplay := "⌚ 0:00:00"
-        timerText := myGui.Add("Text", "x88 y40 w86 h23 +0x200", initialTimeDisplay)
+        timerText := myGui.Add("Text", "x88 y40 w80 h20", initialTimeDisplay)
+        ratio := myGui.Add("Text", "x168 y40 w70 h20", "W/L: 0/0") 
+        Logss := myGui.Add("Text", "x88 y56 w180 h18 +0x200", "null")
+
         SetTimer(UpdateTimer, 1000)
-        Wins := myGui.Add("Text", "x180 y40 w186 h23 +0x200", "Wins: 0")
-        Losses := myGui.Add("Text", "x250 y40 w186 h23 +0x200", "Losses: 0")
-        
-        ; Move this line here to ensure Wins and Losses controls exist before calling CheckStats
-        CheckStats() ; Update the stats after creating the controls
+        SetTimer(CheckLogs, 1000) ; Check logs every 1 second
+
+        CheckStats()
     } else if (type = "info") {
         Logs := myGui.Add("Text", "x88 y40 w186 h23 +0x200", logText)
     }
@@ -129,12 +158,9 @@ UpdateTimer() {
     SaveCurrentTime()
 }
 CheckStats() {
-    global Wins, Losses
+    global ratio
 
-    if (Type(Wins) != "Gui.Text" || Type(Losses) != "Gui.Text") {
-        return  
-    }
-
+    ; Read wins and losses from files
     winsFile := FileOpen(A_ScriptDir . "\..\Settings\MangoSettings\session\stats\wins.txt", "r")
     if winsFile {
         winsValue := winsFile.ReadLine()
@@ -151,10 +177,30 @@ CheckStats() {
         lossesValue := "0"
     }
 
-    Wins.Text := "Wins: " . winsValue
-    Losses.Text := "Losses: " . lossesValue
+    ; Update the ratio text only if ratio is valid
+    if IsObject(ratio) {
+        ratio.Text := "W/L: " . winsValue . "/" . lossesValue
+    } else {
+        MsgBox("Warning: 'ratio' is not initialized.")
+    }
 }
 
+
+CheckLogs() {
+    global Logss, sessionSeconds, wins, losses, ratio
+
+    ; Read logs from file
+    logsFile := FileOpen(A_ScriptDir . "\..\Settings\MangoSettings\session\LastLog.txt", "r")
+    if logsFile {
+        logText := logsFile.ReadLine()
+        logsFile.Close()
+    } else {
+        logText := "[ No logs found ]"
+    }
+
+    ; Update the Logs text
+    Logss.Value := logText
+}
 ResetTimer() {
     global totalSeconds
     totalSeconds := 0
@@ -167,3 +213,4 @@ CloseSessionUI() {
 }
 
 CreateSessionUI("winter portal [host]", "timer")
+F2::Reload

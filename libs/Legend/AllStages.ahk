@@ -159,12 +159,14 @@ StartTinyTask1() {
         global Y1 := 50   
         global X2 := 1500 
         global Y2 := 400  
+        PickCards()
         if (ok:=FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Cards.voting))
             {
               Sleep(500)
               BetterClick(879, 181) ; clicks vote yes
               Sleep(3000)
-              PickCards()
+              Random()
+              
               Sleep(1000)
               break
             }
@@ -305,7 +307,22 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30)
         return false
     }
 }
-
+closepassives() {
+    DetectHiddenWindows(true)
+    scriptTitle := "ahk_class AutoHotkey ahk_exe AutoHotkey*.exe"
+    
+    if WinExist("AntiPassives.ahk - AutoHotkey") {
+        ; Use PostMessage to gracefully exit the script
+        PostMessage(0x111, 65307, 0,, "AntiPassives.ahk - AutoHotkey")
+        return true
+    } else if WinExist("AntiPassives.ahk ahk_class AutoHotkey") {
+        ; Alternative window title format
+        PostMessage(0x111, 65307, 0,, "AntiPassives.ahk ahk_class AutoHotkey")
+        return true
+    } else {
+        return false
+    }
+}
 
 LegendStart()
 F2::QUITAPP()
@@ -332,6 +349,6 @@ QUITAPP() {
     if (sessionui) {
        WinClose("Window")
     }
-    
+    closepassives()
     ExitApp
 }

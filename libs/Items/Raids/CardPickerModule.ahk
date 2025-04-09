@@ -130,3 +130,4 @@ BetterClick(x, y) {
 
 
 
+F2::ExitApp

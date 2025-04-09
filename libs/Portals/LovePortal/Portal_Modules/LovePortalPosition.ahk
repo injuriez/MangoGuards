@@ -410,8 +410,6 @@ UnitPlacementSpiritEnd1() {
     MsgBox("ds")
 
 }
-
-
 ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
     try {
         ; Store the previous CoordMode and set to Screen
@@ -433,7 +431,11 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30)
             return false
         }
     } catch as e {
-        MsgBox("Error in ImageSearchWrapper: " e.Message)
+        MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
+
         return false
     }
 }
+
+
+

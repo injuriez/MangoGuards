@@ -1,9 +1,20 @@
 #Requires AutoHotkey v2.0
 
-global X1 := 214
-global Y1 := 5
-global X2 := 1600
-global Y2 := 900
+/*
+This script defines global variables that represent coordinates for a rectangular area on the screen.
+
+Usage:
+- `X1` and `Y1` represent the top-left corner of the rectangle.
+- `X2` and `Y2` represent the bottom-right corner of the rectangle.
+- These coordinates can be used for operations such as capturing a screenshot, detecting objects, or performing actions within the defined area.
+
+Example:
+You can use these coordinates with functions like `ImageSearch`, `PixelSearch`, or custom logic to interact with the specified screen region.
+*/
+global X1 := 0
+global Y1 := 500
+global X2 := 800
+global Y2 := 1100
 
 
  ;Width = X2 - X1

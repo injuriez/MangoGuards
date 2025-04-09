@@ -74,7 +74,7 @@ GemStart() {
             unitManager()
             break
         } else {
-            GemStart()
+            continue
         }
     }
 }

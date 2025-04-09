@@ -60,3 +60,4 @@ SmoothMouseMove(targetX, targetY, speed := 2) {
     }
 }
 
+

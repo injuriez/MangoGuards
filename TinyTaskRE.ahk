@@ -2,9 +2,8 @@
 
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
-
 #Include libs/PC_SETTINGS/Auto.ahk
-
+#Include libs/GuiCtrlTips.ahk
 
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
@@ -559,6 +558,12 @@ start(*) {
         } else {
             MacroSelected.Enabled := true
             if MacroSelected.Name == "WinterPortal" {
+                ; Anti Passives
+                AntiPassiveFiles := FileOpen(A_ScriptDir "\.\libs\Settings\AntiPassives.txt", "w")
+                AntiPassiveText := AntiPassiveFiles.ReadLine()
+                if (AntiPassiveText == "true") {
+                    Run(A_ScriptDir "\.\libs\SubFiles\AntiPassives.ahk")
+                } 
                 sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
                 sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
                 SessionRename := "Winter Portal"
@@ -586,6 +591,12 @@ start(*) {
             } else if MacroSelected.Name == "ValentinePortal" {
                 LovePortalFile()
             } else if MacroSelected.Name == "Bleach" {
+                AntiPassiveFiles := FileOpen(A_ScriptDir "\.\libs\Settings\AntiPassives.txt", "w")
+                AntiPassiveText := AntiPassiveFiles.ReadLine()
+                if (AntiPassiveText == "true") {
+                    Run(A_ScriptDir "\.\libs\SubFiles\AntiPassives.ahk")
+                } 
+                
                 sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
                 sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
                 SessionRename := "Legend Stage"
@@ -744,10 +755,13 @@ LoadWinsStats() {
 
 SettingFUNC(*) {
     global SettingsGUI, Webhookbox
-    
+    SessionUiToolTip := "Check this to show the session UI"
     SettingsGUI := Gui("+AlwaysOnTop")
     SettingsGUI.SetFont("s8 w600", "Karla")
     SettingsGUI.Add("Text", "x10 y8", "Webhook")
+    SettingsGUI.Tips := GuiCtrlTips(SettingsGUI)
+    SettingsGUI.Tips.SetBkColor(0xFFFFFF)  ; White background
+
 
 
     webhookText := ""
@@ -761,17 +775,85 @@ SettingFUNC(*) {
         
     }
     
- 
-    Webhookbox := SettingsGUI.Add("Edit", "x10 y25 w200 h20 -Wrap", webhookText)
 
-    SaveBtn := SettingsGUI.Add("Button", "x10 y60 w100 h30", "Save")
-    TestBtn := SettingsGUI.Add("Button", "x120 y60 w100 h30", "Test")
-    SaveBtn.OnEvent("Click", SaveSettings)
-    TestBtn.OnEvent("Click", TestWebhook)
+  
 
-    SettingsGUI.OnEvent("Close", CloseSettings)
+    SettingsGUI.Add("Text", "x8 y8 w55 h14", "Webhook")
+    Webhookbox := SettingsGUI.Add("Edit", "x8 y24 w322 h20", "https://discord.com/api/webhooks/...")
+    
+    ButtonSave := SettingsGUI.Add("Button", "x3 y192 w334 h26", "Save")
+    ButtonTest := SettingsGUI.Add("Button", "x8 y48 w321 h21", "Test")
+    SettingsGUI.Add("Text", "x-16 y80 w360 h2 +0x10")
+    SettingsGUI.Add("Text", "x16 y88 w55 h14", "Settings")
+    CheckBox1 := SettingsGUI.Add("CheckBox", "x16 y104 w98 h18", "Session UI")
+    getvalue := FileOpen(A_ScriptDir "\libs\Settings\ShowSessionUI.txt", "r")
+    if (getvalue.ReadLine() == "true") {
+        CheckBox1.Value := true
+    } else {
+        CheckBox1.Value := false
+    }
+    CheckBox1.OnEvent("Click", HandleCheckBox1Click)
+    HelpTexButtonSession := SettingsGUI.Add("Button", "x120 y104 w15 h18 +0x200", "?")
+
+    HandleCheckBox1Click(*) {
+        if (CheckBox1.Value) {
+            SettingsGUI.Tips.SetTip(HelpTexButtonSession, "UnCheck this to hide the session UI")
+            SettingsSession := FileOpen(A_ScriptDir "\libs\Settings\ShowSessionUI.txt", "w")
+            ReplaceText := "true"
+            SettingsSession.Write(ReplaceText)
+            SettingsSession.Close()
+        } else {
+            SettingsGUI.Tips.SetTip(HelpTexButtonSession, "Check this to show the session UI")
+            SettingsSession := FileOpen(A_ScriptDir "\libs\Settings\ShowSessionUI.txt", "w")
+            ReplaceText := "false"
+            SettingsSession.Write(ReplaceText)
+            SettingsSession.Close()
+        }
+    }
+
+    CheckBox2 := SettingsGUI.Add("CheckBox", "x16 y120 w98 h18", "Anti Passives")
+    getvalue := FileOpen(A_ScriptDir "\libs\Settings\AntiPassives.txt", "r")
+    if (getvalue.ReadLine() == "true") {
+        CheckBox2.Value := true
+    } else {
+        CheckBox2.Value := false
+    }
+    CheckBox2.OnEvent("Click", HandleCheckBox2Click)
+    HandleCheckBox2Click(*) {
+        if (CheckBox2.Value) {
+            SettingsGUI.Tips.SetTip(HelpTexButton, "Disable this to allow passives, familiars ui's to pop up")
+            ; gets the settings
+            SettingsSession := FileOpen(A_ScriptDir "\libs\Settings\AntiPassives.txt", "w")
+            ReplaceText := "true"
+            SettingsSession.Write(ReplaceText)
+            SettingsSession.Close()
+        } else {
+            SettingsGUI.Tips.SetTip(HelpTexButton, "Enable this to prevent passives, familiars ui's from popping up")
+            SettingsSession := FileOpen(A_ScriptDir "\libs\Settings\AntiPassives.txt", "w")
+            ReplaceText := "false"
+            SettingsSession.Write(ReplaceText)
+            SettingsSession.Close()
+        }
+    }
+    
+    ; Question mark help text
+    HelpTexButton := SettingsGUI.Add("Button", "x120 y120 w15 h18 +0x200", "?")
+
+    HelpTexButton.SetFont("bold s9", "Arial")
+    HelpTexButtonSession.SetFont("bold s9", "Arial")
+
+    
+    ; Attach tooltip using ToolTipEx
+    SettingsGUI.Tips.SetTip(HelpTexButton, "Enable this to prevent passives, familiars ui's from popping up")
+    SettingsGUI.Tips.SetTip(HelpTexButtonSession, "UnCheck this to hide the session UI")
+
+    
+    ButtonSave.OnEvent("Click", SaveSettings)
+    ButtonTest.OnEvent("Click", TestWebhook)
+    SettingsGUI.OnEvent('Close', CloseSettings)
     SettingsGUI.Title := "Settings"
-    SettingsGUI.Show()
+    SettingsGUI.Show("w342 h219")
+
 }
 TestWebhook(*) {
     Run(A_ScriptDir "\.\libs\webhook.ahk")
@@ -805,6 +887,7 @@ Hotkey "F4", (*) => Reload()
 KILLNOW(*) {
     
     sessionui := WinExist("Window")
+
     if (sessionui) {
         WinClose("Window")
     }

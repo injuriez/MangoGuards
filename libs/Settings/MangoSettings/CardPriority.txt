@@ -1,10 +1,10 @@
-CommonLoot
 UncommonLoot
-Range
-Cooldown
-Damage
+CommonLoot
 Slayer
-Damage
-Champion
+Harvest
 Strong
 PressIt
+Damage
+Champion
+UncommonLoot
+CommonLoot

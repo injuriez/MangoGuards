@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 #Include ../../../FindText.ahk
-#Include ../../../Modules.ahk
+
 Failed:="|<>*47$216.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001zzzzy000TU003z0zk000DzzzzkTzzs000007zzzzzU01zs00Dznzw000zzzzzxzzzz00000Dzzzzzk03zw00Tzzzy001zzzzzzzzzzk0000Tzzzzzk07zy00zzzzz003zzzzzzzzzzw0000T00003s0DUT00w0z0D003s0000TU007y0000S00001s0D0D00w0T07U03k0000DU000zU000w00001s0T0DU1s0S07U03U000070000Tk000w00000s0S07U1s0S07U07U0000700007s000w00000s0y07k1s0S07U07U0000700003w000w00000s0w03k1s0S07U07U0000700001y000w00000s0w03s1s0S07U07U0000700000y0zzw00001zzs01zzs0S07zzzU0000D00000Tzzzw00001zzs01zzs0S07zzzU0000D00000Dzzzw0Dzzzzzk00zzs0S07zzzU1zzzz03w007zzzw0Dzzzzzk00zzs0S07zzzU1zzzz03zk07zzzw0DzzzzzU00Tzs0S07zzzU1zzzz03zs03zzzw0DzzzzzU00Tzs0S07zzzU1zzzz03zy03zzzw0Dzzzzz000Dzs0S07zzzU1zzzz03zy03zzzw0Dzzzzz000Dzs0S07zzzU1zzzz03zz01zzzw0003zzy0007zs0S07zzzU000Tz03zzU1zzzw0001zzy0007zs0S07zzzU000Dz03zzU1zzzw0001zzw0603zs0S07zzzU000Dz03zzU1zzzw0001zzw0603zs0S07zzzU0007z03zzk1zzzw0000zzs0D01zs0S07zzzU0007z03zzk1zzzw0000zzs0D01zs0S07zzzU0007z03zzk1zzzw0001zzk0TU0zs0S07zzzU000Dz03zzk1zzzw0001zzk0TU0zs0S07zzzU000Dz03zzU1zzzw0001zzk0000Ts0S07zzzU000Dz03zzU1zzzw0007zzU0000Ts0S07zzzU000zz03zzU1zzzw0DzzzzU0000Ts0S07zzzU1zzzz03zz03zzzw0Dzzzz00000Ds0S07zzzU1zzzz03zy03zzzw0Dzzzz00000Ds0S07zzzU1zzzz03zw03zzzw0Dzzzy000007s0S07zzzU1zzzz03zs07zzzw0Dzzzy000007s0S07zzzU1zzzz03zU07zzzw0Dzzzw000003s0S07zzzU0000z00000Dzzzw0Dzzzw07zz03s0S07zzzU0000D00000Tzzzw0Dzzzs0Dzz01s0S00007U0000D00000Tzzzw0Dzzzs0TzzU1s0S00003U0000700000zzzzw0Dzzzk0TzzU0s0S00003U0000700001zzzzw0Dzzzk0zzzk0s0S00003U0000700003zzzzw0Dzzzk0zzzk0s0S00003U000070000Dzzzzw0Dzzzk1zzzs0s0S00003U0000DU000Tzzzzy0Tzzzs1zzzs1w0z00007k0000DU001zzzzzz0zzzzy3zzzw7y1zU000Ds0000Tk00TzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 shibuya:="<>*96$68.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyDbyNzzzzzzz0szWDzzzzzzU6DtXzzzzzzsnXzszzzzzzyDs7a1ttbXWTUy0MUCC0sk7w3U681XWA81zUMlWAMsV6ATz6C8XWCA177tlXW8kX3Usly0MsW0M0sC0TU6C8UD0D7k7w7baN7sbly9zzzzzzzzszzzzzzzzzzyDzzzzzzzzzz7zzzzzzzzzztzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy"
 spider:="<>*88$59.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwzztzbzzzzUTzlzDzzzy0TzbwDzzzwNzzzsTzzzszzyTEzzzzkz8wM1kQXzUC0sU20M7zUA0l0A0kDzkMlWAMlXzzslX4MU37zslX68lUSDzk30AE33QTzU60sk60Mzzkw3nlD1nzzzszzzzzzzzzlzzzzzzzzzXzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzz"
@@ -20,7 +20,7 @@ yesagain:="<>*109$97.00000000000000000000000000000000000000000000000000000000000
 
 ; leech := FileOpen("../../Settings/MangoSettings/WinterPortal/leech.txt", "r")
 ; LeechValue := leech.ReadLine()
-BetterClick1(x, y) {
+BetterClick(x, y) {
     MouseMove(x, y)
     Sleep(10)
     MouseMove(1, 0, , "R")
@@ -29,7 +29,7 @@ BetterClick1(x, y) {
     Sleep(50)
 }
 
-SmoothMouseMove1(targetX, targetY, speed := 2) {
+SmoothMouseMove(targetX, targetY, speed := 2) {
     MouseGetPos(&startX, &startY)
     count := 10  ; Reduced number of steps for efficiency
    
@@ -50,6 +50,7 @@ AutoAbility:="|<>*132$58.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 ; MoneyUnits are the units that will be placed down after Monarch [Will be placed down second]
 ; If the team has no Monarch, the 3/3 units will be placed down first
 checkstatus() {
+    ChangeLogs("Checking status")
     global X1 := 214
     global Y1 := 5
     global X2 := 1600
@@ -57,11 +58,11 @@ checkstatus() {
 
     Loop {
         Sleep(500)
-        ; Check for Rewards
-        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Rewards.png", 50) {
-            Sleep(500)
+        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\portal.png", 50) {
+            ChangeLogs("Portal found")
             webhook()
             SendInput("{f}")
+            
             try {
                 if FileExist("../../../Settings/MangoSettings/session/stats/wins.txt") {
                     Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "r")
@@ -71,9 +72,11 @@ checkstatus() {
                     currentWins := 0
                 }
                 
+          
                 Wins := FileOpen("../../../Settings/MangoSettings/session/stats/wins.txt", "w")
                 Wins.Write(currentWins + 1)
                 Wins.Close()
+                
 
                 if FileExist("../../../Settings/MangoSettings/session/stats/TotalWins.txt") {
                     TotalWins := FileOpen("../../../Settings/MangoSettings/session/stats/TotalWins.txt", "r")
@@ -90,9 +93,15 @@ checkstatus() {
                 MsgBox("Error updating win stats: " e.Message)
             }
             Sleep(500)
+
             Leech1()
             return true ; Exit with success
-        }
+
+
+
+        } else {
+            ; Check for Rewards
+        
 
         ; Check for Failure
         if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\failed.png", 50) {
@@ -114,9 +123,14 @@ checkstatus() {
                 MsgBox("Error updating loss stats: " e.Message)
             }
             Sleep(2000)
-            Leech1()
+            GemStart()
+            
+            
             return true ; Exit with success
         }
+        }
+        
+     
 
 
         ; If no conditions are met, exit the loop
@@ -134,12 +148,13 @@ GemStart() {
         if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Vote.png", 50) {
             WinActivate("Roblox")
             Sleep(1000)
-            BetterClick1(881, 173) ; Clicks yes
+            BetterClick(881, 173) ; Clicks yes
             Sleep(5000)
             unitManager1()
             break
         } else {
-            GemStart()
+            Sleep(1000) ; Add a small delay to avoid excessive CPU usage
+            continue
         }
     }
 }
@@ -171,15 +186,15 @@ upgradeAll() {
 
 
     Sleep(1000)
-    BetterClick1(1365, 416)
+    BetterClick(1365, 416)
     Sleep(500)
-    BetterClick1(1575, 412)
+    BetterClick(1575, 412)
     Sleep(500)
-    BetterClick1(1774, 408)
+    BetterClick(1774, 408)
     Sleep(1000)
-    BetterClick1(1572, 744)
+    BetterClick(1572, 744)
     Sleep(500)
-    SmoothMouseMove1(1167, 819)
+    SmoothMouseMove(1167, 819)
     CheckAll()
 
     return checkstatus()
@@ -190,7 +205,7 @@ upgradeAll() {
 
 Unit1(x, y) {
     SendInput("{1}")
-    BetterClick1(x, y)
+    BetterClick(x, y)
 
     Sleep(100)
     loop {
@@ -200,7 +215,7 @@ Unit1(x, y) {
             ; Retry clicking if the condition is not met
             SendInput("{1}")
             checkstatus()
-            BetterClick1(x, y)
+            BetterClick(x, y)
             Sleep(100)
         }
     }
@@ -208,7 +223,7 @@ Unit1(x, y) {
 
 Unit2(x, y) {
     SendInput("{2}")
-    BetterClick1(x, y)
+    BetterClick(x, y)
 
     Sleep(100)
     loop {
@@ -218,7 +233,7 @@ Unit2(x, y) {
             ; Retry clicking if the condition is not met
             SendInput("{2}")
             checkstatus()
-            BetterClick1(x, y)
+            BetterClick(x, y)
             Sleep(100)
         }
     }
@@ -226,7 +241,7 @@ Unit2(x, y) {
 
 Unit3(x, y) {
     SendInput("{3}")
-    BetterClick1(x, y)
+    BetterClick(x, y)
 
     Sleep(100)
     loop {
@@ -236,7 +251,7 @@ Unit3(x, y) {
             ; Retry clicking if the condition is not met
             SendInput("{3}")
             checkstatus()
-            BetterClick1(x, y)
+            BetterClick(x, y)
             Sleep(100)
         }
     }
@@ -244,7 +259,7 @@ Unit3(x, y) {
 
 Unit4(x, y) {
     SendInput("{4}")
-    BetterClick1(x, y)
+    BetterClick(x, y)
 
     Sleep(100)
     loop {
@@ -255,7 +270,7 @@ Unit4(x, y) {
             ; Retry clicking if the condition is not met
             SendInput("{4}")
             checkstatus()
-            BetterClick1(x, y)
+            BetterClick(x, y)
             Sleep(100)
         }
     }
@@ -265,7 +280,7 @@ CheckAbility() {
     
     loop {
         if (ok := FindText(&X, &Y, 671-150000, 345-150000, 671+150000, 345+150000, 0, 0, AutoAbility)) {
-            BetterClick1(679, 377)
+            BetterClick(679, 377)
             Sleep(1000)
             return true
         } else {
@@ -276,22 +291,22 @@ CheckAbility() {
 
 CheckAll() {
 
-    BetterClick1(1391, 289)
+    BetterClick(1391, 289)
     Sleep(500) ; Give UI time to update
     CheckAbility()
     Sleep(900)
     
-    BetterClick1(1596, 289)
+    BetterClick(1596, 289)
     Sleep(500) ; Give UI time to update
     CheckAbility()
     Sleep(900)
     
-    BetterClick1(1806, 286)
+    BetterClick(1806, 286)
     Sleep(500) ; Give UI time to update
     CheckAbility()
     Sleep(900)
     
-    BetterClick1(1578, 618)
+    BetterClick(1578, 618)
     Sleep(500) ; Give UI time to update
     CheckAbility()
     Sleep(900)
@@ -342,6 +357,7 @@ LeechCancel() {
 }
 
 Leech1() {
+    ChangeLogs("Checking For Portals")
     loop {
         portals := [
             {x: 722, y: 500},
@@ -428,6 +444,46 @@ webhook() {
 }
 
 GemStart()
-
+BetterMouseMove(targetX, targetY, speed := 2) {
+    MouseGetPos(&startX, &startY)
+    count := 25  ; number of steps
+    
+    Loop count {
+        progress := A_Index / count
+        currentX := startX + (targetX - startX) * progress
+        currentY := startY + (targetY - startY) * progress
+        MouseMove(Round(currentX), Round(currentY))
+        Sleep(speed)
+    }
+}
 
 F2::ExitApp
+
+ChangeLogs(msg) {
+
+    try {
+        ; Correct the file path
+        logFilePath := A_ScriptDir . "\..\..\..\Settings\MangoSettings\Session\LastLog.txt"
+        
+        ; Ensure the directory exists
+        SplitPath(logFilePath, , &dir)
+        if !FileExist(dir) {
+            MsgBox("Directory does not exist. Attempting to create: " . dir) ; Debugging
+            if !DirCreate(dir) {
+                MsgBox("Failed to create directory: " . dir) ; Debugging
+                return
+            }
+        }
+
+        ; Open the file in write mode
+        LogFile := FileOpen(logFilePath, "w")
+        if (LogFile) {
+            LogFile.WriteLine(msg) ; Overwrite the log file with the new message
+            LogFile.Close()
+        } else {
+            MsgBox("Error: Unable to open log file at " . logFilePath)
+        }
+    } catch as e {
+        MsgBox("Error in ChangeLogs: " . e.Message)
+    }
+}

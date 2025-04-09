@@ -1,23 +1,5 @@
 #Requires AutoHotkey v2.0
-look() {
 
-
-    global X1 := 0
-    global Y1 := 500
-    global X2 := 800
-    global Y2 := 1100
-    
-
-    if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../../Images/LoadingScreens/PlanetNamek.png", 50) {
-        MouseMove(FoundX, FoundY)
-        Sleep(500)
-        Random()
-        Sleep(500)
-        return
-    } else {
-        MsgBox("Quake image not found")
-    }
-}
 ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
     try {
         ; Store the previous CoordMode and set to Screen
@@ -39,11 +21,26 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30)
             return false
         }
     } catch as e {
-        MsgBox("Error in ImageSearchWrapper: " e.Message)
+        MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
+
         return false
     }
 }
 
 
-F1::look()
-F2::ExitApp()
+okay() {
+
+    loop {
+        ; Break the loop if the "TinyTaskRE.ahk" window does not exist (even if minimized)
+        
+        if ImageSearchWrapper(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, A_ScriptDir . "\..\Images\Buttons\okay.png", 50) {
+            ; If the image is found, move the mouse to the coordinates and click
+            MouseMove(FoundX, FoundY)
+            Click
+        } else {
+            Sleep(100) ; Add a small delay to reduce CPU usage
+        }
+    }
+}
+
+okay()
