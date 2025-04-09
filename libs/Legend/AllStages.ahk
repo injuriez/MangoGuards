@@ -28,7 +28,7 @@ Position() {
 }
  
 StartTinyTask1() {
-
+    ChangeLogs("Searching for rewards")
     ; Starts tiny task
 
     Send("{F8 down}") ; start tinytask
@@ -154,6 +154,7 @@ StartTinyTask1() {
 
 
  LegendStart() {
+    ChangeLogs("Voting start")
     loop {
         global X1 := 500  
         global Y1 := 50   
@@ -174,6 +175,7 @@ StartTinyTask1() {
     
  }
  RestartMatch() {
+    ChangeLogs("Restarting Match")
     BetterClick(671, 483) ; clicks a random card so it can reset stage\
     Sleep(2000)
     BetterClick(951, 568)
@@ -190,6 +192,7 @@ StartTinyTask1() {
     Sleep(1000) ; Add delay to give game time to reset and show cards
 }
 PickCards() {
+    
     global X1 := 214
     global Y1 := 227
     global X2 := 1500
@@ -351,4 +354,37 @@ QUITAPP() {
     }
     closepassives()
     ExitApp
+}
+
+
+
+
+
+ChangeLogs(msg) {
+
+    try {
+        ; Correct the file path
+        logFilePath := A_ScriptDir . "\..\Settings\MangoSettings\Session\LastLog.txt"
+        
+        ; Ensure the directory exists
+        SplitPath(logFilePath, , &dir)
+        if !FileExist(dir) {
+            MsgBox("Directory does not exist. Attempting to create: " . dir) ; Debugging
+            if !DirCreate(dir) {
+                MsgBox("Failed to create directory: " . dir) ; Debugging
+                return
+            }
+        }
+
+        ; Open the file in write mode
+        LogFile := FileOpen(logFilePath, "w")
+        if (LogFile) {
+            LogFile.WriteLine(msg) ; Overwrite the log file with the new message
+            LogFile.Close()
+        } else {
+            MsgBox("Error: Unable to open log file at " . logFilePath)
+        }
+    } catch as e {
+        MsgBox("Error in ChangeLogs: " . e.Message)
+    }
 }
