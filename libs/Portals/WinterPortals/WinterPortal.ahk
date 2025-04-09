@@ -478,10 +478,9 @@ shibuyaworld() {
         }
     }
 }
+
 PickNamekAgain() {
-    global offset := 0 
-    global MaxRowCheck := 0
-    global RowsOnScreen := 0
+    ; Define portal grid positions
     portals := [
         {x: 529, y: 444},
         {x: 704, y: 444},
@@ -491,87 +490,86 @@ PickNamekAgain() {
         {x: 1387, y: 442}
     ]
     
-    ; Set PixelGetColor to use screen coordinates in RGB mode
-    CoordMode("Pixel", "Screen")
-    
     ; Setup
+    MouseMove(546, 813)
     Sleep(1000)
     BetterClick(432, 813)
     Sleep(1000)
-    SmoothMouseMove(portals[1].x, portals[1].y + offset, 0)
-
     
-    while true { 
+    ; Set coordinates mode
+    CoordMode("Pixel", "Screen")
+    
+    namekFound := false
+    currentRow := 0  ; Track which row we're on
+    verticalOffset := 0  ; Vertical offset for rows
+    
+    while (!namekFound) {
+        ; Check all portals in current row
         for portal in portals {
-            Sleep(600)
-            SmoothMouseMove(portal.x, portal.y + offset, 0)
-            MaxRowCheck += 1
-
-            ; Check for Namek portal
+            SmoothMouseMove(portal.x, portal.y + verticalOffset)
+            Sleep(1000)
+            
             if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
-                ; Check if it's a Tier 10 portal
+                ; Found a Namek portal, now check if it's Tier 10
                 if (!FindText(&X, &Y, 1442-150000, 559-150000, 1442+150000, 559+150000, 0, 0, Tier10)) {
-                    ; Not a Tier 10 portal, move to next portal
+                    ; Not a Tier 10 portal, continue to next
                     continue
                 }
                 
-                ; This is a Tier 10 portal
+                ; Found a Tier 10 Namek portal
+                namekFound := true
                 MouseGetPos(&mouseX, &mouseY)
                 BetterClick(mouseX, mouseY)
                 Sleep(500)
                 
+                ; Check for confirmation dialog
                 if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
                     BetterClick(X, Y)
                     StartTinyTask()
                     Sleep(2000)
-                    return ; Exit after finding the portal
+                    return
                 }
             }
-            ; pixel color check for 
+            
+            ; Optional: Check for black screen (0x0D0D0D) and recover
             MouseGetPos(&mouseX, &mouseY)
-            if (mouseX != "" && mouseY != "") { ; Ensure valid coordinates
+            if (mouseX != "" && mouseY != "") {
                 color := PixelGetColor(mouseX, mouseY)
-                if (color = "0x0D0D0D") { ; Stop if the color is 161616
-                    BetterClick(1480, 217)
+                if (color = "0x0D0D0D") {
+                    BetterClick(1480, 217)  ; Close button position
                     Sleep(1000)
-                    BetterClick(1449, 829)
+                    BetterClick(1449, 829)  ; Return button position
                 }
-            } else {
-                MsgBox("Invalid mouse coordinates.")
-                return
             }
         }
         
-        ; Check if the row is complete
-        if MaxRowCheck >= 6 {
-            RowsOnScreen += 1 ; Increment the number of rows on screen
-            offset += 150 ; Move to the next row
-            MaxRowCheck := 0 ; Reset the counter for the next row
-        }
+        ; Move to next row after checking all portals in current row
+        currentRow++
+        verticalOffset += 150  ; Move down to next row
         
-        ; Scroll down after checking 3 rows
-        if RowsOnScreen >= 3 {
-            MouseMove(960, 540) ; Move to center of screen (adjust as needed)
-            Loop 3 {  ; Send multiple wheel down commands
-                Send "{WheelDown}"
-                Sleep(50)
+        ; After checking 3 rows, scroll down for more portals
+        if (currentRow >= 3) {
+            currentRow := 0  ; Reset row counter
+            verticalOffset := 0  ; Reset vertical offset for new view
+            
+            ; Get active window dimensions for centering the scroll
+            WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
+            SmoothMouseMove(winWidth/2, winHeight/2)
+            Sleep(200)
+            
+            ; Scroll down
+            Loop 5 {
+                Send("{WheelDown}")
+                Sleep(150)
             }
-            offset := 0 ; Reset the offset for the next set of rows
-            RowsOnScreen := 0 ; Reset the row counter after scrolling
-        }
-        
-        ; Exit condition if no more rows to process
-        if offset > 600 { ; Adjust this value based on the number of rows
-            MsgBox("Finished scanning all rows.")
-            break
+            
+            Sleep(1000)
         }
     }
 }
 
 PickShibuyaAgain() {
-    global offset := 0 
-    global MaxRowCheck := 0
-    global RowsOnScreen := 0
+    ; Define portal grid positions
     portals := [
         {x: 529, y: 444},
         {x: 704, y: 444},
@@ -581,82 +579,83 @@ PickShibuyaAgain() {
         {x: 1387, y: 442}
     ]
     
-    ; Set PixelGetColor to use screen coordinates in RGB mode
-    CoordMode("Pixel", "Screen")
-    
     ; Setup
+    MouseMove(546, 813)
     Sleep(1000)
     BetterClick(432, 813)
     Sleep(1000)
-    SmoothMouseMove(portals[1].x, portals[1].y + offset, 0)
     
-    while true { 
+    ; Set coordinates mode
+    CoordMode("Pixel", "Screen")
+    
+    shibuyaFound := false
+    currentRow := 0  ; Track which row we're on
+    verticalOffset := 0  ; Vertical offset for rows
+    
+    while (!shibuyaFound) {
+        ; Check all portals in current row
         for portal in portals {
-            Sleep(600)
-            SmoothMouseMove(portal.x, portal.y + offset, 0)
-            MaxRowCheck += 1
-
-            ; Check for Shibuya portal
+            SmoothMouseMove(portal.x, portal.y + verticalOffset)
+            Sleep(1000)
+            
             if (FindText(&X, &Y, 1154-150000, 620-150000, 1154+150000, 620+150000, 0, 0, ShibuyaPortal)) {
-                ; Check if it's a Tier 10 portal
+                ; Found a Shibuya portal, now check if it's Tier 10
                 if (!FindText(&X, &Y, 1442-150000, 559-150000, 1442+150000, 559+150000, 0, 0, Tier10)) {
-                    ; Not a Tier 10 portal, move to next portal
+                    ; Not a Tier 10 portal, continue to next
                     continue
                 }
                 
-                ; This is a Tier 10 portal
+                ; Found a Tier 10 Shibuya portal
+                shibuyaFound := true
                 MouseGetPos(&mouseX, &mouseY)
                 BetterClick(mouseX, mouseY)
                 Sleep(500)
                 
+                ; Check for confirmation dialog
                 if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
                     BetterClick(X, Y)
                     StartTinyTask()
                     Sleep(2000)
-                    return ; Exit after finding the portal
+                    return
                 }
             }
-            ; pixel color check for 
+            
+            ; Optional: Check for black screen (0x0D0D0D) and recover
             MouseGetPos(&mouseX, &mouseY)
-            if (mouseX != "" && mouseY != "") { ; Ensure valid coordinates
+            if (mouseX != "" && mouseY != "") {
                 color := PixelGetColor(mouseX, mouseY)
-                if (color = "0x0D0D0D") { ; Stop if the color is 161616
-                    BetterClick(1480, 217)
+                if (color = "0x0D0D0D") {
+                    BetterClick(1480, 217)  ; Close button position
                     Sleep(1000)
-                    BetterClick(1449, 829)
+                    BetterClick(1449, 829)  ; Return button position
                 }
-            } else {
-                MsgBox("Invalid mouse coordinates.")
-                return
             }
         }
         
-        ; Check if the row is complete
-        if MaxRowCheck >= 6 {
-            RowsOnScreen += 1 ; Increment the number of rows on screen
-            offset += 150 ; Move to the next row
-            MaxRowCheck := 0 ; Reset the counter for the next row
-        }
+        ; Move to next row after checking all portals in current row
+        currentRow++
+        verticalOffset += 150  ; Move down to next row
         
-        ; Scroll down after checking 3 rows
-        if RowsOnScreen >= 3 {
-            MouseMove(960, 540) ; Move to center of screen (adjust as needed)
-            Loop 3 {  ; Send multiple wheel down commands
-                Send "{WheelDown}"
-                Sleep(50)
+        ; After checking 3 rows, scroll down for more portals
+        if (currentRow >= 3) {
+            currentRow := 0  ; Reset row counter
+            verticalOffset := 0  ; Reset vertical offset for new view
+            
+            ; Get active window dimensions for centering the scroll
+            WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
+            SmoothMouseMove(winWidth/2, winHeight/2)
+            Sleep(200)
+            
+            ; Scroll down
+            Loop 5 {
+                Send("{WheelDown}")
+                Sleep(150)
             }
-            offset := 0 ; Reset the offset for the next set of rows
-            RowsOnScreen := 0 ; Reset the row counter after scrolling
-        }
-        
-        ; Exit condition if no more rows to process
-        if offset > 600 { ; Adjust this value based on the number of rows
-            MsgBox("Finished scanning all rows.")
-            break
+            
+            Sleep(1000)
         }
     }
 }
-
 closepassives() {
     DetectHiddenWindows(true)
     scriptTitle := "ahk_class AutoHotkey ahk_exe AutoHotkey*.exe"
