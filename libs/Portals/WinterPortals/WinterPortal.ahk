@@ -2,7 +2,7 @@
 #Include ../../AllText.ahk
 #Include ../../Modules.ahk
 #Include ../../FindText.ahk
-
+#SingleInstance Force
 Tier10 := "|<>*75$27.zzzzzzzzzzzwTzsy0zy3U3zUM0Ts201y0EQDk27Vy0Ew7y27kzkEy7y27kzkEw7y27VzkEQDy201zkM0Ty3U3zsy1zU"
 
 
