@@ -6,7 +6,6 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30)
         prevCoordMode := A_CoordModePixel
         CoordMode "Pixel", "Screen"
 
-
         ; Perform the image search with specified tolerance
         result := ImageSearch(&FoundX, &FoundY, X1, Y1, X2, Y2, "*" Tolerance " " ImagePath)
 
@@ -21,9 +20,8 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30)
             return false
         }
     } catch as e {
-        MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
-
-        return false
+        ; Exit the application if an error occurs
+        ExitApp
     }
 }
 
