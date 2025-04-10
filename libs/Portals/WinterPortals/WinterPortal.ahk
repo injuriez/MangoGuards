@@ -480,35 +480,44 @@ shibuyaworld() {
 }
 
 PickNamekAgain() {
-    ; Define portal grid positions
+    ; setup
+    MouseMove(546, 813)
+    Sleep(1000)
+    BetterClick(432, 813)
+    Sleep(1000)
+    ; -----
     portals := [
+        ; First row
         {x: 529, y: 444},
         {x: 704, y: 444},
         {x: 875, y: 448},
         {x: 1045, y: 444},
         {x: 1219, y: 442},
-        {x: 1387, y: 442}
+        {x: 1387, y: 442},
+        ; Second row
+        {x: 525, y: 595},
+        {x: 703, y: 600},
+        {x: 871, y: 591},
+        {x: 1052, y: 591},
+        {x: 1215, y: 597},
+        {x: 1384, y: 599},
+        ; Third row (added)
+        {x: 531, y: 754},
+        {x: 699, y: 755},
+        {x: 873, y: 753},
+        {x: 1047, y: 753},
+        {x: 1215, y: 756},
+        {x: 1386, y: 757}
     ]
-    
-    ; Setup
-    MouseMove(546, 813)
-    Sleep(1000)
-    BetterClick(432, 813)
-    Sleep(1000)
-    
-    ; Set coordinates mode
-    CoordMode("Pixel", "Screen")
-    
     namekFound := false
-    currentRow := 0  ; Track which row we're on
-    verticalOffset := 0  ; Vertical offset for rows
-    
+
+
     while (!namekFound) {
-        ; Check all portals in current row
-        for portal in portals {
-            SmoothMouseMove(portal.x, portal.y + verticalOffset)
-            Sleep(1000)
-            
+        for portal in portals { ; Iterates through the portals array
+            MouseMove(portal.x, portal.y, 1)
+            Sleep 500
+            MouseMove(portal.x + 5, portal.y, 1)
+            Sleep 500
             if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
                 ; Found a Namek portal, now check if it's Tier 10
                 if (!FindText(&X, &Y, 1442-150000, 559-150000, 1442+150000, 559+150000, 0, 0, Tier10)) {
@@ -530,8 +539,6 @@ PickNamekAgain() {
                     return
                 }
             }
-            
-            ; Optional: Check for black screen (0x0D0D0D) and recover
             MouseGetPos(&mouseX, &mouseY)
             if (mouseX != "" && mouseY != "") {
                 color := PixelGetColor(mouseX, mouseY)
@@ -541,33 +548,19 @@ PickNamekAgain() {
                     BetterClick(1449, 829)  ; Return button position
                 }
             }
+    
         }
-        
-        ; Move to next row after checking all portals in current row
-        currentRow++
-        verticalOffset += 150  ; Move down to next row
-        
-        ; After checking 3 rows, scroll down for more portals
-        if (currentRow >= 3) {
-            currentRow := 0  ; Reset row counter
-            verticalOffset := 0  ; Reset vertical offset for new view
-            
-            ; Get active window dimensions for centering the scroll
-            WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
-            SmoothMouseMove(winWidth/2, winHeight/2)
-            Sleep(200)
-            
-            ; Scroll down
-            Loop 5 {
-                Send("{WheelDown}")
-                Sleep(150)
-            }
-            
-            Sleep(1000)
+        ; after it Iterates through all the portals it will scroll down 
+       ; and start again from the first portal
+       loop 3 {   
+           Send("{WheelDown}")
+           Sleep 500
         }
     }
+    
+    
+    
 }
-
 PickShibuyaAgain() {
     ; Define portal grid positions
     portals := [
