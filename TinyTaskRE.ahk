@@ -1,9 +1,11 @@
 #Requires Autohotkey v2
 
+
 #Include libs/PC_SETTINGS/resolution.ahk
 #Include libs/PC_SETTINGS/Window.ahk
 #Include libs/PC_SETTINGS/Auto.ahk
 #Include libs/GuiCtrlTips.ahk
+#Include %A_ScriptDir%\libs\FindText.ahk
 
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}
@@ -559,11 +561,7 @@ start(*) {
             MacroSelected.Enabled := true
             if MacroSelected.Name == "WinterPortal" {
                 ; Anti Passives\.\libs\Settings\MangoSettings\session\SessionName.txt
-                AntiPassiveFiles := FileOpen(A_ScriptDir "\.\libs\Settings\AntiPassives.txt", "r")
-                AntiPassiveText := AntiPassiveFiles.ReadLine()
-                if (AntiPassiveText == "true") {
-                    Run(A_ScriptDir "\.\libs\SubFiles\AntiPassives.ahk")
-                } 
+               
                 sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
                 sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
                 SessionRename := "Winter Portal"
@@ -591,11 +589,7 @@ start(*) {
             } else if MacroSelected.Name == "ValentinePortal" {
                 LovePortalFile()
             } else if MacroSelected.Name == "Bleach" {
-                AntiPassiveFiles := FileOpen(A_ScriptDir . "\.\libs\Settings\AntiPassives.txt", "r")
-                AntiPassiveText := AntiPassiveFiles.ReadLine()
-                if (AntiPassiveText == "true") {
-                    Run(A_ScriptDir "\.\libs\SubFiles\AntiPassives.ahk")
-                } 
+                
                 
                 sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
                 sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")

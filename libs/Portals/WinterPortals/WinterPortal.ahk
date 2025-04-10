@@ -2,7 +2,7 @@
 #Include ../../AllText.ahk
 #Include ../../Modules.ahk
 #Include ../../FindText.ahk
-#SingleInstance Force
+
 Tier10 := "|<>*75$27.zzzzzzzzzzzwTzsy0zy3U3zUM0Ts201y0EQDk27Vy0Ew7y27kzkEy7y27kzkEw7y27VzkEQDy201zkM0Ty3U3zsy1zU"
 
 
@@ -649,22 +649,7 @@ PickShibuyaAgain() {
         }
     }
 }
-closepassives() {
-    DetectHiddenWindows(true)
-    scriptTitle := "ahk_class AutoHotkey ahk_exe AutoHotkey*.exe"
-    
-    if WinExist("AntiPassives.ahk - AutoHotkey") {
-        ; Use PostMessage to gracefully exit the script
-        PostMessage(0x111, 65307, 0,, "AntiPassives.ahk - AutoHotkey")
-        return true
-    } else if WinExist("AntiPassives.ahk ahk_class AutoHotkey") {
-        ; Alternative window title format
-        PostMessage(0x111, 65307, 0,, "AntiPassives.ahk ahk_class AutoHotkey")
-        return true
-    } else {
-        return false
-    }
-}
+
 WinterPortal()
 F2::StopApp()
 StopApp() {
@@ -681,7 +666,11 @@ StopApp() {
     } catch as e {
         MsgBox("Error resetting stats: " e.Message)
     }
-    closepassives()
+
+    sessionui := WinExist("Window")
+    if (sessionui) {
+       WinClose("Window")
+    }
     ExitApp()
 }
 webhook() {
