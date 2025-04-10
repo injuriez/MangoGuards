@@ -213,4 +213,3 @@ CloseSessionUI() {
 }
 
 CreateSessionUI("winter portal [host]", "timer")
-F2::Reload
