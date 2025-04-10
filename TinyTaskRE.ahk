@@ -558,8 +558,8 @@ start(*) {
         } else {
             MacroSelected.Enabled := true
             if MacroSelected.Name == "WinterPortal" {
-                ; Anti Passives
-                AntiPassiveFiles := FileOpen(A_ScriptDir "\libs\Settings\MangoSettings\session\stats\AntiPassives.txt", "r")
+                ; Anti Passives\.\libs\Settings\MangoSettings\session\SessionName.txt
+                AntiPassiveFiles := FileOpen(A_ScriptDir "\.\libs\Settings\AntiPassives.txt", "r")
                 AntiPassiveText := AntiPassiveFiles.ReadLine()
                 if (AntiPassiveText == "true") {
                     Run(A_ScriptDir "\.\libs\SubFiles\AntiPassives.ahk")
@@ -591,7 +591,7 @@ start(*) {
             } else if MacroSelected.Name == "ValentinePortal" {
                 LovePortalFile()
             } else if MacroSelected.Name == "Bleach" {
-                AntiPassiveFiles := FileOpen(A_ScriptDir . "\libs\Settings\MangoSettings\session\stats\AntiPassives.txt", "r")
+                AntiPassiveFiles := FileOpen(A_ScriptDir . "\.\libs\Settings\AntiPassives.txt", "r")
                 AntiPassiveText := AntiPassiveFiles.ReadLine()
                 if (AntiPassiveText == "true") {
                     Run(A_ScriptDir "\.\libs\SubFiles\AntiPassives.ahk")
