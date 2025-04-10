@@ -72,7 +72,6 @@ CreateSessionUI(modeText := "WINTER PORTAL [HOST]", type := "timer", logText := 
 
     ; If SessionUI.txt is false, do not create the UI
     if !sessionUIEnabled {
-        MsgBox("Session UI is disabled. Exiting...")
         return
     }
 
