@@ -4,17 +4,19 @@
 #Include ../../FindText.ahk
 
 Tier10 := "|<>*75$27.zzzzzzzzzzzwTzsy0zy3U3zUM0Ts201y0EQDk27Vy0Ew7y27kzkEy7y27kzkEw7y27VzkEQDy201zkM0Ty3U3zsy1zU"
-
+FailedText:="|<>*44$208.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zzzzzk00Dw001zkDw0003zzzzw7zzy00007zzzzzU01zw00Dznzw000zzzzzxzzzz0000zzzzzz00Dzs01zzzzs007zzzzzzzzzzU007zzzzzy01zzU0Dzzzzk00zzzzzzzzzzz000S00003s0DUT00w0z0D003k0000DU007y003s00007U0w0w07k1w0S00D00000y0003y00D00000D07k3s0S07U1s00s00001k0003w00w00000w0S07U1s0S07U07U0000700007s03k00003k3s0T07U1s0S00S00000Q0000Dk0D00000D0D00w0S07U1s01s00001k0000TU0w00000s1w03s1s0S07U07U0000700000yzzk00007zzU07zzU1s0Tzzy00000w00001zzz00000Tzy00Tzy07U1zzzs00003k00003zzw0Dzzzzzk00zzs0S07zzzU1zzzz03w007zzk0zzzzzz003zzU1s0Tzzy07zzzw0Dz00Tzz03zzzzzs007zy07U1zzzs0Tzzzk0zy00zzw0DzzzzzU00Tzs0S07zzzU1zzzz03zy03zzk0zzzzzw000zzU1s0Tzzy07zzzw0Dzs0Dzz03zzzzzk003zy07U1zzzs0Tzzzk0zzk0Tzw0003zzy0007zs0S07zzzU000Tz03zzU1zzk0007zzs000TzU1s0Tzzy0000zw0Dzy07zz0000Tzz01U0zy07U1zzzs0003zk0zzs0Tzw0000zzw0603zs0S07zzzU0007z03zzU1zzk0003zzU0w07zU1s0Tzzy0000Tw0Dzz07zz0000Dzy03k0Ty07U1zzzs0001zk0zzw0Tzw0001zzk0TU0zs0S07zzzU0007z03zzU1zzk0007zz01y03zU1s0Tzzy0000zw0Dzy07zz0000Tzs00007y07U1zzzs0003zk0zzs0Tzw0007zzU0000Ts0S07zzzU000zz03zzU1zzk0zzzzy00000zU1s0Tzzy07zzzw0Dzw0Dzz03zzzzk00003y07U1zzzs0Tzzzk0zzU0zzw0Dzzzz00000Ds0S07zzzU1zzzz03zw03zzk0zzzzs00000TU1s0Tzzy07zzzw0DzU0Tzz03zzzzU00001y07U1zzzs0Tzzzk0zs01zzw0Dzzzw000003s0S07zzzU0000z00000Dzzk0zzzzk0Tzs0DU1s0Tzzy00000w00001zzz03zzzy03zzk0S07U0001s00003k00007zzw0Dzzzs0TzzU1s0S00003U0000700000zzzk0zzzz01zzy03U1s0000C00000Q00007zzz03zzzw0Dzzw0C07U0000s00001k0000zzzw0Dzzzk0zzzk0s0S00003U000070000Dzzzk0zzzz07zzzU3U1s0000C00000w0001zzzzU7zzzy0Tzzy0T0Dk0001w00003s000Tzzzz0zzzzy3zzzw7y1zU000Ds0000Tk00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
+class WinterVAR {
+    static Shibuya_Loading := "|<>*58$301.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk7zzzzzy0zz0TzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU1zzzzzw0Dy07zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk3zzzk0Tzzzzy03z01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy007zzk0Dzzzzy01z00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw000Tzs03zzzzz00TU0Dzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs0003zw01zzzzzU0Dk07zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs0000zy00zzzzzk07s03zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs0000Dz00Tzzzzs03w01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs00003zU0Dzzzzw01y00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw00000zk07zzzzy01z00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw00000Ts03zzzzzU0zU0Dzzzzzzzzzzzzzzzzzzzzzzzzzzzrzw00000Dw01zzzzzs0zk07zzzzzzzzzzzzzzzzzzzzzzzzzzzzzy00000Dy00zzzzzzXzs03zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz000007z00Tzzzzzzzw01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz007w07zU0Dzzzzzzzy00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU07z07zk07zzzzzzzz00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk07zk7zs03zzzzzzzzU0Dzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs03zy7zw01zzzzzzzzk07zzzzzzzzzzzzyTzzzzzzzzzzzzzzzw01zzzzy00zVzzzz1zs03w7zzzk7zzw1zw3zzzUTzzz1zk7zzzy00zzzzz00S03zzw0Dw01k0TzzU0zzs0Ds0zzzU3zzw07k0zzzz00TzzzzU0A00Tzy03y00U03zzk0Tzw07s0TzzU0zzs00k0TzzzU07zzzzk04007zy00z00000Tzk07zw01s07zzk0Dzk00007zzzk00zzzzs00000zz00TU00007zs03zy00s01zzk07zk00003zzzw001zzzw00000DzU0Dk00001zw01zz00Q00zzs03zk00001zzzy0003zzy000007zk07s00000Ty00zzU0C00Dzw01zk00000zzzz00007zz000001zs03w000007z00Tzk07U07zw00zk00000Tzzzk0000zzU00000Tw01y000003zU0Dzs03k01zy00Tk00000Dzzzw00003zk00000Dy00z000000zk07zw01w00Ty00Ts000007zzzy00000zs000003z00TU00000Ds03zy00z00Dz00Ds000003zzzzU0000Dw000001zU0Dk000007w01zz00TU03z00Dw000001zzzzw00003y000000Tk07s000001y00zzU0Ds01zU07w000000zzzzz00001z001w00Ds03w007k00z00Tzk07w00TU07y007k00Tzzzzs0000TU03zU07w01y00Dy00TU0Dzs03z007k03y00Dw00DzzzzzU000Dk03zs03y00z00DzU07k07zw01zU03k03z00Dz007zzzzzy0003s01zw00z00TU07zk03s03zy00zs00s01zU07zk03zzzzzzw001w01zz00TU0Dk07zw01w01zz00Ty00Q00zk07zs01zzzzzzzk00y00zzU0Dk07s03zy00y00zzU0Dz00400zs03zy00zzzzzzzy00T00Tzk07s03w01zz00T00Tzk07zk0000Tw01zz00TzzzyTzzU0DU0Dzs03w01y00zzU0DU0Dzs03zs0000Ty00zzU0Dzzzw3zzk07k07zw01y00z00Tzk07k07zw01zy0000Dz00TzU07zzzw0zzs03s03zy00z00TU07zk03s01zw00zzU000DzU07zk03zzzw0Dzw01w01zz00TU0Dk01zk01w00zy00Tzk0007zk03zk01zzzw03zy00y00zzU0Dk07s00zk01y00Dy00Dzw0007zs00zk00zzzw00zy00T00Tzk07s03w007k00zU01w007zy0003zy007U00Tzzy007y00DU0Dzs03w01y000000Tk000003zzU001zz000000Dzzz000E00Dk07zw01y00z000000Ts000001zzs001zzk000007zzzU000007s03zy00z00TU00000Dy000000zzw000zzs000003zzzk000003w01zz00TU0Dk00000Dz000000Tzz000zzy000001zzzw000003y00zzU0Dk07s000007zk00000DzzU00Tzz000000zzzz000001z00Tzk07s03w000007zs000007zzs00Tzzk00000Tzzzk00001zU0Dzs03w01y000007zy000003zzw00Dzzw00000Dzzzw00001zk07zw01y00z000007zzU00001zzz00Dzzz000007zzzz00001zs03zy00z00TU00007zzs00000zzzU07zzzk00003zzzzk0001zw01zz00TU0Dk00007zzy00100TzzU03zzzw00001zzzzw0003zy01zzU0Tk0Ds0600Dzzzk01U0Tzzk03zzzz00300zzzzzU007zzU0zzs0Dw07y03U0Dzzzw03s0Dzzs01zzzzs07U0zzzzzw00Dzzw1zzy0TzUDzk7y0zzzzzk7z0Tzzs01zzzzzUDw1zzzzzzw1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz00Dzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz007zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU07zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk03zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk03zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy00zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU0Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk0Dzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy0DzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzkDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
+    static Namek_Loading := "|<>*63$243.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs3zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw0DzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU000zzzs07zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzk0000zzz00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy00001zzs03zzzzzzzzzzzzzzzzzzzzzzzzw1zzzzU00003zz00Tzzzzzzzzzzzzzzzzzzzzzzzy03zzzw000007zs03zzzzzzzzzzzzzzzzzzzzzzzzk0TzzzU00000Tz00Tzzzzzzzzzzzzzzzzzzzzzzzw03zzzw000001zs03zzzzzzzzzzzzzzzzzzzzzzzzU0TzzzU000007z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw000000zs03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU000003z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw000000Ds03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU000001z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw0000007s03zzzzzzzzzzzzzzzzzzzzzzzzU0DzzzU0Dzk00z00Tzzzzzzzzzzzzzzzzzzzzzzzw01zzzw01zzU07s03zzzzzzzzzzzzzzzzzzzUzzzzU0DzzzU0Dzy00z00TzzzkTy1zy0zs7zzzzz00Dzz4010zzw01zzk03s03zzzk0T03z01w07zzzz000TzU0000zzU0Dzz00T00Tzzs00k0Ts0C00DzzzU000zw00007zw01zzs03s03zzw00201y01U00Tzzs0003zU0000TzU0Dzz00T00Tzz00000Dk00001zzw0000Ds00003zw01zzs03s03zzk00001y000007zz00000z00000TzU0Dzz00T00Tzw00000Dk00000zzk00003s00003zw01zzk03s03zz000001y000003zy00000D00000TzU0Dzy00z00Tzk00000Dk00000DzU00001s00003zw01zzU07s03zy000001y000001zs00000D00000TzU0Dzk00z00TzU00000Dk000007z000000w00007zw0000007s03zw000001y000000zk00TU07U0000zzU000001z00Tz000000Dk000003y00Dy00y0000Dzw000000Ds03zs00T001y007s00Tk03zs07zU0DzzzU000003z00Tz00Dy00Dk01zk03w00zz00zw01zzzw000000Ts03zk03zk01y00Tz00TU07zs07zU0DzzzU000007z00Ty00Tz00Dk07zs01w00zy00zw01zzzw000001zs03zk07zs01y00zzU0DU000007zU0DzzzU00000Tz00Ty00zzU0Dk07zw01w000000zw01zzzw000007zs03zk07zw01y00zzU0DU000007zU0DzzzU00003zz00Ty00zzU0Dk07zw01w000001zw01zzzw00000zzs03zk07zs01y00zzU0DU00000TzU0DzzzU0000Tzz00Ty00Tz00Dk07zw01w000007zw01zzzw0000Tzzs03zk03zk01y00zzU0DU00003zzU0DzzzU0Dzzzzz00Tz00Dw00Dk07zw01w00zzzzzw01zzzw01zzzzzs03zs00T001y00zzU0Dk07zzzzzU0DzzzU0Dzzzzz007z000000Dk07zw01y00Tzzzzw00zzzw01zzzzzs003w000001y00zzU0Dk00zy1zzU007zzU0Dzzzzz000TU00000Dk07zw01z000w07zw000Tzw01zzzzzs001y000001y00zzU0Ds00000zzk001zzU0DzzzzzU00Dk00000Dk07zw01zU00003zy000Dzw01zzzzzw001z000001y00zzU0Dw00000Tzk001zzU0DzzzzzU00Dw00000Dk07zw01zk00001zz000Dzw01zzzzzw001zk00001y00zzU0Dz00000Dzs001zzU0Dzzzzzk00Dz00000Dk07zw01zw00003zzU00Dzw01zzzzzy001zw00001y00zzU0Dzk0000Tzy001zzk0Tzzzzzs00Dzk00k0Dk0Dzw03zz00007zzs00Dzy03zzzzzzk03zzU0S03z01zzk0Tzy0001zzzk03zzw1zzzzzzzk0zzzUDw1zy0zzzUDzzw000zzzzk0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw01zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
+}
 
 PlayerPosition() {
-    
     MsgBox("Press okay once you found your position")
     Sleep(5000)
     StartTinyTask()
 }
 
 StartTinyTask() {
-    ChangeLogs("Starting TinyTask")
     Send("{F8 down}")
     Sleep(100)
     Send("{F8 up}")
@@ -31,13 +33,11 @@ WinORloserChecker() {
     global Y1 := 5
     global X2 := 1600
     global Y2 := 600
-    ChangeLogs("awaiting rewards")
 
     Loop {
       
         Sleep(500)
         if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\Images\status\portal.png", 50) {
-            ChangeLogs("Picking The Rewards")
             Sleep(1000)
             Send("{F8 down}")
             Sleep(100)
@@ -120,7 +120,6 @@ WinORloserChecker() {
 }
 
 CollectRewards() {
-    ChangeLogs("Collecting Rewards")
     portals := [
         {x: 722, y: 500},
         {x: 960, y: 500},
@@ -228,10 +227,8 @@ PickPortalsAGAIN() {
 }
 
 findvoting() {
-    ChangeLogs("Searching for Voting")
     loop {
         if (ok := FindText(&X, &Y, 925-150000, 109-150000, 925+150000, 109+150000, 0, 0, voteDectect)) {
-            ChangeLogs("Found voting screen")
             Sleep(5000)
             PlayerPosition()
         }
@@ -239,14 +236,11 @@ findvoting() {
 }
 
 WinterPortal() {
-    ChangeLogs("Searching for portals")
 
     Setting := FileOpen("../../Settings/MangoSettings/map.txt", "r")
     World := Setting.ReadLine()
     
-    
     if (World == "Namek")
-        
         namekworld()
         
     else if (World == "Shibuya")
@@ -322,12 +316,9 @@ namekworld() {
                     
                     if (useButtonFound) {
                         loadingFound := false
-                       
                         Loop {
-                            if ImageSearchWrapper(&FoundX, &FoundY, 0, 500, 800, 1100, A_ScriptDir . "\..\..\Images\LoadingScreens\PlanetNamek.png", 50) {
-                                ChangeLogs("Found Loading Screen")
+                            if (ok := FindText(&X, &Y, 173-150000, 917-150000, 173+150000, 917+150000, 0, 0, WinterVAR.Namek_Loading)) {
                                 Sleep(2000)
-                                
                                 findvoting()
                                 Sleep(500)
                                 loadingFound := true
@@ -436,8 +427,7 @@ shibuyaworld() {
                     if (useButtonFound) {
                         loadingFound := false
                         Loop  { 
-                            if ImageSearchWrapper(&FoundX, &FoundY, 0, 500, 800, 1100, A_ScriptDir . "\..\..\Images\LoadingScreens\ShibuyaLoading.png", 50) {
-                                ChangeLogs("Found Loading Screen")
+                            if (ok := FindText(&X, &Y, 149-150000, 912-150000, 149+150000, 912+150000, 0, 0, WinterVAR.Shibuya_Loading)) {
                                 Sleep(2000)
                                 findvoting()
                                 Sleep(500)
@@ -478,176 +468,146 @@ shibuyaworld() {
         }
     }
 }
-
 PickNamekAgain() {
-    ; setup
-    Loop 3 {
-        MouseMove(546, 813)
-        Sleep(1000)
-        BetterClick(432, 813)
-        Sleep(1000)
-    }
-    ; -----
-    portals := [
-        ; First row
-        {x: 529, y: 444},
-        {x: 704, y: 444},
-        {x: 875, y: 448},
-        {x: 1045, y: 444},
-        {x: 1219, y: 442},
-        {x: 1387, y: 442},
-        ; Second row
-        {x: 525, y: 595},
-        {x: 703, y: 600},
-        {x: 871, y: 591},
-        {x: 1052, y: 591},
-        {x: 1215, y: 597},
-        {x: 1384, y: 599},
-        ; Third row (added)
-        {x: 531, y: 754},
-        {x: 699, y: 755},
-        {x: 873, y: 753},
-        {x: 1047, y: 753},
-        {x: 1215, y: 756},
-        {x: 1386, y: 757}
-    ]
-    namekFound := false
+    baseX := 531
+    baseY := 432
+    colSpacing := 160
+    rowSpacing := 150
 
-
-    while (!namekFound) {
-        for portal in portals { ; Iterates through the portals array
-            MouseMove(portal.x, portal.y, 1)
-            Sleep 500
-            MouseMove(portal.x + 5, portal.y, 1)
-            Sleep 500
-            if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
-                ; Found a Namek portal, now check if it's Tier 10
-                if (!FindText(&X, &Y, 1442-150000, 559-150000, 1442+150000, 559+150000, 0, 0, Tier10)) {
-                    ; Not a Tier 10 portal, continue to next
-                    continue
-                }
-                
-                ; Found a Tier 10 Namek portal
-                namekFound := true
-                MouseGetPos(&mouseX, &mouseY)
-                BetterClick(mouseX, mouseY)
-                Sleep(500)
-                
-                ; Check for confirmation dialog
-                if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
-                    BetterClick(X, Y)
-                    StartTinyTask()
-                    Sleep(2000)
-                    return
-                }
-            }
-            MouseGetPos(&mouseX, &mouseY)
-            if (mouseX != "" && mouseY != "") {
-                color := PixelGetColor(mouseX, mouseY)
-                if (color = "0x0D0D0D") {
-                    BetterClick(1480, 217)  ; Close button position
-                    Sleep(1000)
-                    BetterClick(1449, 829)  ; Return button position
-                }
-            }
-    
-        }
-        ; after it Iterates through all the portals it will scroll down 
-       ; and start again from the first portal
-       loop 3 {   
-           Send("{WheelDown}")
-           Sleep 500
-        }
-    }
-    
-    
-    
-}
-PickShibuyaAgain() {
-    ; Define portal grid positions
-    portals := [
-        {x: 529, y: 444},
-        {x: 704, y: 444},
-        {x: 875, y: 448},
-        {x: 1045, y: 444},
-        {x: 1219, y: 442},
-        {x: 1387, y: 442}
-    ]
-    
-    ; Setup
     MouseMove(546, 813)
     Sleep(1000)
     BetterClick(432, 813)
-    Sleep(1000)
-    
-    ; Set coordinates mode
-    CoordMode("Pixel", "Screen")
-    
-    shibuyaFound := false
-    currentRow := 0  ; Track which row we're on
-    verticalOffset := 0  ; Vertical offset for rows
-    
-    while (!shibuyaFound) {
-        ; Check all portals in current row
-        for portal in portals {
-            SmoothMouseMove(portal.x, portal.y + verticalOffset)
-            Sleep(1000)
-            
-            if (FindText(&X, &Y, 1154-150000, 620-150000, 1154+150000, 620+150000, 0, 0, ShibuyaPortal)) {
-                ; Found a Shibuya portal, now check if it's Tier 10
-                if (!FindText(&X, &Y, 1442-150000, 559-150000, 1442+150000, 559+150000, 0, 0, Tier10)) {
-                    ; Not a Tier 10 portal, continue to next
-                    continue
-                }
+
+    WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
+    namekFound := false
+
+    while (!namekFound) {
+        row := 0
+        col := 0
+
+        while (row < 3 && !namekFound) {
+            while (col < 6 && !namekFound) {
+                targetX := baseX + (col * colSpacing)
+                targetY := baseY + (row * rowSpacing)
+
+                SmoothMouseMove(targetX, targetY)
+                Sleep(1000)
                 
-                ; Found a Tier 10 Shibuya portal
-                shibuyaFound := true
-                MouseGetPos(&mouseX, &mouseY)
-                BetterClick(mouseX, mouseY)
-                Sleep(500)
-                
-                ; Check for confirmation dialog
-                if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
-                    BetterClick(X, Y)
-                    StartTinyTask()
-                    Sleep(2000)
-                    return
+                if (FindText(&X, &Y, 697-150000, 603-150000, 697+150000, 603+150000, 0, 0, Namek)) {
+                    ; Check if it's a Tier 10 portal
+                    if (!FindText(&X, &Y, 1442-150000, 559-150000, 1442+150000, 559+150000, 0, 0, Tier10)) {
+                        ; Not a Tier 10 portal, move to next portal
+                        col++
+                        continue
+                    }
+                    
+                    ; This is a Tier 10 portal
+                    namekFound := true
+                    MouseGetPos(&mouseX, &mouseY)
+                    BetterClick(mouseX, mouseY)
+                    Sleep(500)
+                    
+                    if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
+                        BetterClick(X, Y)
+                        StartTinyTask()
+                        Sleep(2000)
+                        break
+                    }
+                } else {
+                    ; No Namek portal found, move to next position
+                    col++
                 }
             }
             
-            ; Optional: Check for black screen (0x0D0D0D) and recover
-            MouseGetPos(&mouseX, &mouseY)
-            if (mouseX != "" && mouseY != "") {
-                color := PixelGetColor(mouseX, mouseY)
-                if (color = "0x0D0D0D") {
-                    BetterClick(1480, 217)  ; Close button position
-                    Sleep(1000)
-                    BetterClick(1449, 829)  ; Return button position
-                }
+            if (!namekFound) {
+                col := 0
+                row++
             }
         }
-        
-        ; Move to next row after checking all portals in current row
-        currentRow++
-        verticalOffset += 150  ; Move down to next row
-        
-        ; After checking 3 rows, scroll down for more portals
-        if (currentRow >= 3) {
-            currentRow := 0  ; Reset row counter
-            verticalOffset := 0  ; Reset vertical offset for new view
-            
-            ; Get active window dimensions for centering the scroll
-            WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
+
+        if (!namekFound) {
             SmoothMouseMove(winWidth/2, winHeight/2)
             Sleep(200)
             
-            ; Scroll down
             Loop 5 {
                 Send("{WheelDown}")
                 Sleep(150)
             }
             
             Sleep(1000)
+            baseY := 432 
+        }
+    }
+}
+
+PickShibuyaAgain() {
+    baseX := 531
+    baseY := 432
+    colSpacing := 160
+    rowSpacing := 150
+
+    MouseMove(546, 813)
+    Sleep(1000)
+    BetterClick(432, 813)
+
+    WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
+    shibuya := false
+    
+    while (!shibuya) {
+        row := 0
+        col := 0
+
+        while (row < 3 && !shibuya) {
+            while (col < 6 && !shibuya) {
+                targetX := baseX + (col * colSpacing)
+                targetY := baseY + (row * rowSpacing)
+                
+                SmoothMouseMove(targetX, targetY)
+                Sleep(1000)
+                
+                if (FindText(&X, &Y, 1154-150000, 620-150000, 1154+150000, 620+150000, 0, 0, ShibuyaPortal)) {
+                    ; Check if it's a Tier 10 portal
+                    if (!FindText(&X, &Y, 1442-150000, 559-150000, 1442+150000, 559+150000, 0, 0, Tier10)) {
+                        ; Not a Tier 10 portal, move to next portal
+                        col++
+                        continue
+                    }
+                    
+                    ; This is a Tier 10 portal
+                    shibuya := true
+                    MouseGetPos(&mouseX, &mouseY)
+                    BetterClick(mouseX, mouseY)
+                    Sleep(500)
+                    
+                    if (FindText(&X, &Y, 838-150000, 568-150000, 838+150000, 568+150000, 0, 0, yesagain)) {
+                        BetterClick(X, Y)
+                        StartTinyTask()
+                        Sleep(2000)
+                        break
+                    }
+                } else {
+                    ; No Shibuya portal found, move to next position
+                    col++
+                }
+            }
+            
+            if (!shibuya) {
+                col := 0
+                row++
+            }
+        }
+
+        if (!shibuya) {
+            SmoothMouseMove(winWidth/2, winHeight/2)
+            Sleep(200)
+            
+            Loop 4 {
+                Send("{WheelDown}")
+                Sleep(150)
+            }
+            
+            Sleep(1000)
+            baseY := 432
         }
     }
 }
@@ -667,11 +627,6 @@ StopApp() {
         EraseLosses.Close()
     } catch as e {
         MsgBox("Error resetting stats: " e.Message)
-    }
-
-    sessionui := WinExist("Window")
-    if (sessionui) {
-       WinClose("Window")
     }
     ExitApp()
 }
@@ -702,34 +657,5 @@ ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30)
         MsgBox("Error in ImageSearchWrapper: " e.Message . " " . ImagePath)
 
         return false
-    }
-}
-
-ChangeLogs(msg) {
-
-    try {
-        ; Correct the file path
-        logFilePath := A_ScriptDir . "\..\..\Settings\MangoSettings\Session\LastLog.txt"
-        
-        ; Ensure the directory exists
-        SplitPath(logFilePath, , &dir)
-        if !FileExist(dir) {
-            MsgBox("Directory does not exist. Attempting to create: " . dir) ; Debugging
-            if !DirCreate(dir) {
-                MsgBox("Failed to create directory: " . dir) ; Debugging
-                return
-            }
-        }
-
-        ; Open the file in write mode
-        LogFile := FileOpen(logFilePath, "w")
-        if (LogFile) {
-            LogFile.WriteLine(msg) ; Overwrite the log file with the new message
-            LogFile.Close()
-        } else {
-            MsgBox("Error: Unable to open log file at " . logFilePath)
-        }
-    } catch as e {
-        MsgBox("Error in ChangeLogs: " . e.Message)
     }
 }
