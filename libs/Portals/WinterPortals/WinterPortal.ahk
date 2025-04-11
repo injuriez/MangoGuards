@@ -481,18 +481,12 @@ shibuyaworld() {
 
 PickNamekAgain() {
     ; setup
-    MouseMove(546, 813)
-    Sleep(1000)
-    BetterClick(432, 813)
-    Sleep(1000)
-    MouseMove(546, 813)
-    Sleep(1000)
-    BetterClick(432, 813)
-    Sleep(1000)
-    MouseMove(546, 813)
-    Sleep(1000)
-    BetterClick(432, 813)
-    Sleep(1000)
+    Loop 3 {
+        MouseMove(546, 813)
+        Sleep(1000)
+        BetterClick(432, 813)
+        Sleep(1000)
+    }
     ; -----
     portals := [
         ; First row
