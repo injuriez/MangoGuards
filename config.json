@@ -1,0 +1,13 @@
+{
+    "Name": "MULTIMANGOS",
+    "Description": "Farm ant island, winter portal, legend stages",
+    "Author": "Rushi",
+    "Version": "1.0",
+    "Image": "https://i.ibb.co/mVyGhDHn/mango-1.png",
+    "Tags": {
+        "Resolution": "Full Res Support",
+        "Type": "AHK"
+    },
+    "Main": "TinyTaskRE.ahk",
+    "MangoID": "Multi4324"
+}
