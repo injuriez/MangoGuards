@@ -5,7 +5,6 @@
 #Include libs/PC_SETTINGS/Window.ahk
 #Include libs/PC_SETTINGS/Auto.ahk
 #Include libs/GuiCtrlTips.ahk
-#Include %A_ScriptDir%\libs\FindText.ahk
 
 global presents := 0
 global MacroSelected := {Enabled: false, Name: ""}

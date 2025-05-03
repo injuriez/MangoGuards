@@ -112,9 +112,6 @@ StartTinyTask1() {
 
 
             Sleep(1000)
-            Send("{F8 down}")
-            Sleep(100)
-            Send("{F8 up}")
             Sleep(500)
             Send("{F8 down}") ; start tinytask
             Sleep(100)
