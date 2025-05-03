@@ -773,7 +773,7 @@ SettingFUNC(*) {
   
 
     SettingsGUI.Add("Text", "x8 y8 w55 h14", "Webhook")
-    Webhookbox := SettingsGUI.Add("Edit", "x8 y24 w322 h20", "https://discord.com/api/webhooks/...")
+    Webhookbox := SettingsGUI.Add("Edit", "x8 y24 w322 h20", "")
     
     ButtonSave := SettingsGUI.Add("Button", "x3 y192 w334 h26", "Save")
     ButtonTest := SettingsGUI.Add("Button", "x8 y48 w321 h21", "Test")
@@ -854,12 +854,7 @@ TestWebhook(*) {
 }
 SaveSettings(*) {
     global Webhookbox
-    regrex := "https://discord\.com/api/webhooks/\d{17,19}/[a-zA-Z0-9_-]+"
-    if !RegExMatch(Webhookbox.Text, regrex) {
-        MsgBox("Invalid webhook URL")
-
-        return
-    }
+    
 
 
     

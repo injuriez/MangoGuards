@@ -11,10 +11,8 @@ Usage:
 Example:
 You can use these coordinates with functions like `ImageSearch`, `PixelSearch`, or custom logic to interact with the specified screen region.
 */
-global X1 := 0
-global Y1 := 500
-global X2 := 800
-global Y2 := 1100
+global X1 := 298, Y1 := 52, X2 := 298 + 816, Y2 := 52 + 642  ; Define the Roblox window bounds globally
+
 
 
  ;Width = X2 - X1

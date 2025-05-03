@@ -407,10 +407,7 @@ Leech1() {
                 CheckWorldType("Spider")
             }
         }
-        
     }
-
-
 }
 ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, ImagePath, Tolerance := 30) {
     try {
