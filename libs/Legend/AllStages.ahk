@@ -64,7 +64,7 @@ StartTinyTask1() {
             Send("{F8 up}")
             Sleep(500)
 
-            BetterClick(1184, 840)
+            BetterClick(795, 853)
             Sleep(500)
      
             Sleep(500)
@@ -137,7 +137,7 @@ StartTinyTask1() {
             sleep(500)
             BetterClick(960, 600)
             sleep(500)
-            BetterClick(1184, 840)
+            BetterClick(795, 853)
             Sleep(500)
             LegendStart()
 
