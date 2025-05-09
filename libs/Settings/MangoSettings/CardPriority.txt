@@ -1,5 +1,5 @@
-UncommonLoot
-CommonLoot
+Cooldown
+Range
 Slayer
 Harvest
 Strong

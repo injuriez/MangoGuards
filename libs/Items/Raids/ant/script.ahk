@@ -74,49 +74,55 @@ AltCards() {
         MsgBox("Error reading priority file")
     }
     
+    ; Use full screen coordinates
+    fullX1 := 0
+    fullY1 := 0
+    fullX2 := A_ScreenWidth
+    fullY2 := A_ScreenHeight
+    
     foundCards := []
     
     ; Check each card to see if it is on screen and store its coordinates
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Cooldown)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Cooldown)) {
         foundCards.Push({name: "Cooldown", x: X, y: Y})
-    } else if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Cooldown1)) {
+    } else if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Cooldown1)) {
         foundCards.Push({name: "Cooldown", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Range)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Range)) {
         foundCards.Push({name: "Range", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Slayer)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Slayer)) {
         foundCards.Push({name: "Slayer", x: X, y: Y})
-    } else if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, slayer2)) {
+    } else if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, slayer2)) {
         foundCards.Push({name: "Slayer", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Harvest)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Harvest)) {
         foundCards.Push({name: "Harvest", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Strong)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Strong)) {
         foundCards.Push({name: "Strong", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, PressIt)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, PressIt)) {
         foundCards.Push({name: "PressIt", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Damage)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Damage)) {
         foundCards.Push({name: "Damage", x: X, y: Y})
-    } else if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Damage1)) {
+    } else if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Damage1)) {
         foundCards.Push({name: "Damage", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Champion)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Champion)) {
         foundCards.Push({name: "Champion", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Dodge)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Dodge)) {
         foundCards.Push({name: "Dodge", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, UncommonLoot)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, UncommonLoot)) {
         foundCards.Push({name: "UncommonLoot", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, CommonLoot)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, CommonLoot)) {
         foundCards.Push({name: "CommonLoot", x: X, y: Y})
     }
-    if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Speed)) {
+    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Speed)) {
         foundCards.Push({name: "Speed", x: X, y: Y})
     }
     if (foundCards.Length == 0) {
@@ -134,50 +140,47 @@ AltCards() {
         }
     }
     
+    ; If no prioritized card is found but we have cards, click the first one
+    if (foundCards.Length > 0) {
+        BetterClick(foundCards[1].x, foundCards[1].y)
+    }
 }
 status() {
+    ; Use screen dimensions instead of custom coordinates
+    X1 := 0
+    Y1 := 0
+    X2 := A_ScreenWidth
+    Y2 := A_ScreenHeight
 
-    global X1 := 214
-    global Y1 := 5
-    global X2 := 1600
-    global Y2 := 600
-    Failed:="|<>*86$159.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3zzzzzzzzzzzzzzzzzzzzzzzzzkDzzzzzU07zzzzzzzzzzzzzzzzy1zzzzzs00DzzzzzzzzzzzzzzzzkDzzzzz000zzzzzzzzzzzzzzzzy1zzzzzs003zzzzzzzzzzzzzzzzkDzzzzz000Dzzzzzzzzzzzzzzzy1zzzzzs001zzzzzzzzzzzzzzzzkDzzzzz0TU7zzzzzzzzzzzzzzzy1zzzzzs3y0zU7wDszXzUsS3UzUkDs0zzz0Tk7k0D0y3s7k21k03k01w03zzs3y0w00s7UT0w00A00Q00D00Dzz0Tk70030w1k7001U03001s01zzs3w0k00M30C1k00A00s00D00Tzz000C0M1UM0UC001U06001sDrzzs001U7UA1041U60A0xk20D0zzzz000Q1w1U000Q1w1UDw1w1s0Dzzs003U00C0003UTUA1zUDUD00Tzz000w003k000w3w1UDw3y1w01zzs003U00T0007UTUA1zUDUDk0Dzz000Q00Ds000w1w1UDw1w1zU0zzs3w1UDzz020DU20A1zk20DzU7zz0TUC0zDw0k1y001UDy001sT0zzs3y0k00zU70Tk00A1zs00C007zz0Tk7003y0s3z001UDz001k01zzw3z0w00TkD0Tw00A1zw00C00DzzUTs7k07z1w7zk21kDzk01s03zzy7zXz01zsTlzzUsS3zzUsTk1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
-    if  ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../../Images/status/failed.png", 50) {
-   
+    Win:="|<>*112$184.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zk000000000000000000000001s007bzk00000000000000000000000Ts01zzz0000D0000000000000000007zk0Dzky0007z000000000000000000zzU1zy1s000zz000000000000000003sS07Vs3U003zw00000000000000000S0w0w1UC000S3s00000000000000001s3k3k60s001s7U00000000000000007U70D0M3U0070C00000000000000000S0S1s1US000Q0s03s00081k06000000s1s7U7bsDzXk3w1zw0zzyTs3y000003k3kw0zz3zzz0DsTzw7zzzzkTy00000D0D3k3zwzzzw0zrzzwzzzzz3zw00000S0SS0TXzw3z00DzUDvsy7sSD3s00001s1ts1s7z01s00Ts0Dy1U71xs7U00003k3z0DUDk03U00y00Ds00M3rUD00000D0Dw0y0y006003k00TU01U7w0w00000S0TU7s3k00M00C001y0060Tk3k00001s1y0TUD001U00s003s00M0z0S000003k3s3y0s0060070007U03k3s1s00000D0D0Ds3U00w00w0Q0S0ATU7U7000000S0Q1zUA0T7w0zU7s1s3zy0A0w000801s1U7y0k3zzk3y0Tk7UDzw0k3k000003k60xs30Dzz0Ds3z0C0zvk00S000000D003rUA0zzQ0zUDw0s3k7U01s000000S00SS0k3zzk3y0Tk3UD0T00D0000001s01ts30Dnz0Ds1y0S0s0w00w0000003k0D7UA0A7w0zU3k1s3U1s07U000000D00wS0s00Dk0T0007UC07U0S0000000S07Vs3U00TU0w000y0s0D01k0000001s0S7UD001y01s003s3U0y0D00000003k3kS0y007s07k00TUC01s0w0000000D0D1s3w00zk0TU03y0w07U7U0000000S1s7UDs07zU3z00Ts3U0S0S00000001wDUT1zs1yTUDz07zkS03k3k00000003zw0zzjzzkzztzzzDzs0D0D000000007zU1zwTzy1zzXzzszz00w1s00000000Dw03zUTzU1zw3zy0zs07U7U000000007003k0Dk00T01z00w00S0S0000000000000000000000000003k3k000000000000000000000000000D0D0000000000000000000000000000w1s0000000000000000000000000003k7U000000000000000000000000000DUw0000000000000000000000000000Tbk0000000000000000000000000000zy00000000000000000000000000001zk00000000000000000000000000001y0000000000000000000000000000000000008"
+    Failed:="|<>*157$147.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzDwTzzzzzzzbzzzzzzzzzzzzzUS1zzzzzzzkDzzzzzU003zzzw1k7zzzzzzy0zzzzzs000DzzzUC0zzzzzzzk7zzzzz0001zzzw1k7zzzzzzy0zzzzzs000DzzzUC0zzzzzzzk7zzzzz0001zzzw3k7zzzzzzy0zzzzzs000Dzzzzy0zzzzzzzk7zzzzz0003zzzzzk7zzzzzzy0zzzzzs3zzzzzzzy0zzzzzzzk7zzzzz0Tzzzzzzzk7zw1zzzy0zzzzzs3zzz0M7US0zy03zy0k7zzzzz0Tzzk00Q1k7z007zU00zzzzzs00Ts003UC0zk00Ts007zzzzz000z000Q1k7w003y000zzzzzs007k003UC0zU00DU007zzzzz000w000Q1k7s0s1s000zzzzzs007U203UC0z0DUD0007zzzzz000w1w0Q1k7k3w1s1s0zzzzzs0070Dk3UC0y0TUD0TU7zzzzz007s3y0Q1k7k001k7y0zzzzzs3zz0Tk3UC0y000C0zk7zzzzz0Tzs3y0Q1k7k003k3w0zzzzzs3zz0Dk3UC0y0Tzz0TU7zzzzz0Tzw0s0Q1k7s3zzs1s0zzzzzs3zzU003UC070Dxz0007zzzzz0Tzy000Q1k0s007w000zzzzzs3zzk003UC03U00TU007zzzzz0Tzz000Q1k0S003y000zzzzzs3zzw003UD03k00Ts007zzzzz0zzzk10w3w0zU03zk21zzzzzwDzzzkwDkzs7z01zzVsTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
+    
+    if FindText(&FoundX, &FoundY, X1, Y1, X2, Y2, Failed) {
         Send("{F8 down}") 
         Sleep(100)
         Send("{F8 up}")
         TallyStatus("Failed")
         webhook()
         Sleep(2000)
-
-     
-
+        
         BetterClick(877, 850) 
         Sleep(5000)
         AntRaids()
         return
-    } else if (ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "/../../../Images/status/victory.png", 50)) {
-        
-        
+    } else if (FindText(&FoundX, &FoundY, X1, Y1, X2, Y2, Win)) {
         Send("{F8 down}") 
         Sleep(100)
         Send("{F8 up}")
         TallyStatus("Victory")
         webhook()
         Sleep(2000)
-
-     
-
+        
         BetterClick(877, 850) 
         Sleep(5000)
         AntRaids()
-    
         return
     } 
     return
-    
-
 }
 
 F2::QUITAPP()

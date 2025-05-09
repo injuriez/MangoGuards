@@ -20,7 +20,7 @@ MainCards() {
     while (true) {
     
         if StarterCard == "Exterminator" {
-            if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Exterminate)) {
+            if (FindText(&X, &Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0, 0, Exterminate)) {
                 BetterClick(X, Y)
                 Sleep(1000)
           
@@ -34,7 +34,7 @@ MainCards() {
                 Sleep(500)
             }
         } else if StarterCard == "Kings Burden" {
-            if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, KingsBurden)) {
+            if (FindText(&X, &Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0, 0, KingsBurden)) {
                 BetterClick(X, Y)
                 Sleep(1000)
                 
@@ -48,7 +48,7 @@ MainCards() {
                 Sleep(500)
             }
         } else if StarterCard == "Lifeline" {
-            if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Lifeline)) {
+            if (FindText(&X, &Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0, 0, Lifeline)) {
                 BetterClick(X, Y) 
                 Sleep(1000)
                
@@ -62,7 +62,7 @@ MainCards() {
                 Sleep(500)
             }
         } else if StarterCard == "Money Surge" {
-            if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, Money)) {
+            if (FindText(&X, &Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0, 0, Money)) {
                 BetterClick(X, Y)
                 Sleep(1000)
               
@@ -78,7 +78,7 @@ MainCards() {
 
 
         } else if StarterCard == "no trait no problem" {
-            if (FindText(&X, &Y, X1, Y1, X2, Y2, 0, 0, NoTrait)) {
+            if (FindText(&X, &Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0, 0, NoTrait)) {
                 BetterClick(X, Y) 
                 Sleep(1000)
               
@@ -97,7 +97,6 @@ MainCards() {
     }
     return
 }
-
 
 
 ResetStage() {
