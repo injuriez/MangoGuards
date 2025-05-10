@@ -476,7 +476,7 @@ PickNamekAgain() {
     colSpacing := 160
     rowSpacing := 150
 
-    MouseMove(546, 813)
+    MouseMove(938, 850)
     Sleep(1000)
     BetterClick(938, 850)
 
@@ -548,9 +548,9 @@ PickShibuyaAgain() {
     colSpacing := 160
     rowSpacing := 150
 
-    MouseMove(546, 813)
+    MouseMove(938, 850)
     Sleep(1000)
-    BetterClick(432, 813)
+    BetterClick(938, 850)
 
     WinGetPos(&winX, &winY, &winWidth, &winHeight, "A")
     shibuya := false
