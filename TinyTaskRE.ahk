@@ -266,8 +266,6 @@ CreateTabControl(myGui) {
     WinterPortalBtn := myGui.Add("Button", "x178 y94 w100 h23", "Winter Portal")
     WinterPortalBtn.OnEvent("Click", ShowWinterPortalTab)
 
-    ValentinePortal := myGui.Add("Button", "x178 y120 w100 h23", "Love Portal")
-    ValentinePortal.OnEvent("Click", ShowLovePortalTab)
 
     ; Winter Portal Tab
     winterTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Winter Portal Settings"])
@@ -285,19 +283,8 @@ CreateTabControl(myGui) {
     backBtn1.OnEvent("Click", WinterPortalHelp)
 
     ; Love Portal Tab
-    loveTab := myGui.Add("Tab3", "x168 y64 w225 h160 +0x8 +Hidden", ["Love Portal Settings"])
-    loveTab.SetFont("c0xFFFFFF")
-    loveTab.UseTab(1)
-    LovePortal_data.hostingSwitch := myGui.Add("CheckBox", "x186 y94 w80 h23", "Hosting")
-    LovePortal_data.hostingSwitch.SetFont("c0xFFFFFF")
-    possss := myGui.Add("Text", "x270 y74 w100 h23", "Position")
+   
 
-    possss.SetFont("c0xFFFFFF")
-    LovePortal_data.positionSelect := myGui.Add("ListBox", "x270 y94 w100 h40", ["Start", "Middle", "End"])
-    backBtn2 := myGui.Add("Button", "x180 y190 w100 h23", "Help")
-    backBtn2.OnEvent("Click", LovePortalHelp)
-    applyBTN2 := myGui.Add("Button", "x280 y190 w100 h23", "Apply")
-    applyBTN2.OnEvent("Click", ApplyLovePortalSettings)
 
     ; Legend Tab
     hometab.UseTab(3)
@@ -337,21 +324,58 @@ ShowAltCardPriority(*) {
     CardPriorityPicker := Gui("+AlwaysOnTop")
     CardPriorityPicker.SetFont("s8 w600", "Karla")
     CardPriorityPicker.Add("Text", "x10 y8 w200 h20", "Alt Card Priority Selection")
-    Filepath := A_ScriptDir "\.\libs\Settings\MangoSettings\CardPriority.txt"
+    filePath := A_ScriptDir "\.\libs\Settings\MangoSettings\CardPriority.txt"
 
-    cardOptions :=  ["Cooldown", "Range", "Slayer", "Harvest", "Strong", "PressIt", "Damage", "Champion", "UncommonLoot", "CommonLoot", "Speed"]
+    cardOptions := ["Cooldown", "Range", "Slayer", "Harvest", "Strong", "PressIt", "Damage", "Champion", "UncommonLoot", "CommonLoot", "Speed"]
     
+    ; Load saved priorities
+    savedPriorities := []
+    if FileExist(filePath) {
+        try {
+            loop read filePath {
+                if A_LoopReadLine != ""
+                    savedPriorities.Push(Trim(A_LoopReadLine))
+            }
+        } catch {
+            ; MsgBox("Could not read existing priority file. Defaults will be used.")
+        }
+    }
+
     yPos := 40
-    loop 10 {
-        priority := A_Index
-        CardPriorityPicker.Add("Text", "x10 y" yPos " w80 h20", priority . " Priority:")
-        cardPriorityLists.Push(CardPriorityPicker.Add("DropDownList", "x90 y" yPos-4 " w150", cardOptions))
+    loop 10 { ; Assuming you want up to 10 priority slots
+        priorityIndex := A_Index
+        CardPriorityPicker.Add("Text", "x10 y" yPos " w80 h20", priorityIndex . " Priority:")
+        currentDropdown := CardPriorityPicker.Add("DropDownList", "x90 y" yPos-4 " w150", cardOptions)
+        
+        ; Set the dropdown to the saved value if it exists and is valid
+        if (priorityIndex <= savedPriorities.Length) {
+            savedValue := savedPriorities[priorityIndex]
+            isValidOption := false
+            for _, option in cardOptions {
+                if (option == savedValue) {
+                    isValidOption := true
+                    break
+                }
+            }
+            if (isValidOption) {
+                currentDropdown.Choose(savedValue)
+            } else {
+                ; If saved value is not in current options, choose default or first
+                currentDropdown.Choose(1) ; Or handle as per your default logic
+            }
+        } else {
+            ; Default selection if no saved priority for this slot
+            ; You might want a different default, e.g., first item or a blank option if you add one
+            currentDropdown.Choose(1) ; Default to the first item in cardOptions
+        }
+        cardPriorityLists.Push(currentDropdown)
         yPos += 30
     }
     
-    for i, dropdown in cardPriorityLists {
-        dropdown.Choose(i <= cardOptions.Length ? i : 1)
-    }
+    ; This loop for default choosing is now handled above during creation
+    ; for i, dropdown in cardPriorityLists {
+    ;    dropdown.Choose(i <= cardOptions.Length ? i : 1)
+    ; }
 
     ApplyBtn := CardPriorityPicker.Add("Button", "x60 y" yPos " w80 h30", "Apply")
     CancelBtn := CardPriorityPicker.Add("Button", "x150 y" yPos " w80 h30", "Cancel")
@@ -363,7 +387,7 @@ ShowAltCardPriority(*) {
 
     CardPriorityPicker.OnEvent("Close", (*) => CardPriorityPicker.Destroy())
     CardPriorityPicker.Title := "Card Priority Settings"
-    CardPriorityPicker.Show("w260 h" (yPos + 80))
+    CardPriorityPicker.Show("w260 h" (yPos + 40)) ; Adjusted height slightly for buttons
     
 
     SaveCardPriority(*) {
@@ -373,16 +397,19 @@ ShowAltCardPriority(*) {
                 priorities.Push(dropdown.Text)
         }
         
-
-        priorityFile := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\CardPriority.txt", "w")
-        if (priorityFile) {
-            for priority in priorities {
-                priorityFile.WriteLine(priority)
+        try {
+            priorityFile := FileOpen(filePath, "w", "UTF-8")
+            if (IsObject(priorityFile)) {
+                for priorityValue in priorities {
+                    priorityFile.WriteLine(priorityValue)
+                }
+                priorityFile.Close()
+                MsgBox("Card priorities saved successfully")
+            } else {
+                MsgBox("Failed to open card priority file for writing.")
             }
-            priorityFile.Close()
-            MsgBox("Card priorities saved successfully")
-        } else {
-            MsgBox("Failed to save card priorities")
+        } catch  {
+            MsgBox("Error saving card priorities")
         }
         
         CardPriorityPicker.Destroy()
@@ -431,24 +458,6 @@ ApplyWinterPortalSettings(*) {
 
 }
 
-ApplyLovePortalSettings(*) {
-    global LovePortal_data, myGui, MacroSelected
-    LovePortal_data.Position := LovePortal_data.positionSelect.Text
-
-    ; host
-    HostSettings := FileOpen(A_ScriptDir "\.\libs\Settings\LovePortal\host.txt", "w")
-    HostSettings.Write(LovePortal_data.hostingSwitch.Value ? "true" : "false")
-    HostSettings.Close()
-
-    ; World 
-    PositionSettings := FileOpen(A_ScriptDir "\.\libs\Settings\LovePortal\position.txt", "w")
-    PositionSettings.Write(LovePortal_data.positionSelect.Text)
-
-    LovePortal_data.Hosting := LovePortal_data.hostingSwitch.Value ? "true" : "false"
-    
-    MacroSelected.Name := "ValentinePortal"
-    myGui.Title := "MangoGuards [Valentine Portal] - " LovePortal_data.Position " - " (LovePortal_data.Hosting = "true" ? "Hosting" : "Not Hosting")
-}
 
 
 ShowWinterPortalTab(*) {
@@ -467,24 +476,11 @@ ShowWinterPortalTab(*) {
     ApplyWinterPortalSettings()
 }
 
-ShowLovePortalTab(*) {
-    global hometab, loveTab, LovePortal_data
-    hometab.Visible := false
-    loveTab.Visible := true
-    
-    if (!LovePortal_data.positionSelect.Text) {
-        LovePortal_data.positionSelect.Choose(1)
-    }
-    
-    LovePortal_data.hostingSwitch.Value := LovePortal_data.Hosting
-    
-    ApplyLovePortalSettings()
-}
+
 
 ShowPortalsTab(*) {
     global hometab, myGui
     winterTab.Visible := false
-    loveTab.Visible := false
     hometab.Visible := true
     antTab.Visible := false
     legendTab.Visible := false
@@ -665,7 +661,6 @@ Home(*) {
     text.Text := "Anime Mangoguards"
     winterTab.Visible := false
     hometab.Visible := true
-    loveTab.Visible := false
     legendTab.Visible := false
     antTab.Visible := false
     StatsTab.Visible := false
@@ -723,7 +718,6 @@ stats(*) {
     text.Text := "Mango Stats"
     hometab.Visible := false
     winterTab.Visible := false
-    loveTab.Visible := false
     legendTab.Visible := false
     antTab.Visible := false
     StatsTab.Visible := true

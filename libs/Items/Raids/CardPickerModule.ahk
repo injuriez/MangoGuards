@@ -17,6 +17,7 @@ MainCards() {
     Setting := FileOpen(A_ScriptDir "\..\..\..\Settings\MangoSettings\StarterCard.txt", "r")
     StarterCard := Setting.ReadLine()
     BetterClick(1591, 205) ; clicks the cancel button
+    ChangeLogs("Picking Cards")
     while (true) {
     
         if StarterCard == "Exterminator" {
@@ -125,6 +126,8 @@ BetterClick(x, y) {
     MouseClick("Left", -1, 0, , , , "R")
     Sleep(50)
 }
+
+
 
 
 

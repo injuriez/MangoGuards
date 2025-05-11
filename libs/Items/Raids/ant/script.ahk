@@ -20,11 +20,21 @@ slayer2 := "|<>*17$128.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz1zzzzzzzz
 CommonLoot:="|<>*35$160.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz7zzzzzzzzzzzzzzzzzzzzzzzzz01zzzzzzzzzzzzzzzzzzzzzzzzk01zzzzzzzzzzzzzzzzzzzzzzzy003zzzzzzzzzzzzzzzzzzzzzzzk00Dzzzzzzzzzzzzzzzzzzzzzzy000zzzzzzzzzzzzzzzzzzzzzzzk003zzzzzzzzzzzzzzzzzzzzzzy0DsTzzzzzzzzzzzzzzzzzzzzzzs1znzk3zUsTUzkQDkTzk3zUsDzzUDzzw03y20Q0z10C0Tw03y00Dzw1zzzU07k00U3s00E1zU07k00Tzk7zzw00D00007U0003w00D000zz0zzzU00w0000S0000DU00w003zw3zzy001k0000s0000S001k007zkDzzk3k70A0E3U6081k3k7060Tz0zzz0TUA1s3UC0w1k70TUA1w1zw1zzw3y0k7UD0s3k7UQ3y0k7s7zk7zzkDs30S0w3UD0S1kDs30TUTzUDzz0zUA1s3kC0w1s70zUA1y1zy0TwQ1y0k7UD0s3k7UQ1y0k7s7zw0T1k3U70S0w3UD0S1k3U70TUTzk003U00Q1s3kC0w1s7U00Q1y1zzU00C003k7UD0s3k7US003k7s7zz000w00D0S0w3UD0S1w00D0TUTzy003s01w1s7kC0w3s7s01w1y1zzy00zk0Ds7UT0w3kDUTk0Ds7s7zzy0Dzk3zUz1y7kTUz3zk3zUzkzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 Speed:="|<>*21$114.zzzzzzzzzzzzzzzzzVzzy0zzzzzzzzzzzzzz0zzs0Dzzzzzzzzzzzzz0zzk07zzzzzzzzzzzzz0zzU03zzzzzzzzzzzzz0zz001zzzzzzzzzzzzz0zz003zzzzzzzzzzzzz0zy0Q3zzzzzzzzzzzzz0zy0y7zzzzzzzzzzzzz0zy0zzsA7zy0Dzk1zy30zy0zzs01zs07z00zs00zz07zk00zk03y00Tk00zz00Tk00TU01w00DU00zzU07k00D001s00D000zzU03k00D0A0s1U7000zzs01k1U60S0k3k7080zzy00k7k60y0k7k60y0zzzk0k7s6000k0060y0zzzy0k7s6001k00C1z0zzXz0k7s6001k00C0y0zz1z0k3k6007k00y0y0zy0y0k00C0zzk7zz0A0zy000s00D0Tbs3wz000zy001s00T003s00TU00zz003s00TU01w00DU00zzU03s01zk01y00Dk00zzk0DsA3zs03z00Tw10zzw0zsDzzy07zk0zz7VzzzzzsDzzzzzzzzzzzzzzzzzsDzzzzzzzzzzzzzzzzzsDzzzzzzzzzzzzzzzzzsDzzzzzzzzzzzzzzzzzsDzzzzzzzzzzzzzzzzzsDzzzzzzzzzzzzzzzzzsDzzzzzzzzzzzzzzzzzwTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 
-global X1 := 214
-global Y1 := 227
-global X2 := 1500
-global Y2 := 600
-
+Global CardImageVariables := Map(
+    "Cooldown", Cooldown, "Cooldown1", Cooldown1,
+    "Harvest", Harvest,
+    "Range", Range,
+    "Damage", Damage, "Damage1", Damage1,
+    "Strong", Strong,
+    "Slayer", Slayer, "slayer2", slayer2,
+    "PressIt", PressIt,
+    "Champion", Champion,
+    "Dodge", Dodge,
+    "UncommonLoot", UncommonLoot,
+    "CommonLoot", CommonLoot,
+    "Speed", Speed
+    ; Add any other card image variables here if they are defined globally
+)
 AntRaids() {
     
 
@@ -60,90 +70,58 @@ webhook() {
 
 AltCards() {
     priorityList := []
+    processedNames := Map() ; To ensure unique names from the priority file are processed
     try {
         priorityFile := FileOpen(A_ScriptDir "\..\..\..\Settings\MangoSettings\CardPriority.txt", "r")
         if (priorityFile) {
             while !priorityFile.AtEOF {
-                line := priorityFile.ReadLine()
-                if (line != "")
-                    priorityList.Push(Trim(line))
+                line := Trim(priorityFile.ReadLine())
+                ; Only add if it's a non-empty line and not already processed
+                if (line != "" && !processedNames.Has(line)) {
+                    priorityList.Push(line)
+                    processedNames.Set(line, true) ; Mark as processed
+                }
             }
             priorityFile.Close()
         }
     } catch {
-        MsgBox("Error reading priority file")
+        MsgBox("Error reading CardPriority.txt. Check file path and permissions.")
+        status() ; Call status if priority file is crucial
+        return
     }
-    
-    ; Use full screen coordinates
-    fullX1 := 0
-    fullY1 := 0
-    fullX2 := A_ScreenWidth
-    fullY2 := A_ScreenHeight
-    
-    foundCards := []
-    
-    ; Check each card to see if it is on screen and store its coordinates
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Cooldown)) {
-        foundCards.Push({name: "Cooldown", x: X, y: Y})
-    } else if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Cooldown1)) {
-        foundCards.Push({name: "Cooldown", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Range)) {
-        foundCards.Push({name: "Range", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Slayer)) {
-        foundCards.Push({name: "Slayer", x: X, y: Y})
-    } else if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, slayer2)) {
-        foundCards.Push({name: "Slayer", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Harvest)) {
-        foundCards.Push({name: "Harvest", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Strong)) {
-        foundCards.Push({name: "Strong", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, PressIt)) {
-        foundCards.Push({name: "PressIt", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Damage)) {
-        foundCards.Push({name: "Damage", x: X, y: Y})
-    } else if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Damage1)) {
-        foundCards.Push({name: "Damage", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Champion)) {
-        foundCards.Push({name: "Champion", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Dodge)) {
-        foundCards.Push({name: "Dodge", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, UncommonLoot)) {
-        foundCards.Push({name: "UncommonLoot", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, CommonLoot)) {
-        foundCards.Push({name: "CommonLoot", x: X, y: Y})
-    }
-    if (FindText(&X, &Y, fullX1, fullY1, fullX2, fullY2, 0, 0, Speed)) {
-        foundCards.Push({name: "Speed", x: X, y: Y})
-    }
-    if (foundCards.Length == 0) {
-        status()
+
+    if (priorityList.Length == 0) {
+        ; CardPriority.txt might be empty or only contained whitespace/duplicates that were removed.
+        status() ; Call status if no valid priorities are set
         return
     }
     
-    ; Iterate through the priority list and click the first found card that matches
-    for cardName in priorityList {
-        for card in foundCards {
-            if (card.name = cardName) {
-                BetterClick(card.x, card.y)
-                return
+    ; Define screen coordinates for card searching
+    global X1 := 300, Y1 := 52, X2 := 678 + 950, Y2 := 52 + 642
+    local FoundX, FoundY ; Variables to store coordinates from FindText
+
+    for cardNameFromFile in priorityList { ; cardNameFromFile is a string like "Cooldown", "Cooldown1", etc.
+        
+        if (CardImageVariables.Has(cardNameFromFile)) {
+            imageStringToSearch := CardImageVariables.Get(cardNameFromFile)
+            
+            ; Call FindText with the correct signature and the actual image string variable
+            foundItemsArray := FindText(&FoundX, &FoundY, X1, Y1, X2, Y2, 0, 0, imageStringToSearch)
+            
+            if (IsObject(foundItemsArray) && foundItemsArray.Length > 0) {
+                ChangeLogs("Found card: " cardNameFromFile)
+                ; Card found, click the first match. FindText stores first match coords in &FoundX, &FoundY.
+                BetterClick(FoundX, FoundY)
+                return ; Exit after clicking the highest priority card found
             }
+        } else {
+            ; Optional: Log or notify if a card name in CardPriority.txt is not in our CardImageVariables map
+            ; OutputDebug("Warning: Card name '" cardNameFromFile "' from CardPriority.txt is not a recognized card image variable.")
         }
     }
     
-    ; If no prioritized card is found but we have cards, click the first one
-    if (foundCards.Length > 0) {
-        BetterClick(foundCards[1].x, foundCards[1].y)
-    }
+    ; If the loop completes, no card from the priority list was found on screen.
+    status() 
 }
 status() {
     ; Use screen dimensions instead of custom coordinates
@@ -152,7 +130,7 @@ status() {
     X2 := A_ScreenWidth
     Y2 := A_ScreenHeight
 
-    Win:="|<>*112$184.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zk000000000000000000000001s007bzk00000000000000000000000Ts01zzz0000D0000000000000000007zk0Dzky0007z000000000000000000zzU1zy1s000zz000000000000000003sS07Vs3U003zw00000000000000000S0w0w1UC000S3s00000000000000001s3k3k60s001s7U00000000000000007U70D0M3U0070C00000000000000000S0S1s1US000Q0s03s00081k06000000s1s7U7bsDzXk3w1zw0zzyTs3y000003k3kw0zz3zzz0DsTzw7zzzzkTy00000D0D3k3zwzzzw0zrzzwzzzzz3zw00000S0SS0TXzw3z00DzUDvsy7sSD3s00001s1ts1s7z01s00Ts0Dy1U71xs7U00003k3z0DUDk03U00y00Ds00M3rUD00000D0Dw0y0y006003k00TU01U7w0w00000S0TU7s3k00M00C001y0060Tk3k00001s1y0TUD001U00s003s00M0z0S000003k3s3y0s0060070007U03k3s1s00000D0D0Ds3U00w00w0Q0S0ATU7U7000000S0Q1zUA0T7w0zU7s1s3zy0A0w000801s1U7y0k3zzk3y0Tk7UDzw0k3k000003k60xs30Dzz0Ds3z0C0zvk00S000000D003rUA0zzQ0zUDw0s3k7U01s000000S00SS0k3zzk3y0Tk3UD0T00D0000001s01ts30Dnz0Ds1y0S0s0w00w0000003k0D7UA0A7w0zU3k1s3U1s07U000000D00wS0s00Dk0T0007UC07U0S0000000S07Vs3U00TU0w000y0s0D01k0000001s0S7UD001y01s003s3U0y0D00000003k3kS0y007s07k00TUC01s0w0000000D0D1s3w00zk0TU03y0w07U7U0000000S1s7UDs07zU3z00Ts3U0S0S00000001wDUT1zs1yTUDz07zkS03k3k00000003zw0zzjzzkzztzzzDzs0D0D000000007zU1zwTzy1zzXzzszz00w1s00000000Dw03zUTzU1zw3zy0zs07U7U000000007003k0Dk00T01z00w00S0S0000000000000000000000000003k3k000000000000000000000000000D0D0000000000000000000000000000w1s0000000000000000000000000003k7U000000000000000000000000000DUw0000000000000000000000000000Tbk0000000000000000000000000000zy00000000000000000000000000001zk00000000000000000000000000001y0000000000000000000000000000000000008"
+    Win:="|<>*112$184.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000C000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zk000000000000000000000001s007bzk00000000000000000000000Ts01zzz0000D0000000000000000007zk0Dzky0007z000000000000000000zzU1zy1s000zz000000000000000003sS07Vs3U003zw00000000000000000S0w0w1UC000S3s00000000000000001s3k3k60s001s7U00000000000000007U70D0M3U0070C00000000000000000S0S1s1US000Q0s03s00081k06000000s1s7U7bsDzXk3w1zw0zzyTs3y000003k3kw0zz3zzz0DsTzw7zzzzkTy00000D0D3k3zwzzzw0zrzzwzzzzz3zw00000S0SS0TXzw3z00DzUDvsy7sSD3s00001s1ts1s7z01s00Ts0Dy1U71xs7U00003k3z0DUDk03U00y00Ds00M3rUD00000D0Dw0y0y006003k00TU01U7w0w00000S0TU7s3k00M00C001y0060Tk3k00001s1y0TUD001U00s003s00M0z0S000003k3s3y0s0060070007U03k3s1s00000D0D0Ds3U00w00w0Q0S0ATU7U7000000S0Q1zUA0T7w0zU7s1s3zy0A0w000801s1U7y0k3zzk3y0Tk7UDzw0k3k000003k60xs30Dzz0Ds3z0C0zvk00S000000D003rUA0zzQ0zUDw0s3k7U01s000000S00SS0k3zzk3y0Tk3UD0T00D0000001s01ts30Dnz0Ds1y0S0s0w00w0000003k0D7UA0A7w0zU3k1s3U1s07U000000D00wS0s00Dk0T0007UC07U0S0000000S07Vs3U00TU0w000y0s0D01k0000001s0S7UD001y01s003s3U0y0D00000003k3kS0y007s07k00TUC01s0w0000000D0D1s3w00zk0TU03y0w07U7U0000000S1s7UDs07zU3z00Ts3U0S0S00000001wDUT1zs1yTUDz07zkS03k3k00000003zw0zzjzzkzztzzzDzs0D0D000000007zU1zwTzy1zzXzzszz00w1s00000000Dw03zUTzU1zw3zy0zs07U7U000000007003k0Dk00T01z00w00S0S0000000000000000000000000003k3k000000000000000000000000000D0D0000000000000000000000000000w1s0000000000000000000000000003k7U000000000000000000000000000DUw0000000000000000000000000000Tbk0000000000000000000000000000zy00000000000000000000000000001zk00000000000000000000000000001y0000000000000000000000000000000000008"
     Failed:="|<>*152$133.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwzlzzzzzzzyTzzzzzzzzzzs7UTzzzzzzw3zzzU003zzzw1k7zzzzzzy0zzzU000zzzy0s3zzzzzzz0Tzzk000Tzzz0Q1zzzzzzzUDzzs000DzzzUC0zzzzzzzk7zzw0007zzzkD0Tzzzzzzs3zzy0003zzzzzUDzzzzzzw1zzz0003zzzzzk7zzzzzzy0zzzUDzzzzzzzs3zzzzzzz0Tzzk7zzzzzzzw1zz0TzzzUDzzs3zzz0M7US0zy03zy0k7zzw1zzz001k70Tw00Ty003zzy007y000s3UDw007y001zzz000z000Q1k7w003y000zzzU00T000C0s3y000y000Tzzk00D00070Q1y060S000Dzzs007U203UC0z0DUD0007zzw003k7k1k70T0Dk7U7U3zzy001k3w0s3UDU7s3k7s1zzz003s3y0Q1k7k001k7y0zzzUDzw1z0C0s3s000s3z0Tzzk7zy0zU70Q1w000w0z0Dzzs3zz0Dk3UC0y0Tzz0TU7zzw1zzk3U1k70TUDzzU7U3zzy0zzs000s3U1k3zTk001zzz0Tzy000Q1k0s007w000zzzUDzz000C0s0C001y000Tzzk7zzk0070Q07U00zU00Dzzs3zzw003UD03k00Ts007zzw3zzz043kDk3y00Dz087zzz1zzzwD3w7y1zk0TzsS7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy"
     
     if FindText(&X, &Y, 454-150000, 174-150000, 454+150000, 174+150000, 0, 0, Failed) {
@@ -270,3 +248,31 @@ TallyStatus(status) {
     return
 }
 
+ChangeLogs(msg) {
+
+    try {
+        ; Correct the file path
+        logFilePath := A_ScriptDir . "\..\..\..\Settings\MangoSettings\Session\LastLog.txt"
+        
+        ; Ensure the directory exists
+        SplitPath(logFilePath, , &dir)
+        if !FileExist(dir) {
+            MsgBox("Directory does not exist. Attempting to create: " . dir) ; Debugging
+            if !DirCreate(dir) {
+                MsgBox("Failed to create directory: " . dir) ; Debugging
+                return
+            }
+        }
+
+        ; Open the file in write mode
+        LogFile := FileOpen(logFilePath, "w")
+        if (LogFile) {
+            LogFile.WriteLine(msg) ; Overwrite the log file with the new message
+            LogFile.Close()
+        } else {
+            MsgBox("Error: Unable to open log file at " . logFilePath)
+        }
+    } catch as e {
+        MsgBox("Error in ChangeLogs: " . e.Message)
+    }
+}
