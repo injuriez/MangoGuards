@@ -142,10 +142,11 @@ status() {
         webhook()
         Sleep(2000)
         
-        
+
         BetterClick(877, 850) 
         Sleep(5000)
         AntRaids()
+        
         return
     } else if FindText(&X, &Y, 477-150000, 178-150000, 477+150000, 178+150000, 0, 0, Win) {
         Send("{F8 down}") 
