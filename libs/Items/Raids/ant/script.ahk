@@ -142,6 +142,7 @@ status() {
         webhook()
         Sleep(2000)
         
+        
         BetterClick(877, 850) 
         Sleep(5000)
         AntRaids()
