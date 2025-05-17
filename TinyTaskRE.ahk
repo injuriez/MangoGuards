@@ -546,102 +546,104 @@ start(*) {
     fullscreen := IsRobloxFullscreen()
 
     if fullscreen == false {
-        MsgBox("Set your roblox to full screen in roblox settings")
-        return
-    } else {
-        if displayInfo.width < 1920 or displayInfo.height < 1080 or displayInfo.scaling != 100 or !fullscreen {
-            MsgBox("Warning: your display resolution is " displayInfo.width "x" displayInfo.height " at " displayInfo.scaling "% scaling. please use resolution 1920x1080 at 100% scaling.")
+        result := MsgBox("Roblox is not in fullscreen mode. This may affect macro performance. Continue anyway?", "Fullscreen Warning", "YesNo")
+        if (result == "No")
             return
-        } else {
-            MacroSelected.Enabled := true
-            if MacroSelected.Name == "WinterPortal" {
-                ; Anti Passives\.\libs\Settings\MangoSettings\session\SessionName.txt
-               
-                sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
-                sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
-                SessionRename := "Winter Portal"
-                SessionTypeValue := "timer"
-                sessionName.Write(SessionRename)
-                sessionType.Write(SessionTypeValue)
-                sessionName.Close()
-                sessionType.Close()
-                Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
-                BetterClick(985, 517) ; focuses back on roblox
-                BetterClick(985, 517) ; focuses back on roblox
-                Sleep(3000)
+    }
 
-                if (WinterPortal_data.Leeching.Value) {
-                    prompt := MsgBox("Leeching Mode is enabled. would you like to place units?", "Leech Mode", "YesNo")
-                    if prompt == "Yes" {
-                        Run(A_ScriptDir "\.\libs\Portals\WinterPortals\Leech\UnitPlacement.ahk")
-                    } else {
-                        Run(A_ScriptDir "\.\libs\Portals\WinterPortals\Leech\NoUnits.ahk")
-                    }
-                } else {
-                    Run(A_ScriptDir "\.\libs\Portals\WinterPortals\WinterPortal.ahk")
-                }
+    if displayInfo.width < 1920 or displayInfo.height < 1080 or displayInfo.scaling != 100 {
+        result := MsgBox("Warning: Your display resolution is " displayInfo.width "x" displayInfo.height " at " displayInfo.scaling "% scaling.`n`nRecommended settings: 1920x1080 at 100% scaling.`n`nThe macro may not work correctly at your current settings. Continue anyway?", "Resolution Warning", "YesNo")
+        if (result == "No")
+            return
+    }
 
-            } else if MacroSelected.Name == "ValentinePortal" {
-                LovePortalFile()
-            } else if MacroSelected.Name == "Bleach" {
-                
-                
-                sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
-                sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
-                SessionRename := "Legend Stage"
-                SessionTypeValue := "timer"
-                sessionName.Write(SessionRename)
-                sessionType.Write(SessionTypeValue)
-                sessionName.Close()
-                sessionType.Close()
-                Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
-                
-                Sleep(3000)
-                WinActive("Roblox")
-               
-                Sleep(1000)
-                Run(A_ScriptDir "\.\libs\Legend\AllStages.ahk")
-            } else if MacroSelected.Name == "Gems" {
-                sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
-                sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
-                SessionRename := "Gem Farm"
-                SessionTypeValue := "timer"
-                sessionName.Write(SessionRename)
-                sessionType.Write(SessionTypeValue)
-                sessionName.Close()
-                sessionType.Close()
-                Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
-                Sleep(3000)
+    MacroSelected.Enabled := true
+    if MacroSelected.Name == "WinterPortal" {
+        ; Anti Passives\.\libs\Settings\MangoSettings\session\SessionName.txt
+        
+        sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
+        sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
+        SessionRename := "Winter Portal"
+        SessionTypeValue := "timer"
+        sessionName.Write(SessionRename)
+        sessionType.Write(SessionTypeValue)
+        sessionName.Close()
+        sessionType.Close()
+        Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+        BetterClick(985, 517) ; focuses back on roblox
+        BetterClick(985, 517) ; focuses back on roblox
+        Sleep(3000)
 
-                BetterClick(985, 517) ; focuses back on roblox
-                BetterClick(985, 517) ; focuses back on roblox
-                Sleep(1000)
-
-                Run(A_ScriptDir "\.\libs\Items\GemFarm\script.ahk")
-            } else if MacroSelected.Name == "Green Essence" {
-                ; GreenEssenceFarm()
-                MsgBox("Green Essence Farm not implemented")
-            } else if MacroSelected.Name == "AntRaid" {
-                sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
-                sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
-                SessionRename := "ANT RAID"
-                SessionTypeValue := "timer"
-                sessionName.Write(SessionRename)
-                sessionType.Write(SessionTypeValue)
-                sessionName.Close()
-                sessionType.Close()
-                Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
-                Sleep(3000)
-
-                WinActive("Roblox")
-                Sleep(1000)
-
-                Run(A_ScriptDir "\.\libs\Items\Raids\ant\script.ahk")
-
+        if (WinterPortal_data.Leeching.Value) {
+            prompt := MsgBox("Leeching Mode is enabled. would you like to place units?", "Leech Mode", "YesNo")
+            if prompt == "Yes" {
+                Run(A_ScriptDir "\.\libs\Portals\WinterPortals\Leech\UnitPlacement.ahk")
             } else {
-                MsgBox("No macro selected")
-            }  
+                Run(A_ScriptDir "\.\libs\Portals\WinterPortals\Leech\NoUnits.ahk")
+            }
+        } else {
+            Run(A_ScriptDir "\.\libs\Portals\WinterPortals\WinterPortal.ahk")
         }
+
+    } else if MacroSelected.Name == "ValentinePortal" {
+        LovePortalFile()
+    } else if MacroSelected.Name == "Bleach" {
+        
+        
+        sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
+        sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
+        SessionRename := "Legend Stage"
+        SessionTypeValue := "timer"
+        sessionName.Write(SessionRename)
+        sessionType.Write(SessionTypeValue)
+        sessionName.Close()
+        sessionType.Close()
+        Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+        
+        Sleep(3000)
+        WinActive("Roblox")
+        
+        Sleep(1000)
+        Run(A_ScriptDir "\.\libs\Legend\AllStages.ahk")
+    } else if MacroSelected.Name == "Gems" {
+        sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
+        sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
+        SessionRename := "Gem Farm"
+        SessionTypeValue := "timer"
+        sessionName.Write(SessionRename)
+        sessionType.Write(SessionTypeValue)
+        sessionName.Close()
+        sessionType.Close()
+        Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+        Sleep(3000)
+
+        BetterClick(985, 517) ; focuses back on roblox
+        BetterClick(985, 517) ; focuses back on roblox
+        Sleep(1000)
+
+        Run(A_ScriptDir "\.\libs\Items\GemFarm\script.ahk")
+    } else if MacroSelected.Name == "Green Essence" {
+        ; GreenEssenceFarm()
+        MsgBox("Green Essence Farm not implemented")
+    } else if MacroSelected.Name == "AntRaid" {
+        sessionName := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\SessionName.txt", "w")
+        sessionType := FileOpen(A_ScriptDir "\.\libs\Settings\MangoSettings\session\TypeSession.txt", "w")
+        SessionRename := "ANT RAID"
+        SessionTypeValue := "timer"
+        sessionName.Write(SessionRename)
+        sessionType.Write(SessionTypeValue)
+        sessionName.Close()
+        sessionType.Close()
+        Run(A_ScriptDir "\.\libs\COMPONENTS\Session.ahk")
+        Sleep(3000)
+
+        WinActive("Roblox")
+        Sleep(1000)
+
+        Run(A_ScriptDir "\.\libs\Items\Raids\ant\script.ahk")
+
+    } else {
+        MsgBox("No macro selected")
     }
 }
 
