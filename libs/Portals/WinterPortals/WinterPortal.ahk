@@ -2,7 +2,7 @@
 #Include ../../AllText.ahk
 #Include ../../Modules.ahk
 #Include ../../FindText.ahk
-
+selectedWorld := "Namek"
 Tier10 := "|<>*75$27.zzzzzzzzzzzwTzsy0zy3U3zUM0Ts201y0EQDk27Vy0Ew7y27kzkEy7y27kzkEw7y27VzkEQDy201zkM0Ty3U3zsy1zU"
 FailedText:="|<>*44$208.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zzzzzk00Dw001zkDw0003zzzzw7zzy00007zzzzzU01zw00Dznzw000zzzzzxzzzz0000zzzzzz00Dzs01zzzzs007zzzzzzzzzzU007zzzzzy01zzU0Dzzzzk00zzzzzzzzzzz000S00003s0DUT00w0z0D003k0000DU007y003s00007U0w0w07k1w0S00D00000y0003y00D00000D07k3s0S07U1s00s00001k0003w00w00000w0S07U1s0S07U07U0000700007s03k00003k3s0T07U1s0S00S00000Q0000Dk0D00000D0D00w0S07U1s01s00001k0000TU0w00000s1w03s1s0S07U07U0000700000yzzk00007zzU07zzU1s0Tzzy00000w00001zzz00000Tzy00Tzy07U1zzzs00003k00003zzw0Dzzzzzk00zzs0S07zzzU1zzzz03w007zzk0zzzzzz003zzU1s0Tzzy07zzzw0Dz00Tzz03zzzzzs007zy07U1zzzs0Tzzzk0zy00zzw0DzzzzzU00Tzs0S07zzzU1zzzz03zy03zzk0zzzzzw000zzU1s0Tzzy07zzzw0Dzs0Dzz03zzzzzk003zy07U1zzzs0Tzzzk0zzk0Tzw0003zzy0007zs0S07zzzU000Tz03zzU1zzk0007zzs000TzU1s0Tzzy0000zw0Dzy07zz0000Tzz01U0zy07U1zzzs0003zk0zzs0Tzw0000zzw0603zs0S07zzzU0007z03zzU1zzk0003zzU0w07zU1s0Tzzy0000Tw0Dzz07zz0000Dzy03k0Ty07U1zzzs0001zk0zzw0Tzw0001zzk0TU0zs0S07zzzU0007z03zzU1zzk0007zz01y03zU1s0Tzzy0000zw0Dzy07zz0000Tzs00007y07U1zzzs0003zk0zzs0Tzw0007zzU0000Ts0S07zzzU000zz03zzU1zzk0zzzzy00000zU1s0Tzzy07zzzw0Dzw0Dzz03zzzzk00003y07U1zzzs0Tzzzk0zzU0zzw0Dzzzz00000Ds0S07zzzU1zzzz03zw03zzk0zzzzs00000TU1s0Tzzy07zzzw0DzU0Tzz03zzzzU00001y07U1zzzs0Tzzzk0zs01zzw0Dzzzw000003s0S07zzzU0000z00000Dzzk0zzzzk0Tzs0DU1s0Tzzy00000w00001zzz03zzzy03zzk0S07U0001s00003k00007zzw0Dzzzs0TzzU1s0S00003U0000700000zzzk0zzzz01zzy03U1s0000C00000Q00007zzz03zzzw0Dzzw0C07U0000s00001k0000zzzw0Dzzzk0zzzk0s0S00003U000070000Dzzzk0zzzz07zzzU3U1s0000C00000w0001zzzzU7zzzy0Tzzy0T0Dk0001w00003s000Tzzzz0zzzzy3zzzw7y1zU000Ds0000Tk00Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
 class WinterVAR {
@@ -12,12 +12,15 @@ class WinterVAR {
 
 failed:="|<>*148$131.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzztzXzzzzzzzwTzzzzzzzzzz0w3zzzzzzzUTzzk001zzzy0s3zzzzzzz0Tzz0001zzzw1k7zzzzzzy0zzy0003zzzs3UDzzzzzzw1zzw0007zzzk70Tzzzzzzs3zzs000DzzzUS0zzzzzzzk7zzk000Tzzzzw1zzzzzzzUDzzU001zzzzzs3zzzzzzz0Tzz0Tzzzzzzzk7zzzzzzy0zzy0zzzzzzzzUDzs3zzzw1zzw1zzzUA3kD0Tz01zz0M3zzs3zzw003UC0zs00zw007zzk00zk0070Q1zU00zk00DzzU00T000C0s3y001z000Tzz000y000Q1k7w001w000zzy001s000s3UDk0k3k001zzw003k101k70TU7k7U003zzs0070DU3UC0y0TUD0D07zzk00C0TU70Q1w0z0Q0z0DzzU01w1z0C0s3s000s3z0Tzz0Tzs3y0Q1k7k001k7y0zzy0zzk7w0s3UDU007U7s1zzw1zzU7s1k70T0DzzUDk3zzs3zzU703UC0z0Tzz0D07zzk7zz00070Q0C0Tvy000DzzUDzz000C0s0Q003y000Tzz0Tzy000Q1k0Q003w000zzy0zzy000s3U0w007w001zzw1zzy001k7U1s00Dw003zzs3zzy087UTU7w00Ty0EDzzsDzzzVsTUzkDy03zz3kzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
 PlayerPosition() {
+    ChangeLogs("awaiting player response")
+
     MsgBox("Press okay once you found your position")
     Sleep(5000)
     StartTinyTask()
 }
 
 StartTinyTask() {
+    ChangeLogs("starting TinyTask")
     Send("{F8 down}")
     Sleep(100)
     Send("{F8 up}")
@@ -35,6 +38,7 @@ WinORloserChecker() {
     global X2 := 1600
     global Y2 := 600
     three := "|<>*123$78.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3zzzzzzzzzzzz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzz071byATUTw3zy0301w0C0Dk1zy0300w0A07U0zy0300Q0A03U0Tz0300Q08630kTzkz1kA7sD31sTzkz1sA7s0300Tzkz1sA7s0300Tzkz1sA7s0D01zzkT1sA7sDz1zzzk71sA7s0700zzk31sA7w07U0zzs31sA7y07k0zzw7XwSDz07s0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
+    ChangeLogs("awaiting for win or a fail")
 
     Loop {
       
@@ -220,6 +224,7 @@ PickPortalsAGAIN() {
     leech := FileOpen("../../Settings/MangoSettings/WinterPortal/leech.txt", "r")
     LeechValue := leech.ReadLine()
     
+    
     if (World == "Namek") {
         
         PickNamekAgain()
@@ -229,25 +234,54 @@ PickPortalsAGAIN() {
 }
 
 findvoting() {
-    loop {
+    global selectedWorld
+    global X1 := 300, Y1 := 52, X2 := 678 + 950, Y2 := 52 + 642
+    
+    starter:="|<>*125$133.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs7zzzzzzzzzzzzzzzzzzzzk0TzzzzzzzzzzzzzzzzzzzU07y3zzzzzzzzkTzzzzzzzU01y0zzzzzzzzk7zzzzzzzk00T0Tzzzzzzzs3zzzzzzzk00DUDzzzzzzzw1zzzzzzzs00Dk7zzzzzzzy0zzzzzzzw1wDs3zzzzzzzz0Tzzzzzzw1zDw1zzzzzzzzUDzy7zzzz0zzk01zUM7UM600Ds0TkA3UDzs00T003k01003k03s00k0zw00D001s00001k01w00M01y007000w00000k00S00C00D003000S00800E007007U01U03U00D00A00M0k3U07s00y07k007U7Dk0s1w1k3bz00D0Tk3k3k7zs3w0y0s3zzw07UDs3w1s7zw1y0S0Q3zzzk3k7w1y0w3zy0z000C1zzTw1s3y0z0S1zz0TU00D0zy3z0w1z0TUD0zzUDk00DUTz0z0S0zU7U7UTzk7s3zzkDz0D0D0Ds003kDzs1y0zzs7zU007U0w001s7zw07071w3zs007s0D000w3zz01U00S1zw003w07U00S1zzU0s00D0zz003z03s00D0zzs0S007UTzs03zk3z087UTzy0TU03kDzz07zy1zsC7sTzzkDw07wDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzs"
+    if (selectedWorld == "Namek") {
+        ChangeLogs("Looking for voting UI")
+      
+        loop {
         if (ok := FindText(&X, &Y, 925-150000, 109-150000, 925+150000, 109+150000, 0, 0, voteDectect)) {
             Sleep(5000)
             PlayerPosition()
         }
     }
+    } else if (selectedWorld == "Shibuya") {
+        ChangeLogs("Looking for the starter card")
+
+        loop {
+            
+             if (ok:=FindText(&X, &Y, 902-150000, 168-150000, 902+150000, 168+150000, 0, 0, starter))
+                    {
+                                     BetterClick(956, 438) ; selects a random card
+                                     PlayerPosition()
+                    }
+        
+        }
+        
+        
+
+    }
+    
+    
 }
 
 WinterPortal() {
-
+    global selectedWorld
     Setting := FileOpen("../../Settings/MangoSettings/map.txt", "r")
     World := Setting.ReadLine()
-    
-    if (World == "Namek")
+    ChangeLogs("Loading Winter Portals")
+    if (World == "Namek") {
+        selectedWorld := "Namek"
         namekworld()
         
-    else if (World == "Shibuya")
+    }
+    else if (World == "Shibuya") {
+        selectedWorld := "Shibuya"
         shibuyaworld()
         
+    }
 }
 
 
@@ -376,6 +410,8 @@ shibuyaworld() {
     BetterClick(556, 319)
 
     text := "winter portal"
+    ChangeLogs("Looking for shibuya portals")
+
     for each, char in StrSplit(text) {
         Send(char)
         Sleep(100)
@@ -407,6 +443,8 @@ shibuyaworld() {
                     }
                     
                     ; This is a Tier 10 portal
+                    ChangeLogs("Found a tier 10 shibuya portal!")
+
                     Shibuya := true
                     MouseGetPos(&mouseX, &mouseY)
                     BetterClick(mouseX, mouseY)

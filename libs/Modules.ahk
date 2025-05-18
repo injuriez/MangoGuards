@@ -61,3 +61,32 @@ SmoothMouseMove(targetX, targetY, speed := 2) {
 }
 
 
+
+ChangeLogs(msg) {
+    try {
+        ; Use the correct path to the settings folder
+        logFilePath := A_ScriptDir . "\..\..\Settings\MangoSettings\session\LastLog.txt"
+        
+        ; Ensure the directory exists
+        SplitPath(logFilePath, , &dir)
+        if !FileExist(dir) {
+            DirCreate(dir)
+        }
+
+        ; Open the file in write mode
+        LogFile := FileOpen(logFilePath, "w", "UTF-8")
+        if (LogFile) {
+            LogFile.WriteLine(msg) ; Overwrite the log file with the new message
+            LogFile.Close()
+            return true
+        } else {
+            ; Silent fail - no MsgBox to avoid interrupting script
+            MsgBox("Error: Unable to open log file at " . logFilePath)
+            return false
+        }
+    } catch as e {
+        ; Silent fail - no MsgBox to avoid interrupting script
+        MsgBox("Error in ChangeLogs: " . e.Message)
+        return false
+    }
+}
