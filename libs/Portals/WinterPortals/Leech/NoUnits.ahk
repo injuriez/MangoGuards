@@ -102,9 +102,14 @@ GemStart() { ; First Function to run when the match starts
 }
 
 PortalImageSearch() { ; Keeps searching for the portals to pop up then starts another function to pick
+        global X1 := 214
+    global Y1 := 5
+    global X2 := 1600
+    global Y2 := 600
+    three := "|<>*123$78.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3zzzzzzzzzzzz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzz071byATUTw3zy0301w0C0Dk1zy0300w0A07U0zy0300Q0A03U0Tz0300Q08630kTzkz1kA7sD31sTzkz1sA7s0300Tzkz1sA7s0300Tzkz1sA7s0D01zzkT1sA7sDz1zzzk71sA7s0700zzk31sA7w07U0zzs31sA7y07k0zzw7XwSDz07s0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 
     loop {
-        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Rewards.png", 50) {
+        if FindText(&X, &Y, 1040-150000, 346-150000, 1040+150000, 346+150000, 0, 0, three) {
             Sleep(500)
             SelectPortals()
             Sleep(500)
@@ -226,11 +231,13 @@ checkstatus() {
     global Y1 := 5
     global X2 := 1600
     global Y2 := 600
+    failed:="|<>*148$131.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzztzXzzzzzzzwTzzzzzzzzzz0w3zzzzzzzUTzzk001zzzy0s3zzzzzzz0Tzz0001zzzw1k7zzzzzzy0zzy0003zzzs3UDzzzzzzw1zzw0007zzzk70Tzzzzzzs3zzs000DzzzUS0zzzzzzzk7zzk000Tzzzzw1zzzzzzzUDzzU001zzzzzs3zzzzzzz0Tzz0Tzzzzzzzk7zzzzzzy0zzy0zzzzzzzzUDzs3zzzw1zzw1zzzUA3kD0Tz01zz0M3zzs3zzw003UC0zs00zw007zzk00zk0070Q1zU00zk00DzzU00T000C0s3y001z000Tzz000y000Q1k7w001w000zzy001s000s3UDk0k3k001zzw003k101k70TU7k7U003zzs0070DU3UC0y0TUD0D07zzk00C0TU70Q1w0z0Q0z0DzzU01w1z0C0s3s000s3z0Tzz0Tzs3y0Q1k7k001k7y0zzy0zzk7w0s3UDU007U7s1zzw1zzU7s1k70T0DzzUDk3zzs3zzU703UC0z0Tzz0D07zzk7zz00070Q0C0Tvy000DzzUDzz000C0s0Q003y000Tzz0Tzy000Q1k0Q003w000zzy0zzy000s3U0w007w001zzw1zzy001k7U1s00Dw003zzs3zzy087UTU7w00Ty0EDzzsDzzzVsTUzkDy03zz3kzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzw"
+    three := "|<>*123$78.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3zzzzzzzzzzzz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzzkz1zzzzzzzzzz071byATUTw3zy0301w0C0Dk1zy0300w0A07U0zy0300Q0A03U0Tz0300Q08630kTzkz1kA7sD31sTzkz1sA7s0300Tzkz1sA7s0300Tzkz1sA7s0D01zzkT1sA7sDz1zzzk71sA7s0700zzk31sA7w07U0zzs31sA7y07k0zzw7XwSDz07s0zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
 
     Loop {
         Sleep(500)
         ; Check for Rewards
-        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\Rewards.png", 50) {
+        if FindText(&X, &Y, 1040-150000, 346-150000, 1040+150000, 346+150000, 0, 0, three) {
             Sleep(500)
             webhook()
             SendInput("{f}")
@@ -267,7 +274,7 @@ checkstatus() {
         }
 
         ; Check for Failure
-        if ImageSearchWrapper(&FoundX, &FoundY, X1, Y1, X2, Y2, A_ScriptDir . "\..\..\..\Images\status\failed.png", 50) {
+        if FindText(&X, &Y, 456-150000, 175-150000, 456+150000, 175+150000, 0, 0, failed)  {
             Sleep(1000)
             SendInput("{f}")
             try {
