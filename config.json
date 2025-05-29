@@ -8,7 +8,7 @@
         "Resolution": "Full Res Support",
         "Type": "AHK"
     },
-    "Main": "main.ahk",
+    "Main": "TinyTaskRE.ahk",
     "MangoID": "Mango-l3oaer",
     "bigthumbnail": "https://i.postimg.cc/h4Y1mmXF/New-Project-14.png"
 }
